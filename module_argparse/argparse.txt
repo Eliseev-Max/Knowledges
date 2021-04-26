@@ -1,0 +1,45 @@
+Параметризируемые скрипты
+1. Использование модуля sys (устаревший способ)
+	Передача параметров скрипту через терминал командной строки
+	import sys
+	sys.argv	# Принимает переданные значения
+	Первый аргумент - имя скрипта.
+	
+2. Использование модуля argparse (предпочтительный способ анализа аргументов командной строки)
+	Модуль argparse написан поверх модуля sys (импортирует внутри себя sys)
+	Листинг:
+	
+	import argparse
+	
+	parser = argparse.ArgumentParser(description='')
+	
+	# parser.add_argument("test")
+	
+	# По умолчанию parser.add_argument считает переданные параметры строками
+	# Позиционные аргументы
+	parser.add_argument("a", type=int, help='First argument')
+	parser.add_argument("b", type=int, help='Second argument')
+	
+	# Optional, именованные
+	# parser.add_argument("-a", "--action", help='What to do with numbers?', default="sumarize")
+	
+	# parser.add_argument("-a", "--action", nargs=2)		# ожидаемое количество аргументов
+	
+	# Указать набор допустимых вводимых значений с помощью аргумента choices=
+	parser.add_argument("-a", "--action", choices=['1', '2', '3'])
+	
+	# Параметр dest:
+	# присваивает переданное значение параметру, указанному в dest=""
+	parser.add_argument("-a", "--action", dest='B')
+	args = parser.parse_args()
+	
+	def sumarize(a, b):
+		print(a + b)
+		
+	def minusize(a, b):
+		print(a - b)
+	
+	print(args)
+	
+	Аргументы: позиционные и именные (опциональные)
+	
