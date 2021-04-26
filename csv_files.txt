@@ -1,0 +1,15 @@
+CSV (Comma Separated Values – значения, разделенные запятыми). Файл CSV – это текстовый файл, в котором каждая строка имеет несколько полей, разделенных запятыми, или другими разделителями.
+csv - стандартная библиотека Python 3 для работы с csv-файлами.
+Чтение файлов csv:
+1. С помощью функции чтения модуля csv (в построчном формате)
+	reader_object = csv.reader(file_obj, delimiter = ",")
+	>>>Как это работает:
+	with open("file.csv", "r", encoding="utf-8") as file_obj:
+		reader_object = csv.reader(file_obj, delimiter = ",")
+	--Какой объект создаёт csv.reader()?
+	--Как извлекать из него информацию?
+
+2. С использованием класса DictReader (в формате словарей)
+
+https://python-scripts.com/import-csv-python
+https://all-python.ru/osnovy/csv.html
