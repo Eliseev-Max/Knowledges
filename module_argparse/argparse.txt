@@ -1,3 +1,4 @@
+(https://digitology.tech/docs/python_3/library/argparse.html)
 Параметризируемые скрипты
 1. Использование модуля sys (устаревший способ)
 	Передача параметров скрипту через терминал командной строки
@@ -15,6 +16,121 @@
 	
 	# parser.add_argument("test")
 	
+    ArgumentParser.add_argument(name or flags...
+                                [, action]
+                                [, nargs]
+                                [, const]
+                                [, default]
+                                [, type]
+                                [, choices]
+                                [, required]
+                                [, help]
+                                [, metavar]
+                                [, dest])
+    
+    name or flags - имя или список строк опций, (например foo = обязательный аргумент; 
+                                                          -f, --foo = необязательный аргумент)
+    action - основной тип действия, которое должно быть предпринято, когда этот аргумент встречается
+            в командной строке.
+    nargs - Количество используемых аргументов командной строки.
+        <Целое число> - аргументы из командной строки будут собраны в списке
+        <?> - добавление единственного элемента из командной строки или из default, если значение не введено
+        <*> - все присутствующие аргументы командной строки собираются в список
+        <+> - подобно '*' объеденяет все переданные аргументы командной строки в список.
+              Кроме того, будет сгенерировано сообщение об ошибке, если не было указано хотя бы
+              одного аргумента командной строки
+        <argparse.REMAINDER> - все остальные аргументы командной строки собираются в список.
+                               Обычно полезно для утилит командной строки, которые отправляют
+                               значения в другие утилиты командной строки
+    const - Константное значение требуемое для action и nargs секций.
+    default - Значение, полученное, если аргумент отсутствует в командной строке.
+    type - Тип, в который должен быть преобразован аргумент командной строки.
+    choices - Контейнер допустимых значений для аргумента.
+    required - Может ли опция командной строки быть пропущена (только опционально).
+    help - Краткое описание того, что делает аргумент.
+    metavar - Имя аргумента в сообщениях об использовании.
+    dest - Имя атрибута, который будет добавлен к объекту, возвращаемому parse_args().
+
+    action
+
+        Объекты ArgumentParser связывают аргументы командной строки с действиями.
+        Эти действия могут делать что угодно с аргументами командной строки, связанными с ними, хотя большинство действий просто добавляют атрибут к объекту, возвращенному parse_args(). Аргумент ключевого слова action указывает способ обработки аргументов командной строки. Предоставляются следующие действия
+
+        'store' - (по умолчанию) Просто сохраняет значение аргумента.
+ 
+        >>> parser = argparse.ArgumentParser()
+        >>> parser.add_argument('--foo')
+        >>> parser.parse_args('--foo 1'.split())
+        Namespace(foo='1')
+
+        'store_const' - Сохраняет значение, определенное ключевым аргументом const.
+                        Действие 'store_const' чаще всего используется для опциональных
+                        аргументов которые определяют сортировку флагов.
+        
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument('--foo', action='store_const', const=42)
+            >>> parser.parse_args(['--foo'])
+            Namespace(foo=42)
+
+        'store_true' и 'store_false' - Это особые случаи 'store_const' использования для хранения значений True и False.
+        Кроме того, они создают значения по умолчанию "False" и "True" соответственно.
+    
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument('--foo', action='store_true')
+            >>> parser.add_argument('--bar', action='store_false')
+            >>> parser.add_argument('--baz', action='store_false')
+            >>> parser.parse_args('--foo --bar'.split())
+            Namespace(foo=True, bar=False, baz=True)
+
+        'append' - Сохраняет список и добавляет каждое значение аргумента в список.
+                   Бывает полезна, чтобы опция была указана несколько раз.
+
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument('--foo', action='append')
+            >>> parser.parse_args('--foo 1 --foo 2'.split())
+            Namespace(foo=['1', '2'])
+
+        'append_const' - Хранит список и добавляет в него значение определенное ключевым аргументом const.
+                        (ПО умолчанию const = None).
+                        Действие 'append_const' обычно используется когда множество константных аргументов
+                        нужно сохранить внутри некоторого списка.
+
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument('--str', dest='types', action='append_const', const=str)
+            >>> parser.add_argument('--int', dest='types', action='append_const', const=int)
+            >>> parser.parse_args('--str --int'.split())
+            Namespace(types=[<class 'str'>, <class 'int'>])
+
+        'count' - Подсчитывает, сколько раз встречается ключевой аргумент.
+                  Например, это полезно для увеличения уровней подробности:
+
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument('--verbose', '-v', action='count', default=0)
+            >>> parser.parse_args(['-vvv'])
+            Namespace(verbose=3)
+
+                Заметьте, что по умолчанию он установлен в None если явно не установлено 0.
+
+        'help' - Печатает все справочные сообщения для всех опций в текущего парсера и затем выходит.
+                По умолчанию действие help автоматически добавлено в парсер.
+                См. ArgumentParser для получения деталий как создать такой вывод.
+
+        'version' - Ожидает version= ключевой аргумент в вызове add_argument(),
+                    печатает информацию о версии и выходит:
+
+            >>> import argparse
+            >>> parser = argparse.ArgumentParser(prog='PROG')
+            >>> parser.add_argument('--version', action='version', version='%(prog)s 2.0')
+            >>> parser.parse_args(['--version'])
+            PROG 2.0
+
+        'extend' - Хранит список и расширяет каждое значение аргумента до списка.
+
+            >>> parser = argparse.ArgumentParser()
+            >>> parser.add_argument("--foo", action="extend", nargs="+", type=str)
+            >>> parser.parse_args(["--foo", "f1", "--foo", "f2", "f3", "f4"])
+            Namespace(foo=['f1', 'f2', 'f3', 'f4'])
+
 	# По умолчанию parser.add_argument считает переданные параметры строками
 	# Позиционные аргументы
 	parser.add_argument("a", type=int, help='First argument')

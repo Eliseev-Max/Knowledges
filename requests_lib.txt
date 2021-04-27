@@ -1,0 +1,15 @@
+Установка библиотеки requests в виртуальной среде pipenv:
+	$ pipenv install requests
+Формирование GET-запроса (на примере Root REST API на GitHub):
+	requests.get('https://api.github.com')
+	<Response [200]>
+
+Объект Response: получение ответа на запрос в Python
+	response = requests.get('https://api.github.com')
+Данные, полученные в результате GET-запроса, находятся в переменной (ссылке на объект) response
+
+	HTTP коды состояний:
+>>> response.status_code
+200 - Ok
+404 - Not Found (проблемы на стороне клиента)
+	
