@@ -12,4 +12,98 @@
 >>> response.status_code
 200 - Ok
 404 - Not Found (проблемы на стороне клиента)
-	
+>>> if response.ok:     # Если запрос отработал нормально
+
+Если значение кода состояния в промежутке [200,400], response == True
+В противном случае response == False
+
+response.raise_for_status(). Расширение диапазона исключений для неудачных результатов запроса
+
+### Листинг
+import requests
+from requests.exceptions import HTTPError
+ 
+for url in ['https://api.github.com', 'https://api.github.com/invalid']:
+    try:
+        response = requests.get(url)
+ 
+        # если ответ успешен, исключения задействованы не будут
+        response.raise_for_status()
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')  # Python 3.6
+    except Exception as err:
+        print(f'Other error occurred: {err}')  # Python 3.6
+    else:
+        print('Success!')
+###
+
+    POST-запрос
+post_response = requests.post('https://httpbin.org/post', data = {'key':'value'})
+    Можно отправлять параметры JSON в POST-запросе
+    response = requests.post(url, headers=headers,
+                             params={'a':'val','b':10}
+                             json={'username': 'root'})
+
+    PUT-запрос
+put_response = requests.put('https://httpbin.org/put', data = {'key':'value'})
+
+    DELETE-запрос
+delete_response = requests.delete('https://httpbin.org/delete')
+
+    HEAD-запрос
+head_response = requests.head('https://httpbin.org/get')
+
+    OPTIONS-запрос
+options_response = requests.options('https://httpbin.org/get')
+
+    Передача параметров с помощью GET-запроса
+Данные в строке запроса URL представлены в виде пар: "ключ/значение" после знака "?"
+    Пример:  httpbin.org/get?key=val
+
+Requests позволяет передать эти параметры в виде словаря
+    payload = {'key1': 'value1', 'key2': 'value2'}  
+    resp = requests.get('https://httpbin.org/get', params=payload)
+    print(r.url)
+
+    https://httpbin.org/get?key2=value2&key1=value1
+Можно передать список параметров в качестве значения
+    >>> payload = {'key1': 'value1', 'key2': ['value2', 'value3']}
+    ...
+    https://httpbin.org/get?key1=value1&key2=value2&key2=value3
+
+    Содержимое ответа
+response = requests.get("https://...")
+response.text -> Выводит содержимое ответа сервера
+                Содержимое ответа декодируется автоматически,
+                основываясь на заголовках HTTP
+response.encoding -> Узнать, какую кодировку использует requests,
+                     Изменить кодировку
+response.content -> Обращение к телу документа (можно найти кодировку)
+                    выводится в байтах
+    Пример:
+    from PIL import Image  
+    from io import BytesIO  
+
+    i = Image.open(BytesIO(r.content))
+
+response.json() -> Декодирование ответа сервера в json
+
+Необработанное содержимое ответа:
+    >>> r = requests.get('https://api.github.com/events', stream=True)
+    >>> r.raw
+    <urllib3.response.HTTPResponse object at 0x101194810>
+    >>> r.raw.read(10)
+    '\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x03'
+
+    Пользовательские заголовки
+
+response.headers -> вывести заголовки
+# headers - это словарь, CaseInsensitiveDict (нечувствителен к регистру символов)
+response.headers["Ключ параметра заголовка"]
+Чтобы добавить HTTP-заголовки в запрос, нужно передать 
+соответствующий dict в параметре headers
+    url = 'https://api.github.com/some/endpoint'  
+    headers = {'User-Agent': 'my-app/0.0.1'}    # Указали user-agent
+    r = requests.get(url, headers=headers)
+
+

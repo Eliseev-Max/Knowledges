@@ -11,3 +11,4 @@ data = {"ip" : "ip-адрес",
 json_string = json.dumps(data, ensure_ascii=False, indent=4)
 jss = json_string
 print(jss,"\nтип данных: ",type(json_string))
+input()
