@@ -1,3 +1,4 @@
+import json
 """
 [Python_Object] ->-(json.dump())->-{JSON_file.json}
 [Python_Object] ->-(json.dumps())->-{JSON_notation_string_in_Python}
@@ -44,7 +45,11 @@ dump(<Кодируемое значение>,<Файловый объект>[, s
 											[, sort_keys=False]
 											[, default=None][, cls=None])
 Декодирование данных JSON в соответствующий им объект:
-loads(<декодируемые данные>[, parse_int=None][, parse_float=None][parse_constant=None][object_pairs_hook=None][object_hook=None])
+loads(<декодируемые данные>[, parse_int=None]
+						   [, parse_float=None]
+						   [parse_constant=None]
+						   [object_pairs_hook=None]
+						   [object_hook=None])
 	<декодируемые данные>: строка, [объект bytes или bytearray] [в кодировке UTF-8, UTF-16, UTF-32]
 	parse_int - задаёт функцию, которая будет использоваться для декодирования целых чисел. По умолчанию int()
 	parse_float - задаёт функцию, которая будет использоваться для декодирования вещественных чисел. По умолчанию float()
@@ -53,8 +58,7 @@ loads(<декодируемые данные>[, parse_int=None][, parse_float=No
 		Если параметр не указан, возвращается nan, inf, -inf
 	object_pairs_hook
 	object_hook
-1. Python имеет встроенный модуль json, который может использоваться для работы с данными JSON.
->>> import json
+
 2. С помощью Python можно сформировать файл JSON (сериализовать).
 	Для этого сделаем следующее:
 	2.1 структуру JSON-файла передадим переменной:
@@ -86,8 +90,9 @@ dumps сохраняет объект Python и хранит его в виде 
 
 3. Десериализация (преобразование файла JSON в объект Python):
 load: чтение и вывод JSON-файла на экран (file.json -> Python object)
->>> with open("your_file.json", "r") as f:
-...     data = json.load(f)
+
+with open("your_file.json", "r") as f:
+		data = json.load(f)
 >>> data
 {'president': {'name': 'Joe Biden', 'species': 'homo'}}
 >>> type(data)
