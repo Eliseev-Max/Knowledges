@@ -1,0 +1,37 @@
+Selenium WebDriver - инструмент для автоматизации действий веб-браузера.
+Применяется в большинстве случаев для тестирования Web-приложений, но этим не ограничивается.
+В превую очередь это набор библиотек для разных ЯП.
+
+Как работает Selenium:
+Python Selenium -HTTP_request_with-[JSON Wire Protocol]-► Chrome Driver-► Google Chrome
+Python Selenium -[JSON Wire Protocol]-► Gecko Driver-► Mozilla Firefox
+Для работы с Selenium нужно скачать драйверы браузеров (если поддерживается).
+ChromeDriver
+GeckoDriver
+
+Запустить драйвер = двойной щелчок по нему или
+	для Ubuntu: [путь до файла]/chromedriver
+				./chromedriver
+Для всех языков программирование API Selenium-а одинаково (компнды, классы).
+
+"Запустить браузер" (= "запустить драйвер") с точки зрения Selenium - это создать сессию.
+
+	Инструмент для работы с браузером (драйвером) - Insomnia
+
+Для создания сессии (обращения к браузеру) необходимо
+
+	1. задать browserName с помощью JSON:
+	{
+		"capabilities": {
+			"browserName": "chrome"
+		}
+	}
+
+Среди множества полученных данных выбираем "sessionId":
+Как передать id сессии:
+	GET-запросом	http://localhost:9515/session/<id_сессии>/url
+	POST-запрос		http://localhost:9515/session/<id_сессии>/url
+		передаём JSON-файл
+			{
+				"url": "https://ya.ru"
+			}

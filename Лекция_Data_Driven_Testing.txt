@@ -1,0 +1,69 @@
+Data Driving Testing (DDT)
+
+Параметризация
+@pytest.mark.parametrize("param", <iterable_object>)
+
+
+@pytest.mark.parametrize("param_1, param_2", <(val_1, val_2),(val_3, val_4),(foo, bar)>)
+
+Вложенная параметризация
+
+@pytest.mark.parametrize("param_1", <iterable_object>)
+@pytest.mark.parametrize("param_2", <iterable_object>)
+
+Присваивание имён (идентификаторов) тестам
+
+@pytest.mark.parametrize("param", [a, b, c, d], ids=['test_a', 'test_b', 'test_c', 'test_d'])
+Хорошо подходит для тестирования CSV-файлов: ids = header, params = data
+
+pytest.param - по сути "обёртка" для параметров
+
+@pytest.mark.parametrize("param_1, param_2", [(val_1, val_2), pytest.param(val_3, val_4),(foo, bar)])
+
+Атрибут marks
+Позволяет присваивать выбранным параметрам фикстуру, например marks=pytest.mark.skip()
+
+@pytest.mark.parametrize("param_1, param_2", [(val_1, val_2),
+											  pytest.param(val_3, val_4, marks=pytest.mark.skip()),
+											  (foo, bar, marks=pytest.mark.skip())])
+
+Параметризованная фикстура
+
+@pytest.fixture(params=[3, 4, 5], ids=["three", "four", "five"])
+def param_fixture(request):
+	return request.param
+	
+
+def test_with_fixture_only(param_fixture):
+	assert param_fixture % 2 == 0
+	
+Комбинированный метод:
+
+@pytest.mark.parametrize("param", <iterable_object>)
+def test_combination(param_fixture)
+	assert ...
+	
+
+Использование metafunc
+
+def pytest_generate_tests(metafunc):				# Предопределённая конструкция, использовать только так
+	
+	if "input_fixture" in metafunc.fixturenames:			# Если в фикстурах содержится input_fixture
+		metafunc.parametrize("input_fixture", metafunc.config.getoption("input"))
+		
+	if "limited_param" in metafunc.fixturenames:
+		end = 3
+		if metafunc.config.getoption("all"):
+			end = 10
+		metafunc.parametrize("limited_param", range(end))
+
+С помощью metafunc мы создаём фикстуры и параметризуем их
+
+Data Driving Testing (DDT) - подход к созданию/архитектуре автоматизированных тестов (unit, интеграционных, -> тестирование backend)
+							 при котором тест умеет принимать набор входных параметров и эталонный результат или эталонное состояние,
+							 с которым он должен сравнить результат, полученный в ходе прогонки входных параметров.
+
+Pairwise
+
+Библиотека allpairspy
+from allpairspy import AllPairs

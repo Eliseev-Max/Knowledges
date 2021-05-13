@@ -1,0 +1,35 @@
+DOM (Document object model) - древовидная структура
+DOM-Tree
+Селекторы CSS и XML (-> XPath)
+Атрибуты CSS.
+
+F12 (Панель разработчика браузера)
+document - объект самого высокого уровня
+document.getElementByClassName("margins")
+Очень большая иерархия наследования Web API у элементов
+detElement и getElements
+Браузерный локатор: $
+$("")
+$ $$ and $x
+
+!!! browser assistance selector
+Не использовать!!! Выглядит ппц убого
+
+https://stackoverflow.com/questions/13261435/what-is-the-difference-between-locator-and-selector 
+Локаторы и селекторы
+Локатор - то, как мы ищем элемент (метод)
+Селектор (/element) - то, где ищем
+
+Отличия HTML id локатора и CSS-локатора (#)
+
+find_element_by_name
+find_elements_by_name
+
+
+ИСКЛЮЧЕНИЯ при работе с селекторами
+NoSuchElementException
+
+find_element(by, selector)
+find_elements(by, selector)
+
+Каррирование!!!
