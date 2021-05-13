@@ -1,0 +1,35 @@
+HTML, CSS, JS, XPATH: https://www.w3schools.com
+
+CSS Selectors:		https://www.w3schools.com/cssref/css_selectors.asp
+XPATH:				https://www.w3schools.com/xml/xpath_syntax.asp
+
+HTML5 API: https://medium.com/the-ui-girl/html-apis-in-depth-78f0abc918c8
+
+В XPATH, в отличие от CSS, имеется возможность поиска родительского элемента.
+
+Ajax, SPA
+SPA (Single Page Application) - браузер загружает сразу весь код приложения,
+	но показывает только конкретный модуль.
+	Когда пользователь переходит в другую часть приложения, браузер берёт
+	уже загруженные данные и показывает ему. Либо догружает нужные данные
+	чаще всего через ajax-запросы
+	
+AJAX (Асиннхронный JavaScript и XML) -> взаимодействие с сервером без перезагрузки страницы
+В основе технологии - использование объекта XMLHttpRequest, необходимого для
+взаимодействия со скриптами на стороне сервера.
+
+Selenium не работает с AJAX
+
+Хранение данных на клиенте
+Cookies
+Local Storage
+Session Storage
+IndexedDB
+
+Почти все браузеры Chromium-based
+
+Установка docker
+Установка Opencart на docker
+Перед установкой нужно выставить переменную окружения LOCAL_IP с локальным IP-адресом машины 
+в сети и PHPADMIN_PORT с портом, на который будет настроен phpmyadmin для работы с БД:
+	PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.XX docker -compose up -d
