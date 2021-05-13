@@ -35,3 +35,11 @@ GeckoDriver
 			{
 				"url": "https://ya.ru"
 			}
+	Запросить title:
+		http://localhost:9515/session/<id_сессии>/title
+
+Удалить сессию (закрыть браузер):
+	Метод DELETE
+		запрос http://localhost:9515/session/<id_сессии>/
+
+За запуск chromedriver отвечает сам ЯП.
