@@ -1,0 +1,57 @@
+docker-compose.yml
+https://gist.github.com/konflic/ecd93a4bf7666d97d62bcecbe2713e55
+
+На компьютере должны быть установлены docker и docker-compose
+Проверить это можно, набрав в консоли соответственно
+docker
+docker-compose
+
+Проходим по ссылке: https://hub.docker.com/r/bitnami/opencart/
+
+1. Скачиваем yml-файл с настройками. Можно выполнить код, приведённый в примере:
+
+	curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-opencart/master/docker-compose.yml > docker-compose.yml
+
+	можно вручную создать файл docker-compose.yml и поместить в него содержимое из url:
+	
+		https://raw.githubusercontent.com/bitnami/bitnami-docker-opencart/master/docker-compose.yml
+		
+2. Выполнить команду:
+	
+	docker-compose up -d
+	
+	# Ключ -d == запустить без разворачивания терминала
+
+Остановить работу контейнера можно нажатием Ctrl + C в консоли.
+Запуск opencart: docker-compose up
+
+Поменять режим запуска:
+	* Убить процесс в docker по ID (docker kill <ID контейнера>)
+	ID контейнера можно узнать в docker ps
+	
+Доступ к БД
+
+	phpmyadmin для Docker: phpmyadmin/phpmyadmin
+	
+	Добавить в файл docker-compose:
+		
+		services:
+			phpadmin:
+				image: 'phpmyadmin/phpmyadmin:5.0.0'
+				environment:
+					- PMA_HOST=mariadb
+					- PMA_PORT=3306
+					- PMA_USER=bn_opencart
+				ports:
+					- '8080:80'
+		...
+				depends_on:
+					- mariadb
+					- phpadmin
+					
+Перезапускаем docker-compose
+
+Для mariadb можно прокинуть порт наружу
+mariadb:
+	ports:
+		- '3306:3306'
