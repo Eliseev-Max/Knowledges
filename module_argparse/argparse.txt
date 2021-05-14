@@ -77,7 +77,8 @@
             Namespace(foo=42)
 
         'store_true' и 'store_false' - Это особые случаи 'store_const' использования для хранения значений True и False.
-        Кроме того, они создают значения по умолчанию "False" и "True" соответственно.
+				Это ФЛАГИ, для них нет вводимого значения --flag=val (пишется просто --flag)
+				Кроме того, они создают значения по умолчанию "False" и "True" соответственно.
     
             >>> parser = argparse.ArgumentParser()
             >>> parser.add_argument('--foo', action='store_true')
