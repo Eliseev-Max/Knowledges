@@ -1,6 +1,8 @@
 import pytest
 
-def test_title_yandex(browser):
-    browser.get("https://yandex.ru")
+
+@pytest.mark.parametrize("url, title",[("https://yandex.ru", "Яндекс"),("https://google.com", "Google")])
+def test_title_yandex(browser, url, title):
+    browser.get(url)
     current_title = browser.title
-    assert current_title == "Яндекс"
+    assert current_title == title
