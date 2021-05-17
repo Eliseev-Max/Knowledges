@@ -21,12 +21,20 @@ def browser(request):
 #    drvier = None      # переменную объявлять необязательно, есть elif..else
 
     if browser == "chrome":
-        options
-        driver = webdriver.Chrome(executable_path=f"{DRIVERS}/chromedriver")
+        options = webdriver.ChromeOptions()
+        options.headless = headless
+        driver = webdriver.Chrome(
+            executable_path=f"{DRIVERS}/chromedriver",
+            options=options
+        )
     elif browser == "firefox":
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.headless = headless
+        driver = webdriver.Firefox(executable_path=f"{DRIVERS}/geckodriver",
+                                   options=options
+        )
     elif browser == "opera":
-        driver = webdriver.Opera()
+        driver = webdriver.Opera(executable_path=f"{DRIVERS}/operadriver")
     else:
         raise ValueError(f"Driver not supported: {browser}")
 
