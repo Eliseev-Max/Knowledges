@@ -1,0 +1,79 @@
+Поиск элементов
+
+DOM (Document object model) - древовидная структура
+DOM-Tree (DOM-дерево)
+Selenium не взаимодействует с теми элементами, с которыми не может взаимодействовать пользователь
+(невидимые элементы).
+
+[10:30] Как найти элемент/проверить его существование
+	1. Методы, встроенные в объект document
+		document.getElementById.
+				.getElementByClassName	# по имени класса (class = "margins")
+				.getElementByName
+				.getElementByTagName
+	Структура наследования:
+	Object ► 
+			EventTarget ►
+						 Node ►
+							   Element ► 
+										HTMLElement ►
+													 HTMLDivElement ►
+																	 div.margins
+	Каждый элемент - уникальный объект на странице.
+	
+[17:23] Библиотека JQuery
+
+	Причина популярности этой библиотеки: решение проблемы с использованием разных браузеров
+	JQuery предоставляла API для пользователя, т.о. формат написания кода для любого браузера
+	был один, а сама библиотека транслировала всё под конкретный браузер.
+		
+		$ $$ and
+		$x - поиск по XPATH ($x("/body"))
+	JQuery-селектор: $(".class_name")	-> Получить все элементы с заданным селектором
+	
+[23:13]	browser assistance selectors
+
+	в HTML-коде страницы найти элемент -► ПКМ -► Copy -►CSS Selector
+	Пользоваться им НЕ НАДО, не практично. Малейшие изменения в коде приведут к отказу
+	
+[26:30] Локаторы и селекторы. Локаторы Selenium
+
+	Отличие между локаторами и селекторами:
+	Локатор - это то, КАК мы будем искать элемент (find_element_by_LOCATOR). Это метод, принимающий строку.
+	Селектор - это то, что мы будем искать.
+	
+	https://stackoverflow.com/questions/13261435/what-is-the-difference-between-locator-and-selector
+	
+	from selenium import webdriver
+	chrome = webdriver.Chrome()
+	chrome.find_element_by_id("myModal")		# Спец.символы (# . <>) для поиска по id не пишем
+												# Если ищем _by_css_selector, пишем символы id (#), class (.)
+	Есть find_element (одиночный поиск), а есть find_elements (множественный поиск)
+	Результат выполнения find_element - одиночный элемент (список из элементов) со своим id(element) и is сессии
+	Результат выполнения find_elements - массив (список) []
+	Если не удалось найти элемент:
+	find_element -► возбудится исключение NoSuchElementException
+	find_elements -► вернёт пустой список
+
+[50:00]	Исключения при работе с элементами
+
+	NoSuchElementException
+	StaleElementReferenceException	- 	в случае, если страница была обновлена (refresh), и все связи порушились
+										# для Selenium обновлённая страница = новая страница
+	ElementNotInteractableException		элемент есть, но он нигде не представлен (скрыт)
+	ElementClickInterceptedException	если кликаем в элемент, а он перекрыт другим элементом.
+	InvalidSelectorException			неверное имя селектора
+	
+[1:01:15] Скандалы, интриги, расследования
+	
+	Методы поиска элементов:
+	
+	find_element(by, selector)		# by == Локатор
+	find_elements(by, selector)
+	
+	Паттерн, приводящий множество функций от разных аргументов к функции от одного аргумента
+	называется КАРРИРОВАНИЕ
+	
+	Метод By превращает поиск по ID, по имени, по классу и т.д в поиск ПО CSS СЕЛЕКТОРУ
+	
+	
