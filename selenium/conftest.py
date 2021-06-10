@@ -4,7 +4,7 @@ import pytest
 
 from selenium import webdriver
 
-DRIVERS = os.path.expanduser("~/Downloads/drivers")
+DRIVERS = os.path.expanduser("~/webdriver")
 
 def pytest_addoption(parser):
     parser.addoption("--maximized", action="store_true", help="Maximize browser windows")
