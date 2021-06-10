@@ -8,13 +8,17 @@
 	$ python3 -m venv venv
 	$ source venv/bin/activate
 	$ pip install pytest
+	
 Имена тестовых файлов:
 	test_*.py
 	*_test.py
+
 Имена тестовых классов:
 	Test*()		#С заглавной буквы
+
 Имена тестовых функций:
 	test*
+
 Pytest требует, чтобы имена тестовых функций начинались с test
 Запуск тестов
 1. Тесты из текущей директории и всех дочерних (avtodiscovery)
