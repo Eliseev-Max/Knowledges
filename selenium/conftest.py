@@ -10,6 +10,7 @@ def pytest_addoption(parser):
     parser.addoption("--maximized", action="store_true", help="Maximize browser windows")
     parser.addoption("--headless", action="store_true", help="Run headless")
     parser.addoption("--browser", action="store", choices=["chrome", "firefox", "opera"], default="chrome")
+    parser.addoption("--url", action="store", default="http://172.19.16.229/")
 
 # Headless-режим - режим без отрисовки окон, элементов HTML...
 @pytest.fixture
@@ -17,8 +18,6 @@ def browser(request):
     browser = request.config.getoption("--browser")
     headless = request.config.getoption("--headless")
     maximized = request.config.getoption("--maximized")
-
-#    drvier = None      # переменную объявлять необязательно, есть elif..else
 
     if browser == "chrome":
         options = webdriver.ChromeOptions()
@@ -44,3 +43,7 @@ def browser(request):
         driver.maximize_window()
 
     return driver
+
+@pytest.fixture
+def base_url(request):
+    return request.config.getoption("--url")
