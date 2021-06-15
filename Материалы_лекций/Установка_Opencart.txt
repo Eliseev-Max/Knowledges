@@ -55,3 +55,6 @@ docker-compose
 mariadb:
 	ports:
 		- '3306:3306'
+
+Чтобы избежать некорректной работы в дальнейшем:
+PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.50 docker-compose up -d
