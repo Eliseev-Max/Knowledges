@@ -1,0 +1,89 @@
+WebElement и работа с ним
+
+[0:04:00] WebElement
+	Поиск в консоли инструмента разработчика:
+	$(#name-of-id)[0]
+
+[0:10:57] Атрибуты и свойства (Attribute vs Property)
+	Атрибуты = то, что видно в HTML-разметке
+	Proprety = все свойства Web-элемента
+	Получить из Selenium:
+		elem.get_attribute()
+		elem.get_property()
+		
+	elem.get_attribute("id")
+	elem.get_attribute("class")
+	
+	Значение атрибута, если элемент присутствует = true (type = str)
+	Значение атрибута, если он отсутствует: None
+	
+[0:17:51] Property
+	get_property()
+	
+	elem.get_property("className")
+	elem.get_property("classList")[0]
+	
+	Для конкретных значений нужно использовать classList (className проверяет вхождение в строку)
+	
+	Большинство элементов дублируют другие элементы (большой Legacy, обратная совместимость)
+	
+	el.get_property("outerHTML") -► выведет веншнюю HTML-строку
+	el.get_property("nextElementSibling") - следующий соседний элемент
+
+[0:26:14] .value_of_css_property()
+	Для проверки CSS
+	
+[0:27:52] tag_name
+	elem.tag_name -► 'button'
+	el.get_property("innerText") -► Текст, содержащийся внутри элемента
+	
+	Текст внутри элемента:
+	el = browser.find_element_by_class_name("")
+	el.text
+	
+	parrent - ссылка на Web-драйвер
+	
+[0:35:00] send_keys()
+	inp = browser.find_element_by_css_selector("#inp")
+	inp.send_keys("Test")		-► Введёт в поле текст "Test"
+	
+	Свойство placeholder содержит текст-подсказку в поле ввода.
+	Это свойство позволяет избежать добавление текста к уже существующему.
+	Если реализовано через input, то inp.send_keys("Test") добавит Test к подсказке
+	
+	Чтобы убрать содержащийся в поле ввода текст подсказки, нужно вызвать метод .clear()
+	
+[0:37:52]  text / get_property("value")
+	Получить текст из элемента
+	Можно получить текст из таблицы
+	Из input нельзя извлечь текст с помощью text
+	текст из input можно извлечь с помощью value:
+		elem.get_property("value") -► текст из элемента
+	
+[0:41:55] click
+	полезно делать перед вводом текста в поле input
+	
+	submit() - отправка формы
+	
+[0:45:00] - более гибкая техника заполнения полей ввода, чем send_keys
+	Класс Keys - клавиатурные события
+	from selenium.webdriver.common.keys import Keys
+	elem.send_keys(Keys.ENTER)		#ARROW_UP/DOWN/RIGHT/LEFT
+	
+	Можно ввести врапперы из UTF-8 (эмодзи, сердечки, смайлики)
+	
+	Только в input с type='file' можно сделать send_keys абсолютного пути
+	(os.path.abspath()) до файла изображения
+	
+[0:55:16]	size, location, rect
+	rect объединяет в себе size и location
+	
+	t = browser.find_element_by_css_selector("#table")
+	t.size -► {'height': 341, 'width':388}
+	t.location -► {'x': 10, 'y': 368} - положение на странице относительно левого верхнего угла
+	
+[1:00:00] Скриншоты
+	screenshot
+	screenshot_as_png	- бинарное представление скриншота
+	screenshot_as_base64
+	
