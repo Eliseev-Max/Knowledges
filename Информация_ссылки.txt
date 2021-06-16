@@ -1,0 +1,35 @@
+GSM/GPRS модем
+
+#### Команды AT
+https://wiki.iarduino.ru/page/a6_gprs_at/ - Описание АТ-команд GSM/GPRS Shield, модуль A6
+https://ru.wikipedia.org/wiki/AT-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B - AT-команды
+
+
+#### Руководство по эксплуатации GSM/GPRS-модем iRZTG21.A/iRZTG21.B
+https://irz.net/upload/docs/terminals/TG21-A-B_UserGuide_RU.pdf
+
+Страница продукта (iRZ TG21.А/TG21.B)
+https://irz.net/ru/products/terminals/base-series/tg21a-tg21b#docs
+
+
+AT Commands Reference Guide
+https://irz.net/upload/docs/terminals/Telit-TG21_AT-Commands_EN.pdf
+
+
+Easy Script in Python
+https://irz.net/upload/docs/terminals/Telit-TG21_EasyScriptPython_EN.pdf
+
+Базовые скрипты для модулей компании Telit
+https://teleofis.freshdesk.com/support/solutions/articles/19000047782-%D0%91%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5-%D1%81%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D1%8B
+
+
+Общая информация по работе с Python в модемах RX
+https://teleofis.freshdesk.com/support/solutions/articles/19000047975-%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5-%D1%81-python-%D0%B2-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BC%D0%B0%D1%85-rx
+
+
+Прикладное ПО для TG21.A/TG21.B
+https://faq.radiofid.ru/ru/knowledge-bases/7/articles/253-prikladnoe-po-dlya-tg21atg21b
+
+
+скрипты Python Telit
+https://electronix.ru/forum/index.php?app=forums&module=forums&controller=topic&id=137649
