@@ -6,8 +6,8 @@ Selenium WebDriver - инструмент для автоматизации де
 В превую очередь это набор библиотек для разных ЯП.
 
 Как работает Selenium:
-Python Selenium -> HTTP_request_with-[JSON Wire Protocol]-► Chrome Driver-► Google Chrome
-Python Selenium ->[JSON Wire Protocol]-► Gecko Driver-► Mozilla Firefox
+Python Selenium -> HTTP_request_with-[JSON Wire Protocol (JWP)]-► Chrome Driver-► Google Chrome
+Python Selenium ->[JSON Wire Protocol (JWP)]-► Gecko Driver-► Mozilla Firefox
 Для работы с Selenium нужно скачать драйверы браузеров (если поддерживается).
 ChromeDriver
 GeckoDriver
@@ -15,7 +15,7 @@ GeckoDriver
 Запустить драйвер = двойной щелчок по нему или
 	для Ubuntu: [путь до файла]/chromedriver
 				./chromedriver
-Для всех языков программирование API Selenium-а одинаково (компнды, классы).
+Для всех языков программирование API Selenium-а одинаково (команды, классы).
 
 "Запустить браузер" (= "запустить драйвер") с точки зрения Selenium - это создать сессию.
 

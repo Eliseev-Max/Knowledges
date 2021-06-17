@@ -117,6 +117,30 @@ WebElement и работа с ним
 	Полезен при автоматизации сложных действий, таких как перетаскивание элементов.
 	
 	Пример: drag-and-drop
-	В Selenium нет инструментов для перетаскивания элементов. Они есть в специальном классе ActionChains
+	В Selenium нет инструментов для перетаскивания элементов.
+	Они есть в специальном классе ActionChains
 	
-[1:17:25]
+[1:17:25] - ActionChains - это цепочки событий.
+	perform и reset_actions - это управление цепочкой
+	click
+	click_and_hold
+	context_click - клик правой кнопкой мыши
+	double_click - двойной клик
+	drag_and_drop(source, target), source и target - это элементы (не селекторы)
+	drag_and_drop_by_offset(source, xoffset, yoffset)
+	key_up()
+	key_down()
+	move_to_element
+	move_to_element_by_offset
+	pause
+	
+	Как пользоваться?
+	actions = ActionChains(browser)		- это "копилка" действий
+	# определяем объект элемента(ов)
+	# производим действия actions.
+	# actions.perform()
+	
+	Ресурс https://sketchpad.app/en/
+	
+	
+	
