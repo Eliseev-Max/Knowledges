@@ -32,4 +32,4 @@ IndexedDB
 Установка Opencart на docker
 Перед установкой нужно выставить переменную окружения LOCAL_IP с локальным IP-адресом машины 
 в сети и PHPADMIN_PORT с портом, на который будет настроен phpmyadmin для работы с БД:
-	PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.XX docker -compose up -d
+	PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.XX docker-compose up -d

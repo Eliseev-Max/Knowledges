@@ -30,6 +30,7 @@ class LoginPage:
     CONTINUE_BUTTON = (By.CSS_SELECTOR, ".well .btn")
     INPUT_PASSWORD = (By.NAME, "password")
 
+
 class AdminLoginPage:
     LOGIN_BUTTON = (By.CSS_SELECTOR, ".text-right button")
     INPUT_USERNAME = (By.CSS_SELECTOR, "#input-username")
