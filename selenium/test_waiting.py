@@ -1,12 +1,20 @@
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from handler import *
 
+
+def test_has_title_appeared(browser, base_url):
+    TITLE = "Your Store"
+    browser.get(base_url)
+    wait_title(TITLE, browser, timeout=1)
 
 def test_featured_links(browser, base_url):
+    #APPEARING_ELEMENT = r".dropdown-menu .text-center"
     browser.get(base_url)
     browser.find_element(By.CSS_SELECTOR, "#cart button").click()
-    wdw = WebDriverWait(browser, 2, poll_frequency=0.5)
-    wdw.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".dropdown-menu .text-center")))
+    timeout_handle(browser, "p.text-center")
 
-# Запилить в отдельный модуль обработчик Timeout Exception
+
+def test_title_became_Search(browser, base_url):
+    TITLE = "Search"
+    browser.get(base_url)
+    browser.find_element(By.CSS_SELECTOR, ".input-group-btn button").click()
+    wait_title(TITLE, browser, timeout=1)

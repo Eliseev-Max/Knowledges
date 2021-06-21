@@ -1,14 +1,6 @@
 from selenium.webdriver.common.by import By
 
 
-class LoginAdminPage:
-    USERNAME_INPUT = (By.ID, "input-username")
-    PASSWORD_INPUT = (By.NAME, "password")
-    SUBMIT_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
-    OPENCART_LINK = (By.XPATH, "//*[text()='OpenCart']")
-    FORGOTTEN_PASSWORD = (By.LINK_TEXT, "Forgotten Password")
-
-
 class MainPage:
     SEARCH_LINE = (By.CSS_SELECTOR, "[name=search]")
     LOGO_TEXT = (By.CSS_SELECTOR, "#logo a")
@@ -18,6 +10,7 @@ class MainPage:
 
 class Catalog:
     LAPTOPS_NOTEBOOKS = (By.CSS_SELECTOR, "#content h2")
+    LINK_WINDOWS = (By.PARTIAL_LINK_TEXT, "Windows")
 
 
 class ProductCard:

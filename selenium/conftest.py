@@ -4,14 +4,14 @@ import pytest
 
 from selenium import webdriver
 
-DRIVERS = os.path.expanduser("~/webdrivers")
+DRIVERS = os.path.expanduser("~/webdriver")
 
 def pytest_addoption(parser):
     parser.addoption("--maximized", action="store_true", help="Maximize browser windows")
     parser.addoption("--headless", action="store_true", help="Run headless")
     parser.addoption("--browser", action="store", choices=["chrome", "firefox", "opera"], default="chrome")
-    # parser.addoption("--url", action="store", default="http://172.19.16.229/")
-    parser.addoption("--url", action="store", default="http://192.168.1.50/")
+    parser.addoption("--url", action="store", default="http://172.19.16.229/")
+    # parser.addoption("--url", action="store", default="http://192.168.1.50/")
 
 # Headless-режим - режим без отрисовки окон, элементов HTML...
 @pytest.fixture
