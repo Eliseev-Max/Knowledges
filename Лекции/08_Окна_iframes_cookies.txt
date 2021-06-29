@@ -1,0 +1,107 @@
+[00:03:15]	Alerts
+		См. статью	https://www.techbeamers.com/handle-alert-popup-selenium-python/
+		Виды алертов:
+		* Basic
+		* Confirm
+		* Prompt
+		* Custom (Let me Pop up)
+		Alert - это нативная браузерная функциональность
+		Реализуется на фронт-энде
+		Confirm-alert требует подтверждения пользователя
+			можно alert.
+						.accept()
+						.dismiss()
+				  
+		Prompt-alert требует от пользователя ввода данных
+			.send_keys()
+			.dismiss()
+		Работа selenium с алертами:
+			browser.switch_to.alert			# Использовать его, а не switch_to_alert() <- deplicated
+			...
+			alert.dismiss()
+		Внутри selenium класс Alert()
+		
+[00:12:46]	WebDriverWait(browser, 2).until(EC.alert_is_present())	# Ожидание, что алерт появился
+	
+	"+"
+	Алерты надёжны, имеют далёкую обратную совместимость, кроссбраузерны
+	
+	"-"
+	Алерты выглядят неконсистентно в соответствии с приложением
+	
+	"Поп-ап", "оверлэй", "модалка" - сущность, которая появляется на странице и требует действий от пользователя.
+	Можно сделать "алерт" с помощью CSS
+	
+[00:16:45]	iframe
+	- это специальный веб-элемент, позволяющий импортировать в текущую веб-страницу окно, веб-приложение или другую веб-страницу
+	Бывают платёжные iframe-ы, плееры, веб-страницы
+	Понятие "Платёжный шлюз"
+	
+	<iframe src="https://..." width="...px" height="...px">
+		#document
+	</iframe>
+	
+[00:25:45]	Работа с iframe
+
+	1.1 Найти все элементы по тегу <iframe>:
+		frames = driver.find_elements_by_css_selector("iframe")
+	1.2 Переключиться на один из iframe
+		browser.switch_to.frames[0]
+		С этого момента мы не можем оперировать с главной веб-страницей, работаем с содержимым iframe
+		Чтобы вернуться к основной странице, нужно:
+			browser.switch_to.default_content()
+		Даже если по какой-то причине iframe схлопнулся, нужно всё равно из него выходить
+	
+	2.1 Найти iframe по name (если такой атрибут есть у iframe) или id
+	
+	Между iframe переключаться нужно через switch_to.default_content()
+	
+[00:34:56]	Об альтернативах iframe (разработчики уходят от использования iframe)
+	github pages - можно там хостить веб-страницы
+[00:36:36]	Окна (Табы, вкладки)
+	browser.switch_to.window(new_window)
+	browser.switch_to.window(main_window)
+	
+	Когда может потребоваться:
+		если предусмотрено самим веб-приложением (сценарий)
+		
+	target="_blank"
+	
+	Работа с окнами похожа на работу с фреймами
+	Отличие: нет базового (дефолтного) окна
+	
+	main_window = browser.current_window_handle		# возвращает строку с хэшем 'CDWindow-<идентификатор>'
+	old_window = browser.window_handles				# возвращает массив (кортеж)
+	
+	# интересное решение:
+	# browser.execute_script('window.open();')	# Открывает новое окно
+	new_window = WebDriverWait(browser, 2).until(there_is_window_other_than(old_window))
+	browser.switch_to.window(new_window
+
+[00:46:57]	ВАЖНЫЙ МОМЕНТ
+		Чем отличаются методы close() и quit()
+		.close() - закрытие текущей вкладки, на которой мы работаем
+			сессия не завершится, если вкладок несколько
+		.quit() - завершает работу браузера (все вкладки)
+		ПРЕДПОЧТИТЕЛЬНО ИСПОЛЬЗОВАТЬ .quit()
+		close() вызовет ошибку, если несколько вкладок
+		quit() не вызовет ошибку
+	Необходимо хранить в переменной открытие вкладок, чтобы в дальнейшем переключаться между ними
+
+[00:57:25]	Про загрузку
+	Найти input типа "Файл" browser.find_element(By.CSS_SELECTOR, "input#uploadfile")
+	Отправить в input полный путь до файла, т.е.
+		dirname = os.path.dirname(__name__)
+		filename = os.path.join(dirname, 'example.png')
+	ПУТИ ХАРДКОДИТЬ НЕЛЬЗЯ!!!
+	ТОЛЬКО при помощи os.path
+	
+	В современных приложениях input типа "файл" спрятаны
+	Selenium НЕ редактирует DOM-дерево, а JS может
+	
+[01:03:08]	Cookies
+		Написать определение
+		Ознакомиться более подробно
+		кука gid = geo id - определение местоположения
+		...
+		[]
