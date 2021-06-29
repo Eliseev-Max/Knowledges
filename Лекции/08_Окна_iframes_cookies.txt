@@ -94,14 +94,44 @@
 		dirname = os.path.dirname(__name__)
 		filename = os.path.join(dirname, 'example.png')
 	ПУТИ ХАРДКОДИТЬ НЕЛЬЗЯ!!!
-	ТОЛЬКО при помощи os.path
+	ТОЛЬКО при помощи os.path:
+	os.path.join(os.path.dirname(__file__), "filename.jpg")
+	os.sep - разделитель (автоматически подставляет / или \ )
 	
 	В современных приложениях input типа "файл" спрятаны
 	Selenium НЕ редактирует DOM-дерево, а JS может
 	
 [01:03:08]	Cookies
 		Написать определение
-		Ознакомиться более подробно
+		
+		Идентификатор сессии хранится в cookie-файле, сама сессия - на бэкэнде.
+		Через cookies за клиентами следят
 		кука gid = geo id - определение местоположения
-		...
-		[]
+	Раздел Cookies в инструменте разработчика в браузере.
+	Если параметры cookies: HttpOnly="False", Secure="False", то любой сможет прочитат этот cookie-файл
+	Кука gid = geo id - определение местоположения
+
+[01:10:00]	Как работать с cookie-файлами
+		cookies = browser.get_coolies()		# получить словарь словарей cookie-файлов
+		browser.add_cookie({})				# Поместить (поставить) куки
+		browser.delete_all_cookies()		# Удаляет все куки (в моменте)
+											# ВНИМАНИЕ! Существуют cookie-файлы, которые восстанавливаются после удаления
+
+[01:16:33]		JavaScript
+		На страницу можно инжектить любой код JavaScript
+		browser.execute_script("")
+		Пример: разблокировка задизейбленной кнопки ('#disabled') инжектом JS:
+		js_code = "$('#disabled')[0].disabled = false;"
+		
+		# Поиск элементов на странице
+		wbe_el = browser.execute_script("return $('#disabled')[0]") -► Возвращает точный идентификатор веб-элемента
+		
+		Код JS в несколько строк нужно делать в отдельном файле.
+
+[01:27:10]	Добавление расширений браузера в selenium
+		options = webdriver.ChromeOptions()
+		options.add_extension("ublock.crx")
+		
+		Скачать себе crx:
+		В поисковой строке Chrome: download crx extensions
+		
