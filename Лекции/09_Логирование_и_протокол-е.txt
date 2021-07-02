@@ -63,7 +63,7 @@
 		1. Для каждого файла пишут свой логгер
 			В отдельном файле logging_compose.py
 			logger = logging.getLogger(__name__)		# Задаём имя логгера = как у файла
-		2. lodder.info("строка информирования")
+		2. logger.info("строка информирования")
 		3. Добавляют в разные файлы свои логгеры:
 			logger = logging.getLogger("NameOfFile")
 			f = logging.FileHandler(filename="log.log")
@@ -86,3 +86,40 @@
 		def before_find(self, ...)
 		
 [00:58:51]	Браузерные логи	
+	Нормально эта функциональность работает в Google Chrome
+	Пример:
+	
+	caps = DesiredCapabilities.CHROME
+	options = webdriver.ChromeOptions()
+	options.add_experimental_options('w3c', False)
+	caps['loggingPrefs'] = {'performance':'ALL', 'browser': 'ALL', 'driver': 'ALL'}	# уровни логирования производительности и браузера
+	wd = webdriver.Chrome(executable_path=f"{}/...",
+						  desired_capabilities=caps,
+						  options=options)
+	request.addfinalizer(wd.quit)
+	return wd
+	
+	driver.log_types:		# Доступно 3 лога
+		'performance'		# Логи performance, которые можно посмотреть в браузерной панели разработчика (дебаггер, F12)
+							# во вкладке Performance. С точки зрения автотестирования мало полезного
+		'browser'			# Самый полезный. Ошибки, которые обычно "сыпятся" в консоль браузера
+		'driver'			# Самый бесполезный, логи вебдрайвера
+	
+	browser log: фикстура для использования
+	with open("browser.log", "w+") as f:
+		for line in driver.get_log("driver"):		# Возвращается обычный словарь
+			f.write(str(line))
+			f.write("\n")
+	Как с этим работать?
+	Фильтруем все значения по "WARNING" и "SEVERE" и работаем с ними
+	
+	Основное:
+	Помнить, что при инициализации логгер создаётся один раз.
+	Хорошая практика - на каждый модуль делать logger = logging.getLogger(__name__)
+	Каждый логгер конфигурируем отдельно.
+	По selenium: самый удобный способ прикрутить логгер к PO - это создать его в BasePage и использовать
+	Listener
+	
+to [01:15:21]
+
+[01::]	Proxy
