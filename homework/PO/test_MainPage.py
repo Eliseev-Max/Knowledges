@@ -13,9 +13,10 @@ ADMIN_LOGIN_PAGE = "admin/"
 # Поиск элементов на главной страние
 def test_find_elements_on_main_page(browser, base_url):
     browser.get(base_url)
-    MainPage(browser).seek_element(MainPage.FEATURED)
-    MainPage(browser).seek_element(MainPage.LOGO_TEXT)
-    MainPage(browser).seek_element(MainPage.SEARCH_LINE)
+    main_page = MainPage(browser)
+    main_page.seek_element(MainPage.FEATURED)
+    main_page.seek_element(MainPage.LOGO_TEXT)
+    main_page.seek_element(MainPage.SEARCH_LINE)
     # element_existence(browser, base_url, MainPage.LOGO_TEXT)
     # element_existence(browser, base_url, MainPage.SEARCH_LINE)
     # element_existence(browser, base_url, MainPage.FEATURED)
