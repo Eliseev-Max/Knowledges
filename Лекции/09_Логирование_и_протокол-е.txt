@@ -117,9 +117,42 @@
 	Помнить, что при инициализации логгер создаётся один раз.
 	Хорошая практика - на каждый модуль делать logger = logging.getLogger(__name__)
 	Каждый логгер конфигурируем отдельно.
-	По selenium: самый удобный способ прикрутить логгер к PO - это создать его в BasePage и использовать
-	Listener
+	По selenium: самый удобный способ прикрутить логирование к PO - это создать его в BasePage и логировать действие
+	Если нужно дополнительно что-то залогировать на других страницах, там этот логгер уже есть.
+	Он назван, как сама страница
 	
-to [01:15:21]
+	Listener:
+	from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
+	Конструкция:
+		driver = EventFiringWebDriver(driver, MyListener())
+	На каждое действие можно повесить то, что нужно.
+	
+	# Действия при возникновении исключения
+	def on_exception(self, exception, driver):
+		logging.error(f'Ooops, I have got: {exception}')
+		driver.save_screenshot(f'logs/{exception}.png')
+		
 
-[01::]	Proxy
+
+[01:16:11]	Proxy
+	Для чего может потребоваться?
+	Вкладка Network в инструментах разработчика браузера
+	Мониторить метрики
+	Мощная прокси mitmproxy (написана на Python)
+	https://habr.com/ru/company/selectel/blog/242727/	- Анализ HTTP-трафика с Mitmproxy
+	
+	Проект Browsermob-proxy
+	Удобно, проще, чем mitmproxy
+[01:25:15]	Создаём фикстуру (для удобства) прокси-сервера.
+			def proxy_server(request):
+				server = Server(".../bin/browsermob-proxy")
+				server.start()
+				client = Client("localhost:8080")
+				server.create_proxy()
+				request.addfinalizer(server.stop)
+				client.new_har()
+				return client
+				
+	HAR-file (HTTP Archive format) - формат файла
+	
+	
