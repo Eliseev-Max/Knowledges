@@ -59,7 +59,10 @@ mariadb:
 Чтобы избежать некорректной работы в дальнейшем:
 PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.50 docker-compose up -d
 
-Перед установкой нужно выставить переменную окружения LOCAL_IP с локальным IP адресом машины в сети и PHPADMIN_PORT с портом на который будет настроен Phpmyadmin для работы с базой данных
+Перед установкой нужно выставить переменную окружения LOCAL_IP с локальным IP адресом машины в сети
+и PHPADMIN_PORT с портом на который будет настроен Phpmyadmin для работы с базой данных
 Before usage LOCAL_IP and PHPADMIN_PORT environment variable should be set
 
 # PHPADMIN_PORT=8888 LOCAL_IP=192.168.8.134 docker-compose up -d
+PHPADMIN_PORT=8888 LOCAL_IP=172.19.16.229 docker-compose up -d
+

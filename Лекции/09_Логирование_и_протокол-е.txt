@@ -142,17 +142,45 @@
 	https://habr.com/ru/company/selectel/blog/242727/	- Анализ HTTP-трафика с Mitmproxy
 	
 	Проект Browsermob-proxy
+	(https://github.com/lightbody/browsermob-proxy)
 	Удобно, проще, чем mitmproxy
 [01:25:15]	Создаём фикстуру (для удобства) прокси-сервера.
-			def proxy_server(request):
-				server = Server(".../bin/browsermob-proxy")
-				server.start()
-				client = Client("localhost:8080")
-				server.create_proxy()
-				request.addfinalizer(server.stop)
-				client.new_har()
-				return client
-				
+	@pytest.fixture
+	def proxy_server(request):
+		server = Server("browsermob-proxy/bin/browsermob-proxy")
+		server.start()
+		client = Client("localhost:8080")
+		server.create_proxy()
+		request.addfinalizer(server.stop)
+		client.new_har()
+		return client
+
+	@pytest.fixture
+	def browser(request, proxy_server):
+		options = webdriver.ChromeOptions()
+		# Избавляемся от ошибок сертификатов
+		options.add_argument('--ignore-certificate-errors')
+		
+		# Install proxy-server
+		proxy_url = urllib.parse.urlparse(proxy_server.proxy).path		# Создаём правильный URL для клиента
+		options.add_argument('--proxy-server=%s' % proxy_url)
+		
+		driver = webdriver.Chrome(executable_path=f"{DRIVERS}/chromedriver", options=options)
+		
+		driver.proxy = proxy_server
+		driver.implicitly_wait(5)
+		
+		def fin():
+			driver.proxy.close()
+			driver.quit()
+			
+		request.addfinalizer(fin)
+		return driver
+		
 	HAR-file (HTTP Archive format) - формат файла
-	
-	
+	Чтобы хранить в JSON-подобной структуре HTTP-трафик
+
+[01:31:00]	AJAX-запросы
+	Их видно с сетевом логе (в логе страницы их не видно)
+
+[01:34:15]	Пробуем поработать с yandex.ru
