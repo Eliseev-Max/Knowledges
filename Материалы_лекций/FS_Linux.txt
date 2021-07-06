@@ -1,0 +1,5 @@
+https://losst.ru/fajlovaya-sistema-linux	- Файловая система Linux
+https://losst.ru/tipy-fajlovyh-sistem-dlya-linux	- Типы файловых систем для Linux
+https://losst.ru/ctruktura-fajlovoj-sistemy-linux	- Cтруктура файловой системы Linux
+
+!!! pipenv, отличия от py env
