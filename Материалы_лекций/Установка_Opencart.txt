@@ -59,6 +59,12 @@ mariadb:
 Чтобы избежать некорректной работы в дальнейшем:
 PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.50 docker-compose up -d
 
+Для валидного пересбора контейнеров opencart кроме
+	docker system prune -a
+нужно выполнить
+	docker volume prune
+иначе не все изменения будут учтены при пересборке.
+
 Перед установкой нужно выставить переменную окружения LOCAL_IP с локальным IP адресом машины в сети
 и PHPADMIN_PORT с портом на который будет настроен Phpmyadmin для работы с базой данных
 Before usage LOCAL_IP and PHPADMIN_PORT environment variable should be set

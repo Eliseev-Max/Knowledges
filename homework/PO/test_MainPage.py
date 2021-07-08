@@ -1,6 +1,9 @@
 # -*-coding: utf-8-*-
 
+import time
 from MainPage import *
+from WebPages import *
+from tools.autorization import *
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -8,20 +11,29 @@ LAPTOPS_AND_NOTEBOOKS = "laptop-notebook/"
 PRODUCT_CARD = "mp3-players/ipod-classic"
 LOGIN_PAGE = "index.php?route=account/login"
 ADMIN_LOGIN_PAGE = "admin/"
+#
+ADMIN_USERNAME = "user"
+ADMIN_PASSWORD = "bitnami"
 
 
 # Поиск элементов на главной страние
-def test_find_elements_on_main_page(browser, base_url):
-    browser.get(base_url)
-    main_page = MainPage(browser)
-    main_page.seek_element(MainPage.FEATURED)
-    main_page.seek_element(MainPage.LOGO_TEXT)
-    main_page.seek_element(MainPage.SEARCH_LINE)
+# def test_find_elements_on_main_page(browser, base_url):
+#     browser.get(base_url)
+#     main_page = MainPage(browser)
+#     main_page.seek_element(MainPage.FEATURED)
+#     main_page.seek_element(MainPage.LOGO_TEXT)
+#     main_page.seek_element(MainPage.SEARCH_LINE)
     # element_existence(browser, base_url, MainPage.LOGO_TEXT)
     # element_existence(browser, base_url, MainPage.SEARCH_LINE)
     # element_existence(browser, base_url, MainPage.FEATURED)
 
 #
+# def test_click_on_login_button(browser, base_url):
+#     browser.get(base_url + ADMIN_LOGIN_PAGE)
+#     browser.find_element(*AdminLoginPage.LOGIN_BUTTON).click()
+#
+
+
 # def test_number_of_product_thumbs(browser, base_url):
 #     browser.get(base_url)
 #     prod_thumbs = browser.find_elements(*MainPage.PRODUCT_THUMB)
@@ -70,6 +82,4 @@ def test_find_elements_on_main_page(browser, base_url):
 #     element_existence(browser, ADM_LOGIN_PAGE, AdminLoginPage.INPUT_USERNAME)
 #
 #
-# def test_click_on_login_button(browser, base_url):
-#     browser.get(base_url + ADMIN_LOGIN_PAGE)
-#     browser.find_element(*AdminLoginPage.LOGIN_BUTTON).click()
+
