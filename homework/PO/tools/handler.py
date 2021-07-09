@@ -28,9 +28,11 @@ def wait_title(driver, url, title, click = False, timeout=3):
 
 def handle_timeout(driver, LOCATOR, timeout=3):
     try:
-        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located(LOCATOR))
+        elem = WebDriverWait(driver, timeout).until(EC.visibility_of_element_located(LOCATOR))
     except TimeoutException:
         raise AssertionError("Веб-элемент {} не обнаружен".format(LOCATOR[1]))
+    else:
+        return elem
 
 
 def find_element_after_click(driver, url, elem_to_click, required_locator, timeout=2):
@@ -42,10 +44,3 @@ def find_element_after_click(driver, url, elem_to_click, required_locator, timeo
         raise AssertionError(no_elem, "Данный селектор не обнаружен")
     except TimeoutException as time_is_up:
         raise AssertionError(time_is_up, "Время ожидания элемента истекло")
-
-# def random_string_generator():
-#     import random
-#     lower_case = "abcdefghijklmnopqrstuvwxyz"
-#     upper_case = lower_case.upper()
-#     numbers = "".join(range(0,10))
-

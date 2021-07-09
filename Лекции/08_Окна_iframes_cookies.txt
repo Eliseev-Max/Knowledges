@@ -15,9 +15,11 @@
 		Prompt-alert требует от пользователя ввода данных
 			.send_keys()
 			.dismiss()
-		Работа selenium с алертами:
-			browser.switch_to.alert			# Использовать его, а не switch_to_alert() <- deplicated
-			...
+			
+[00:08:52]		Работа selenium с алертами:
+			alert = browser.switch_to.alert			# Использовать его, а не switch_to_alert() <- deplicated
+			alert.accept()
+			или
 			alert.dismiss()
 		Внутри selenium класс Alert()
 		
