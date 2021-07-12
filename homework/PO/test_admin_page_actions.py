@@ -1,14 +1,8 @@
-import time
-import random
 from tools.autorization import *
 from AdminPage import AdminPage
 from tools.handler import *
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
-# Реализовать генератор рандомных названий
-# Реализовать один метод по созданию нового продукта
 
 # Данные для ввода в поля при создании нового товара
 PRODUCT_NAME = "Xiaomi Redmi 9"
@@ -29,25 +23,25 @@ def test_autorization_on_admin_page(browser, base_url):
 
 
 # Проверяем добавление нового товара
-def test_add_new_product(browser, base_url):
-    LoginOnAdminPage(browser).log_in(base_url, "user", "bitnami")
-    admin = AdminPage(browser)
-    admin.go_to_new_product_editor()
-    admin.fill_product_name(PRODUCT_NAME)
-    admin.fill_meta_tag_title(META_TAG_TITLE)
-    admin.go_to_tab_Data()
-    admin.fill_model_field(MODEL)
-    admin.fill_price_field(PRICE)
-    admin.save_new_product()
-    handle_timeout(browser, admin.ALERT_SUCCESS, timeout=2)
-
-
-# Проверяем добавление нового товара со вводом сгенерированных случайным образом строк в поля
 # def test_add_new_product(browser, base_url):
 #     LoginOnAdminPage(browser).log_in(base_url, "user", "bitnami")
 #     admin = AdminPage(browser)
-#     admin.go_to_new_product_editor().add_new_product()
+#     admin.go_to_new_product_editor()
+#     admin.fill_product_name(PRODUCT_NAME)
+#     admin.fill_meta_tag_title(META_TAG_TITLE)
+#     admin.go_to_tab_Data()
+#     admin.fill_model_field(MODEL)
+#     admin.fill_price_field(PRICE)
+#     admin.save_new_product()
 #     handle_timeout(browser, admin.ALERT_SUCCESS, timeout=2)
+
+
+# Проверяем добавление нового товара со вводом сгенерированных случайным образом строк в поля
+def test_add_new_product(browser, base_url):
+    LoginOnAdminPage(browser).log_in(base_url, "user", "bitnami")
+    admin = AdminPage(browser)
+    admin.go_to_new_product_editor().add_new_product()
+    handle_timeout(browser, admin.ALERT_SUCCESS, timeout=2)
 
 
 def test_delete_element(browser, base_url):
