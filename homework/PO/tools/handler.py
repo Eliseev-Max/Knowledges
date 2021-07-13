@@ -4,14 +4,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
-def element_existence(driver, url, tuple_By_element):
+def element_existence(driver, url, locator):
     driver.get(url)
     try:
-        driver.find_element(*tuple_By_element)
+        driver.find_element(*locator)
     except NoSuchElementException as no_elem:
-        raise AssertionError(no_elem, "Данный селектор не обнаружен")
-    except Exception as err:
-        raise AssertionError(err)
+        raise AssertionError(no_elem, f"Селектор {locator[1]} не обнаружен")
 
 
 def wait_title(driver, url, title, click = False, timeout=3):
@@ -44,6 +42,7 @@ def find_element_after_click(driver, url, elem_to_click, required_locator, timeo
         raise AssertionError(no_elem, "Данный селектор не обнаружен")
     except TimeoutException as time_is_up:
         raise AssertionError(time_is_up, "Время ожидания элемента истекло")
+
 
 def find_and_fill_the_field(driver, locator, text, timeout=2):
     el = handle_timeout(driver, locator, timeout=timeout).clear()

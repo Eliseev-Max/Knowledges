@@ -2,7 +2,6 @@
 
 import time
 from MainPage import *
-from WebPages import *
 from tools.autorization import *
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,9 +11,6 @@ PRODUCT_CARD = "mp3-players/ipod-classic"
 LOGIN_PAGE = "index.php?route=account/login"
 ADMIN_LOGIN_PAGE = "admin/"
 #
-ADMIN_USERNAME = "user"
-ADMIN_PASSWORD = "bitnami"
-
 
 # Поиск элементов на главной страние
 # def test_find_elements_on_main_page(browser, base_url):
@@ -59,27 +55,5 @@ ADMIN_PASSWORD = "bitnami"
 #     element_existence(browser, URL_PROD_CARD, ProductCard.TAB_CONTENT)
 #     element_existence(browser, URL_PROD_CARD, ProductCard.PRICE)
 #
-# # Поиск элементов на странице логина
-# def test_find_pwd_field_on_login_page(browser, base_url):
-#     URL_LOGIN_PAGE = base_url + LOGIN_PAGE
-#     element_existence(browser, URL_LOGIN_PAGE, LoginPage.INPUT_PASSWORD)
-#
-#
-# def test_find_continue_btn_on_login_page(browser, base_url):
-#     URL_LOGIN_PAGE = base_url + LOGIN_PAGE
-#     element_existence(browser, URL_LOGIN_PAGE, LoginPage.CONTINUE_BUTTON)
-#
-#
-# def test_click_on_continue_btn(browser, base_url):
-#     URL_LOGIN_PAGE = base_url + LOGIN_PAGE
-#     browser.get(URL_LOGIN_PAGE)
-#     browser.find_element(*LoginPage.CONTINUE_BUTTON).click()
-#
-#
-# # # Поиск элементов на странице логина в админку
-# def test_find_elements_on_admin_login_page(browser, base_url):
-#     ADM_LOGIN_PAGE = base_url + ADMIN_LOGIN_PAGE
-#     element_existence(browser, ADM_LOGIN_PAGE, AdminLoginPage.INPUT_USERNAME)
-#
-#
+
 

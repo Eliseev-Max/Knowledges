@@ -3,7 +3,6 @@ from AdminPage import AdminPage
 from tools.handler import *
 
 
-
 # Данные для ввода в поля при создании нового товара
 PRODUCT_NAME = "Xiaomi Redmi 9"
 META_TAG_TITLE = "Xiaomi, Redmi"

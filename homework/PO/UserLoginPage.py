@@ -1,14 +1,18 @@
 import random
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
-
+from AdminPage import AdminPage as AP
 
 class UserLoginPage:
 
     # MAIN_URL = "http://172.19.16.229/"
     LOGIN_PAGE = "index.php?route=account/login"
     CONTINUE_BUTTON = (By.CSS_SELECTOR, ".well .btn.btn-primary")
+    LOGIN_BUTTON = (By.CSS_SELECTOR, "[value=Login]")
+    WARNING_ALERT = (By.CSS_SELECTOR, ".alert.alert-danger.alert-dismissible")
+    INPUT_PASSWORD = (By.NAME, "password")
     FIRST_NAME_FIELD = (By.CSS_SELECTOR, "#input-firstname")
     LAST_NAME_FIELD = (By.CSS_SELECTOR, "#input-lastname")
     EMAIL_FIELD = (By.CSS_SELECTOR, "#input-email")
@@ -24,20 +28,35 @@ class UserLoginPage:
 
     def go_to_login_page(self, url):
         self.browser.get(url + self.LOGIN_PAGE)
+        return self
 
     def go_to_account_reg_page(self, url):
         self.go_to_login_page(url)
         WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(self.CONTINUE_BUTTON)).click()
         return self
 
+    def find_web_element(self,locator):
+        try:
+            el = self.browser.find_element(*locator)
+        except NoSuchElementException as no_elem:
+            raise AssertionError(no_elem, f"Селектор {locator[1]} не обнаружен")
+        return el
+
+    def check_element_appears_after_click(self, clickable_elem, expected_elem):
+        self.find_web_element(clickable_elem).click()
+        try:
+            WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(expected_elem))
+        except TimeoutException as time_is_up:
+            raise AssertionError(time_is_up, f"Время ожидания элемента {expected_elem[1]} истекло")
+
     @staticmethod
     def generate_name():
-        abc = "abcdefghijklmnopqrstuvwxyz"
-        return "".join(random.sample(abc, random.randint(5, 10))).capitalize()
+        ABC = "abcdefghijklmnopqrstuvwxyz"
+        return "".join(random.sample(ABC, random.randint(5, 10))).capitalize()
 
     @staticmethod
     def generate_email():
-        return f"{UserLoginPage.generate_name()}@test.com"
+        return f"{AP.random_string_generator()}@test.com"
 
     def find_and_fill_the_field(self, web_element_field, text):
         web_element_field.clear()

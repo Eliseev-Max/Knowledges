@@ -6,7 +6,6 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class MainPage:
 
-    URL = "http://192.168.1.50/"
     SEARCH_LINE = (By.CSS_SELECTOR, "[name=search]")
     SEARCH_BUTTON = (By.CSS_SELECTOR, ".input-group-btn button")
     LOGO_TEXT = (By.CSS_SELECTOR, "#logo a")
@@ -23,9 +22,36 @@ class MainPage:
     def __init__(self, browser):
         self.browser = browser
 
-    def seek_element(self, tuple_By_element):
-        #self.tuple_By_elements = tuple_By_element
+    def seek_element(self, locator):
         try:
-            self.browser.find_element(*tuple_By_element)
+            self.browser.find_element(*locator)
         except NoSuchElementException as no_elem:
-            raise AssertionError(no_elem, "Данный селектор не обнаружен")
+            raise AssertionError(no_elem, f"Селектор {locator[1]} не обнаружен")
+
+    import random
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.wait import WebDriverWait
+    from selenium.common.exceptions import TimeoutException, NoSuchElementException
+    from selenium.webdriver.support import expected_conditions as EC
+    from AdminPage import AdminPage as AP
+
+       
+# def find_web_element(self, locator):
+#     try:
+#         el = self.browser.find_element(*locator)
+#     except NoSuchElementException as no_elem:
+#         raise AssertionError(no_elem, f"Селектор {locator[1]} не обнаружен")
+#     return el
+#
+# def check_element_appears_after_click(self, clickable_elem, expected_elem):
+#     self.find_web_element(clickable_elem).click()
+#     try:
+#         WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(expected_elem))
+#     except TimeoutException as time_is_up:
+#         raise AssertionError(time_is_up, f"Время ожидания элемента {expected_elem[1]} истекло")
+
+
+    def find_and_fill_the_field(self, web_element_field, text):
+        web_element_field.clear()
+        web_element_field.send_keys(text)
+

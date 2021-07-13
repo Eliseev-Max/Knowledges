@@ -71,7 +71,7 @@ class AdminPage:
     def random_string_generator():
         lower_case = "abcdefghijklmnopqrstuvwxyz"
         upper_case = lower_case.upper()
-        numbers = "".join(str(range(0, 10)))
+        numbers = "0123456789"
         symbols = lower_case + upper_case + numbers
         return "".join(random.sample(symbols, random.randint(5, 9)))
 
