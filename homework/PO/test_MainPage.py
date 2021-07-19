@@ -1,59 +1,42 @@
 # -*-coding: utf-8-*-
 
 import time
-from MainPage import *
-from tools.autorization import *
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from MainPage import MainPage
 
-LAPTOPS_AND_NOTEBOOKS = "laptop-notebook/"
-PRODUCT_CARD = "mp3-players/ipod-classic"
-LOGIN_PAGE = "index.php?route=account/login"
-ADMIN_LOGIN_PAGE = "admin/"
-#
-
-# Поиск элементов на главной страние
-# def test_find_elements_on_main_page(browser, base_url):
-#     browser.get(base_url)
-#     main_page = MainPage(browser)
-#     main_page.seek_element(MainPage.FEATURED)
-#     main_page.seek_element(MainPage.LOGO_TEXT)
-#     main_page.seek_element(MainPage.SEARCH_LINE)
-    # element_existence(browser, base_url, MainPage.LOGO_TEXT)
-    # element_existence(browser, base_url, MainPage.SEARCH_LINE)
-    # element_existence(browser, base_url, MainPage.FEATURED)
-
-#
-# def test_click_on_login_button(browser, base_url):
-#     browser.get(base_url + ADMIN_LOGIN_PAGE)
-#     browser.find_element(*AdminLoginPage.LOGIN_BUTTON).click()
-#
+CURRENCY = dict({"USD": "$", "EUR": "€", "GBP": "£"})
+CURRENCY_LIST = list(CURRENCY.keys())
 
 
-# def test_number_of_product_thumbs(browser, base_url):
-#     browser.get(base_url)
-#     prod_thumbs = browser.find_elements(*MainPage.PRODUCT_THUMB)
-#     assert len(prod_thumbs) == 4
+def test_find_elements_on_main_page(browser, base_url):
+    main_page = MainPage(browser)
+    main_page.go_to_mainpage(base_url)
+    main_page.find_web_element(MainPage.FEATURED)
+    main_page.find_web_element(MainPage.LOGO_TEXT)
+    main_page.find_web_element(MainPage.SEARCH_LINE)
 
 
-# Поиск элементов на странице каталога Laptops&Notebooks
-# def test_find_elements_in_catalog(browser, base_url):
-#     CATALOG_PAGE = base_url + LAPTOPS_AND_NOTEBOOKS
-#     element_existence(browser, CATALOG_PAGE, Catalog.LAPTOPS_NOTEBOOKS)
-#     element_existence(browser, CATALOG_PAGE, Catalog.LINK_WINDOWS)
-#
-#
-# # Поиск элементов на странице карточки товара
-# def test_number_of_thumbnails(browser, base_url):
-#     browser.get(base_url + PRODUCT_CARD)
-#     thumbnails = browser.find_elements(*ProductCard.THUMBNAILS)
-#     assert len(thumbnails) == 3
-#
-#
-# def test_find_elements_in_prod_card(browser, base_url):
-#     URL_PROD_CARD = base_url + PRODUCT_CARD
-#     element_existence(browser, URL_PROD_CARD, ProductCard.TAB_CONTENT)
-#     element_existence(browser, URL_PROD_CARD, ProductCard.PRICE)
-#
+def test_number_of_product_thumbs(browser, base_url):
+    main_page = MainPage(browser)
+    main_page.go_to_mainpage(base_url)
+    assert len(main_page.find_featured_products_parameters(MainPage.PRODUCT_THUMB)) == 4
 
 
+def test_check_sign_with_changing_currency(browser, base_url):
+    """ Проверяем смену знака валюты при смене валюты в хедере главной страницы """
+    main_page = MainPage(browser)
+    main_page.go_to_mainpage(base_url)
+    for cur in CURRENCY_LIST:
+        main_page.choose_currency(cur)
+        assert main_page.show_currency_sign() == CURRENCY[cur]
+        time.sleep(1)
+
+def test_currency_of_product_price(browser, base_url):
+    """ Проверяем смену денежного выражения цены избранных товаров при смене валюты """
+    main_page = MainPage(browser)
+    main_page.go_to_mainpage(base_url)
+    for cur in CURRENCY_LIST:
+        main_page.choose_currency(cur)
+        prod_list = main_page.find_featured_products_parameters(MainPage.PRODUCT_PRICE)
+        for price in prod_list:
+            assert CURRENCY[cur] in price.text
+        time.sleep(1)

@@ -7,7 +7,6 @@ from AdminPage import AdminPage as AP
 
 class UserLoginPage:
 
-    # MAIN_URL = "http://172.19.16.229/"
     LOGIN_PAGE = "index.php?route=account/login"
     CONTINUE_BUTTON = (By.CSS_SELECTOR, ".well .btn.btn-primary")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "[value=Login]")

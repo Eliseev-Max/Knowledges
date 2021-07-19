@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 MAIN_URL = "http://172.19.16.229/"
-# ERROR_ALERT = (By.CSS_SELECTOR, ".panel-body div")
 
 
 class LoginOnAdminPage:

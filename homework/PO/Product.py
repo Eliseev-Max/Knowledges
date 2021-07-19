@@ -4,23 +4,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
-class Catalog:
+class Product:
 
     def __init__(self, browser):
         self.browser = browser
 
-    LOCATION_OF_CATALOG = "laptop-notebook/"
-    LAPTOPS_NOTEBOOKS = (By.CSS_SELECTOR, "#content h2")
-    LINK_WINDOWS = (By.PARTIAL_LINK_TEXT, "Windows")
-    ADD_TO_CART = (By.CSS_SELECTOR, ".button-group .fa.fa-shopping-cart")
-    CART_TOTAL = (By.CSS_SELECTOR, "#cart-total")
-    PRODUCT_PRICE = (By.CSS_SELECTOR, "p.price")
-    ALERT_SUCCESS = (By.CSS_SELECTOR, "#product-category .alert.alert-success.alert-dismissible")
-    COMPARE_PRODUCT = (By.XPATH, "//*[@class='button-group']/button[@data-original-title='Compare this Product']")
-    PRODUCT_COMPARE_LINK = (By.CSS_SELECTOR, "#compare-total")
+    LOCATION_OF_PRODUCT = "mp3-players/ipod-classic"
+    THUMBNAILS = (By.CSS_SELECTOR, ".image-additional .thumbnail")
+    TAB_CONTENT = (By.CSS_SELECTOR, ".tab-content")
+    PRICE = (By.XPATH, "//*[@class='list-unstyled']/li/h2")
 
-    def go_to_catalog(self, url):
-        self.browser.get(url + self.LOCATION_OF_CATALOG)
+    def go_to_product_page(self, url):
+        self.browser.get(url + self.LOCATION_OF_PRODUCT)
         return self
 
     def find_web_element(self, locator):
