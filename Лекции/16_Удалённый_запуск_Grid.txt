@@ -1,0 +1,99 @@
+Удалённый запуск Selenium
+
+[00:03:20] О Selenium Grid
+	В случае с распределённым удалённым запуском концепция, которую мы использовали при работе с Selenium, не подходит.
+	Работать с веб-драйвером удалённо не удобно. Нужен посредник, воспринимающий наши удалённые команды.
+	Есть сервер с определённым открытым портом, выполняющий роль посредника
+	Selenium Server (Grid) 3.141.59 (Selenium Standalone Server).
+	Для сервера необходима Java.
+	Запуск в Ubuntu из консоли:
+	
+		java -jar selenium-server-standalone-3.141.59.jar
+		
+	Единственная цель Selenium Server - принимать запросы и проксировать их в соответствии с настройками.
+	Пути к драйверам прописываются целиком.
+
+[00:14:04] Как направить наши тесты к приложению Grid
+		  [JWP = JSON Wire Protocol]
+	
+	1. Создаём сессию curl -d '{"desiredCapabilities":{"browserName":"chrome"}}' -X POST http://localhost:4444/wd/hub/session
+		(Попробовать послать POST-запрос. содержащий JSON
+		{
+			"desiredCapabilities": {
+				"browserName":"chrome"
+			}
+		}
+		вручную, с помощью приложения)
+		
+	2. Открываем url: curl -d '{"url": "https://ya.ru"}' -X POST http://localhost:4444/wd/hub/session/${SESSION}/url
+
+[00:19:49]  Основные понятия:	
+	Standalone - это непосредственно инстанс (от instance - пример, образец) Selenium Server-а, который выполняет команды для webdriver-а
+	Node - это непосредственно инстанс Selenium Server-а, который выполняет команды для webdriver-а, проксируемые ему от hub-а
+	Hub - это связующее звено между node-ами, которое выполняет распределение тестов согласно параметрам имеющихся нод.
+		  Расположение нод не имеет значения, важна лишь их сетевая доступность.
+	Grid - 
+
+[00:20:00]  Какие изменения потребуется внести в conftest.py
+			Было:
+				@pytest.fixture
+				def firefox(request):
+					wd = webdriver.Firefox()		# executable_path='', если путь до драйвера не указан 
+					request.addfinalizer(wd.quit)
+					
+				@pytest.fixture
+				def chrome(request):
+					wd = webdriver.Chrome()
+					request.addfinalizer(wd.quit)
+			
+			Стало:
+				@pytest.fixture
+				def driver(request):
+					browser = request.config.getoption("--browser")
+					executor = request.config.getoption("--executor")
+					wd = webdriver.Remote(
+						 command_executor=f"http://{executor}:4444/wd/hub",		# по умолчанию 127.0.0.1:4444/wd/hub
+						 desired_capabilities={"browserName": browser}			# , options=""
+					)
+					request.addfinalizer(wd.quit)
+					return wd
+
+[00:23:15]  Пример выполнения тестов с новыми конфигурациями
+
+[00:24:25]  Удалённый запуск
+		
+[00:30:40]  Запуск браузеров один за другим. Параметризация фикстур		# Так НЕ делают на практике
+			@pytest.fixture(params=["chrome", "firefox"])
+			browser = request.param
+					executor = request.config.getoption("--executor")
+					wd = webdriver.Remote(
+						 command_executor=f"http://{executor}:4444/wd/hub",		# по умолчанию 127.0.0.1:4444/wd/hub
+						 desired_capabilities={"browserName": browser}			# , options=""
+					)
+					request.addfinalizer(wd.quit)
+					return wd
+					
+[00:35:14]	Многопоточный запуск. pytest-xdist
+			pytest -n 2 /path/to/tests			# запустить тесты в 2 потока
+			
+			Grid контролирует очередь, загрузку и ресурсы.
+			
+[00:44:44]  Запуск Selenium Grid в режиме Hub:
+		java -jar selenium-server-standalone-3.141.59.jar -role hub
+	
+	Selenium Grid может работать в трёх режимах: Selenium Standalone, Selenium Hub и Selenium Node
+	
+	Hub сам по себе тесты не выполняет. Он перенаправляет, проксирует запросы.
+	Настройка и запуск с помощью hubConfig.json (если IP-адрес не тот, который нужен)
+	
+	java -jar selenium-server-standalone-3.141.59.jar -role hub -hubConfig hubConfig.json -debug
+	# -debug - расширенный вывод, не включаем его, много выводимой информации
+	
+	Подключаем к хабу ноду (Start the Nodes)
+	
+	java -jar selenium-server-standalone-3.141.59.jar -role node -hub http://192.168.1.XXX:4444/grid/register
+	
+	Будь внимателен!!!! Может "пролезть" сеть Docker-а!
+	
+	Конфигурационный файл для Linux-OS
+	
