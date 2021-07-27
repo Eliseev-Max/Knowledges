@@ -11,18 +11,19 @@ from collections import defaultdict
 
 """
 
-parser = argparse.ArgumentParser(description='Process access.log')
-
-parser.add_argument('-f', dest='file',
-                          action='store',
-                          help='Path to logfile')  # искомые директория или файл
+# parser = argparse.ArgumentParser(description='Process access.log')
+#
+# parser.add_argument('-f', dest='file',
+#                           action='store',
+#                           help='Path to logfile')  # искомые директория или файл
 
 # os.path.exists(path) - возвращает True, если path указывает на существующий путь или дескриптор открытого файла.
 # os.path.abspath(path) - возвращает нормализованный абсолютный путь
 # os.path.expanduser(path) - заменяет ~ или ~user на домашнюю директорию пользователя.
 # os.path.isfile(path) - является ли путь файлом
 # os.path.isdir(path) - является ли путь директорией.
-# os.path.normpath(path) - нормализует путь, убирая избыточные разделители и ссылки на предыдущие директории. На Windows преобразует прямые слеши в обратные.
+# os.path.normpath(path) - нормализует путь, убирая избыточные разделители и ссылки на предыдущие директории.
+#                          На Windows преобразует прямые слеши в обратные.
 
 # parser.add_argument('-a', action='store_true', help='Handle all logfiles')   # Обработка всех логов внутри одной дир.
 
@@ -32,15 +33,16 @@ parser.add_argument('-f', dest='file',
 #                     default='GET',
 #                     choices=['GET', 'POST'])
 
-args = parser.parse_args()
+# args = parser.parse_args()
+file = "mini_access.log"
 
-# Переменные, полученные из 
-
-# with open(args.file) as file:
-#     idx = 0
-#     for line in file:
-#         if idx > 99:
-#             break
+with open(file) as f:
+    idx = 0
+    for line in f:
+        if idx > 10:
+            break
+        print(line)
+        idx +=1
 
 
 """
@@ -57,7 +59,6 @@ args = parser.parse_args()
 """
 # 83.167.113.100 - - [12/Dec/2015:18:31:25 +0100] "GET /administrator/ HTTP/1.1" 200 4263 "-" "Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0" 4743
 
-
-dict_ip = defaultdict(
-    lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
-)
+# dict_ip = defaultdict(
+#     lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
+# )
