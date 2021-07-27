@@ -23,8 +23,6 @@ args = parser.parse_args()
 # path = 'C:\\Users\\m.eliseev\\Knowledges\\mini_access.log'
 # this_path = "~/Knowledges/mini_access.log"
 
-print(args)
-
 def prepare_file_to_read(path):
     file = os.path.normpath(path)
     if os.path.isfile(file):
@@ -41,12 +39,12 @@ def prepare_file_to_read(path):
         return print("Указанный файл или каталог не найден")
 
 
-# print(type(args),type(args.file),sep="\n")
-# print(args.file)
+# print(type(args),type(args.path),sep="\n")
+print(args.path)
 # print(os.path.normpath(args))
 # os.path.expanduser(args)
 # print(os.path.abspath(args))
 
-# with open(prepare_file_to_read(args.file), "r", encoding="utf-8") as f:
-#     for line in f:
-#         print(line)
+with open(prepare_file_to_read(args.path), "r", encoding="utf-8") as f:
+    for line in f:
+        print(line)

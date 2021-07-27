@@ -11,11 +11,11 @@ from collections import defaultdict
 
 """
 
-# parser = argparse.ArgumentParser(description='Process access.log')
-#
-# parser.add_argument('-f', dest='file',
-#                           action='store',
-#                           help='Path to logfile')  # искомые директория или файл
+parser = argparse.ArgumentParser(description='Process access.log')
+
+parser.add_argument('-f', dest='file',
+                          action='store',
+                          help='Path to logfile')  # искомые директория или файл
 
 # os.path.exists(path) - возвращает True, если path указывает на существующий путь или дескриптор открытого файла.
 # os.path.abspath(path) - возвращает нормализованный абсолютный путь
@@ -33,7 +33,7 @@ from collections import defaultdict
 #                     default='GET',
 #                     choices=['GET', 'POST'])
 
-# args = parser.parse_args()
+args = parser.parse_args()
 file = "mini_access.log"
 
 with open(file) as f:
