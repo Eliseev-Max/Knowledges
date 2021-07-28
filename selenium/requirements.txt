@@ -1,3 +1,0 @@
-pytest==6.2.2
-selenium==3.141.0
-jupyterlab==3.0.14
