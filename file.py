@@ -22,15 +22,16 @@ args = parser.parse_args()
 def prepare_file_to_read(path):
     file = os.path.normpath(path)
     if os.path.isfile(file):
-        print("Выбран файл")
+        print(f"Выбран файл {file}")
         return file
     elif os.path.isdir(file):
         print("Вы указали директорию.")
         filename = input("Укажите имя файла ")
-        full_name = os.path.abspath(path + filename)
+        full_name = os.path.abspath(path + '/' + filename)
         print(full_name)
         if os.path.exists(full_name):
             return full_name
+        else: raise Exception('Файла по заданному пути не существует')
     else:
         print("Указанный файл или каталог не найден")
 
