@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import os
 import argparse
-import os.path
+import os.path as op
+
 
 # Исправить косяки:
 # Если не добавить \ или/ в конец директории, при вводе файла имена складываются и появляется ошибка
@@ -11,36 +13,43 @@ import os.path
 parser = argparse.ArgumentParser(description='Find and open file')
 parser.add_argument('--path', '-p',
                     action='store',
+                    required=True,
                     help='Enter file path or filename')
+parser.add_argument('--all', '-a',
+                    action='store_true',
+                    help='Use this option, if you want to handle all files in directory')
 
 args = parser.parse_args()
 
-# path = 'C:\\Users\\m.eliseev\\Knowledges\\mini_access.log'
-# this_path = "~/Knowledges/mini_access.log"
-
 
 def prepare_file_to_read(path):
-    file = os.path.normpath(path)
-    if os.path.isfile(file):
+    file = op.abspath(op.expanduser(path))
+    if op.isfile(file):
         print(f"Выбран файл {file}")
         return file
-    elif os.path.isdir(file):
-        print("Вы указали директорию.")
+    elif op.isdir(file):
+        print(f"Указана директория {file}")
         filename = input("Укажите имя файла ")
-        full_name = os.path.abspath(path + '/' + filename)
-        print(full_name)
-        if os.path.exists(full_name):
+        full_name = op.abspath(path + '/' + filename)
+        try:
+            assert op.exists(full_name)
+        except AssertionError as err:
+            print(f'Файла по указанному пути: {full_name} не существует')
+        else:
             return full_name
-        else: raise Exception('Файла по заданному пути не существует')
     else:
-        print("Указанный файл или каталог не найден")
+        print("Указанный файл или каталог не обнаружен")
+
+def parse_all_files(path):
+    target_directory = op.abspath(op.expanduser(path))
+    try:
+        assert op.isdir(target_directory),"Указанный каталог не обнаружен"
+        for logfile in os.scandir(target_directory):
+            print(logfile.name)
+    except AssertionError as err:
+        print(err)
 
 
-# print(type(args),type(args.path),sep="\n")
-print(args.path)
-# print(os.path.normpath(args))
-# os.path.expanduser(args)
-# print(os.path.abspath(args))
 idx = 0
 with open(prepare_file_to_read(args.path), "r", encoding="utf-8") as f:
     for line in f:

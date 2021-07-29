@@ -25,13 +25,6 @@ parser.add_argument('-f', dest='file',
 # os.path.normpath(path) - нормализует путь, убирая избыточные разделители и ссылки на предыдущие директории.
 #                          На Windows преобразует прямые слеши в обратные.
 
-# parser.add_argument('-a', action='store_true', help='Handle all logfiles')   # Обработка всех логов внутри одной дир.
-
-# parser.add_argument('--method', '-m',
-#                     action='store',
-#                     help='Method to make request',
-#                     default='GET',
-#                     choices=['GET', 'POST'])
 
 args = parser.parse_args()
 file = "mini_access.log"
@@ -62,3 +55,6 @@ with open(file) as f:
 # dict_ip = defaultdict(
 #     lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
 # )
+# https://docs-python.ru/standart-library/modul-re-python/sintaksis-reguljarnogo-vyrazhenija/
+# https://tproger.ru/translations/regular-expression-python/
+# https://pythonru.com/primery/primery-primeneniya-regulyarnyh-vyrazheniy-v-python

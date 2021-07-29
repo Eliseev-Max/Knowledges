@@ -1,4 +1,8 @@
-(https://digitology.tech/docs/python_3/library/argparse.html)
+Links:
+	(https://digitology.tech/docs/python_3/library/argparse.html)
+	(https://youtu.be/cdblJqEUDNo)	- Python Tutorial - Argparse
+	(https://youtu.be/792UnrSxD6w) - Видео Михаила Чиркова
+	
 Параметризируемые скрипты
 1. Использование модуля sys (устаревший способ)
 	Передача параметров скрипту через терминал командной строки
@@ -144,7 +148,7 @@
 	# Optional, именованные
 	# parser.add_argument("-a", "--action", help='What to do with numbers?', default="sumarize")
 	
-	# parser.add_argument("-a", "--action", nargs=2)		# ожидаемое количество аргументов
+	# parser.add_argument("-a", "--action", nargs=2)		# ожидаемое количество аргументов - 2
 	
 	# Указать набор допустимых вводимых значений с помощью аргумента choices=
 	parser.add_argument("-a", "--action", choices=['1', '2', '3'])
@@ -163,4 +167,12 @@
 	print(args)
 	
 	Аргументы: позиционные и именные (опциональные)
+	
+	Полезный метод класса argparse.ArgumentParser() - .add_mutually_exclusive_group():
+	# Может использоваться для создания группы флагов типа store_const, store_true, store_false
+		parser = argparse.ArgumentParser(description='')
+		...
+		group = parser.add_mutually_exclusive_group()
+		group.add_argument('-q','--quiet', action='store_true', help='print quiet')
+		
 	
