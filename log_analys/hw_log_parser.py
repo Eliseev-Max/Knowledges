@@ -29,20 +29,31 @@ parser.add_argument('-f', dest='file',
 args = parser.parse_args()
 file = "mini_access.log"
 
-with open(file) as f:
+# dict_ip = defaultdict(
+#     lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
+
+with open(args.file) as file:
     idx = 0
-    for line in f:
-        if idx > 10:
+    for line in file:           # Не readline, который считывает из файла одну строку при каждом вызове
+                                # а перебор строк
+        if idx > 99:
             break
-        print(line)
-        idx +=1
+
+        ip_match = re.search(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", line)
+        if ip_match is not None:
+            ip = ip_match.group()
+            method = re.search(r"\] \"(POST|GET|PUT|DELETE|HEAD)", line)
+            # Соответствует последовательности символов: СКОБКА ПРОБЕЛ КАВЫЧКА POST или GET или PUT...
+            if method is not None:
+                dict_ip[ip][method.groups()[0]] += 1
+        idx += 1
 
 
 """
     Для access.log должна собираться следующая информация:
 
-    общее количество выполненных запросов
-    количество запросов по типу: GET - 20, POST - 10 и т.п.
+    общее количество выполненных запросов           >> попробуй len(file)
+    количество запросов по типу: GET - 20, POST - 10 и т.п.     >> готовый инструмент, осталось убрать |
     топ 3 IP адресов, с которых были сделаны запросы
     топ 3 самых долгих запросов, должно быть видно метод, url, ip, время запроса
 
@@ -52,8 +63,7 @@ with open(file) as f:
 """
 # 83.167.113.100 - - [12/Dec/2015:18:31:25 +0100] "GET /administrator/ HTTP/1.1" 200 4263 "-" "Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0" 4743
 
-# dict_ip = defaultdict(
-#     lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
+
 # )
 # https://docs-python.ru/standart-library/modul-re-python/sintaksis-reguljarnogo-vyrazhenija/
 # https://tproger.ru/translations/regular-expression-python/
