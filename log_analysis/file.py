@@ -5,11 +5,6 @@ import argparse
 import os.path as op
 
 
-# Исправить косяки:
-# Если не добавить \ или/ в конец директории, при вводе файла имена складываются и появляется ошибка
-# Либо пофиксить, либо убрать функционал
-
-# Добавить параметр - количество выводимых строк
 parser = argparse.ArgumentParser(description='Find and open file')
 parser.add_argument('--path', '-p',
                     action='store',
