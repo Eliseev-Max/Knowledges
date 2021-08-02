@@ -10,6 +10,9 @@ OCTET = r"[1-2]?[0-9]{1,2}"
 IP_ADDRESS = OCTET + r"\." + OCTET + r"\." + OCTET + r"\." + OCTET
 ip = []
 dict_of_ip = defaultdict(int)
+dict_method = defaultdict(
+    int, {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
+)
 
 parser = argparse.ArgumentParser(description='Find and open file')
 parser.add_argument('--path', '-p',
