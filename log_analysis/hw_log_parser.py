@@ -1,39 +1,73 @@
+import os
 import argparse
-import os.path
+import os.path as op
 import re
 import json
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 
+OCTET = r"[1-2]?[0-9]{1,2}"
+IP_ADDRESS = OCTET + r"\." + OCTET + r"\." + OCTET + r"\." + OCTET
+ip = []
+dict_of_ip = defaultdict(int)
 
-parser = argparse.ArgumentParser(description='Process access.log')
-
-parser.add_argument('-f', dest='file',
-                          action='store',
-                          help='Path to logfile')  # искомые директория или файл
-
+parser = argparse.ArgumentParser(description='Find and open file')
+parser.add_argument('--path', '-p',
+                    action='store',
+                    required=True,
+                    help='Enter file path or filename')
+parser.add_argument('--all', '-a',
+                    action='store_true',
+                    help='Use this option, if you want to handle all files in directory')
 
 args = parser.parse_args()
-file = "mini_access.log"
 
-# dict_ip = defaultdict(
-#     lambda: {"GET": 0, "POST": 0, "PUT": 0, "DELETE": 0, "HEAD": 0}
 
-with open(args.file) as file:
-    idx = 0
-    for line in file:           # Не readline, который считывает из файла одну строку при каждом вызове
-                                # а перебор строк
-        if idx > 99:
+def prepare_file_to_read(path):
+    if path[0] == '~':
+        file = op.normpath(op.expanduser(path))
+    else:
+        file = op.abspath(path)
+    if op.isfile(file):
+        print(f"Выбран файл {file}")
+        return file
+    elif op.isdir(file):
+        print(f"Указана директория {file}")
+        if args.all:
+            pass
+        else:
+            filename = input("Укажите имя файла ")
+            full_name = op.abspath(path + '/' + filename)
+            try:
+                assert op.exists(full_name)
+            except AssertionError as err:
+                print(f'Файла по указанному пути: {full_name} не существует')
+            else:
+                return full_name
+    else:
+        print("Указанный файл или каталог не обнаружен")
+
+# def parse_all_files(path):
+#     target_directory = op.normpath(op.expanduser(path))
+#     try:
+#         assert op.isdir(target_directory),"Указанный каталог не обнаружен"
+#         for logfile in os.scandir(target_directory):
+#             print(logfile.name)
+#     except AssertionError as err:
+#         print(err)
+
+
+idx = 0
+with open(prepare_file_to_read(args.path), "r", encoding="utf-8") as f:
+    for line in f:
+        print(line)
+        if idx>10:
             break
+        idx+= 1
 
-        ip_match = re.search(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", line)
-        if ip_match is not None:
-            ip = ip_match.group()
-            method = re.search(r"\] \"(POST|GET|PUT|DELETE|HEAD)", line)
-            # Соответствует последовательности символов: СКОБКА ПРОБЕЛ КАВЫЧКА POST или GET или PUT...
-            if method is not None:
-                dict_ip[ip][method.groups()[0]] += 1
-        idx += 1
+# duration = r"\d+$"    # Длительность запроса
+#
+
 
 
 

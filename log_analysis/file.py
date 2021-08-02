@@ -18,7 +18,10 @@ args = parser.parse_args()
 
 
 def prepare_file_to_read(path):
-    file = op.abspath(op.expanduser(path))
+    if path[0] == '~':
+        file = op.normpath(op.expanduser(path))
+    else:
+        file = op.abspath(path)
     if op.isfile(file):
         print(f"Выбран файл {file}")
         return file
@@ -36,7 +39,7 @@ def prepare_file_to_read(path):
         print("Указанный файл или каталог не обнаружен")
 
 def parse_all_files(path):
-    target_directory = op.abspath(op.expanduser(path))
+    target_directory = op.normpath(op.expanduser(path))
     try:
         assert op.isdir(target_directory),"Указанный каталог не обнаружен"
         for logfile in os.scandir(target_directory):
