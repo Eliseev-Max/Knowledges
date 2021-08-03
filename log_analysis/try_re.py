@@ -6,10 +6,10 @@ import os.path as op
 import re
 from modules.functions import *
 
-# PATH = r"~\Knowledges\log_analysis\mini_access.log"
-# filename = op.normpath(op.expanduser(PATH))
-PATH = r"~/Knowledges/log_analysis/access_500.log"
-filename = op.abspath(op.expanduser(PATH))
+PATH = r"~\Knowledges\log_analysis\mini_access.log"
+filename = op.normpath(op.expanduser(PATH))
+# PATH = r"~/Knowledges/log_analysis/access_500.log"
+# filename = op.abspath(op.expanduser(PATH))
 
 
 OCTET = r"[1-2]?[0-9]{1,2}"

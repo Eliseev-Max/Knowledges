@@ -68,7 +68,7 @@ with open(prepare_file_to_read(args.path), "r", encoding="utf-8") as f:
             break
         idx+= 1
 
-# duration = r"\d+$"    # Длительность запроса
+
 #
 
 
