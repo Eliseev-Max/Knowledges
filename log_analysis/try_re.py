@@ -36,6 +36,7 @@ with open(filename, "r", encoding="utf-8") as file:
 for elem in ip:
     dict_of_ip[elem] +=1
 
+# Сформируем словарь из трёх пар: "IP-адрес: количество запросов"
 # sorted_ip = sort_ip_dict(dict_of_ip, display=3)
 
 # print(f"Всего было выполнено {len(ip)} запросов\n"
