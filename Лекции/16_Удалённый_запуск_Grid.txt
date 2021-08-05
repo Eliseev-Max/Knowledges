@@ -30,7 +30,7 @@
 [00:19:49]  Основные понятия:	
 	Standalone - это непосредственно инстанс (от instance - пример, образец) Selenium Server-а, который выполняет команды для webdriver-а
 	Node - это непосредственно инстанс Selenium Server-а, который выполняет команды для webdriver-а, проксируемые ему от hub-а
-	Hub - это связующее звено между node-ами, которое выполняет распределение тестов согласно параметрам имеющихся нод.
+	Hub - это связующее звено между node-ами, которое выполняет распределение тестов согласно параметрам имеющихся нод (Node, узлов).
 		  Расположение нод не имеет значения, важна лишь их сетевая доступность.
 	Grid - 
 
@@ -65,13 +65,13 @@
 [00:30:40]  Запуск браузеров один за другим. Параметризация фикстур		# Так НЕ делают на практике
 			@pytest.fixture(params=["chrome", "firefox"])
 			browser = request.param
-					executor = request.config.getoption("--executor")
-					wd = webdriver.Remote(
-						 command_executor=f"http://{executor}:4444/wd/hub",		# по умолчанию 127.0.0.1:4444/wd/hub
-						 desired_capabilities={"browserName": browser}			# , options=""
-					)
-					request.addfinalizer(wd.quit)
-					return wd
+			executor = request.config.getoption("--executor")
+			wd = webdriver.Remote(
+				 command_executor=f"http://{executor}:4444/wd/hub",		# по умолчанию 127.0.0.1:4444/wd/hub
+				 desired_capabilities={"browserName": browser}			# , options=""
+			)
+			request.addfinalizer(wd.quit)
+			return wd
 					
 [00:35:14]	Многопоточный запуск. pytest-xdist
 			pytest -n 2 /path/to/tests			# запустить тесты в 2 потока
@@ -84,16 +84,34 @@
 	Selenium Grid может работать в трёх режимах: Selenium Standalone, Selenium Hub и Selenium Node
 	
 	Hub сам по себе тесты не выполняет. Он перенаправляет, проксирует запросы.
+	
+[00:47:00] -> [00:48:30]
+!!! Будь внимателен!!!! Может "пролезть" сеть Docker-а!
 	Настройка и запуск с помощью hubConfig.json (если IP-адрес не тот, который нужен)
 	
 	java -jar selenium-server-standalone-3.141.59.jar -role hub -hubConfig hubConfig.json -debug
 	# -debug - расширенный вывод, не включаем его, много выводимой информации
 	
-	Подключаем к хабу ноду (Start the Nodes)
+	В итоге при выполнении команды в консоль нам будут выведена следующая информация:
+	[Hub.start] - Selenium Grid hub is up and running
+	[Hub.start] - Nodes should register to http://<IP-address>:4444/grid/register **
+	[Hub.start] - Clients should connect to http://<IP-address>:4444/wd/hub
+	
+	<IP-address> должен содержаться в pytest_addoptions(parser):
+	parser.addoption("--executor", action="store", default="<IP-address>")
+
+[00:51:25]	Подключаем Node (ПК или WM с любой ОС) к Hub (Start the Nodes)
+	
+	-hub - параметр, который указывает, где находится hub (по какому адресу регистрируется Node) **
 	
 	java -jar selenium-server-standalone-3.141.59.jar -role node -hub http://192.168.1.XXX:4444/grid/register
+
+[00:56:36] - Интерфейс hub -а:
+	Адрес http://<IP-address>:4444/grid/console
+	В дефолтном конфиге хаб может поддерживать 5 firefox, 5 chrome и 1 IE
 	
-	Будь внимателен!!!! Может "пролезть" сеть Docker-а!
+	Если зарегистрированы 2 и более Node, вид консоли хаба изменяется.
+	Все ноды отображены там.
 	
-	Конфигурационный файл для Linux-OS
+[01:02:28]	Регистрируем Linux. Используем для этого конфигурационные файлы.
 	
