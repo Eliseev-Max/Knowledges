@@ -54,6 +54,7 @@
 					wd = webdriver.Remote(
 						 command_executor=f"http://{executor}:4444/wd/hub",		# по умолчанию 127.0.0.1:4444/wd/hub
 						 desired_capabilities={"browserName": browser}			# , options=""
+						 # desired_capabilities={"browserName": browser, "platform": "windows"}		# или platformName
 					)
 					request.addfinalizer(wd.quit)
 					return wd
@@ -112,6 +113,15 @@
 	
 	Если зарегистрированы 2 и более Node, вид консоли хаба изменяется.
 	Все ноды отображены там.
+	pytest -n 2 		# Запустить в 2 потока
 	
-[01:02:28]	Регистрируем Linux. Используем для этого конфигурационные файлы.
+[01:02:28]	Регистрируем Linux. Используем для этого конфигурационные файлы nodeLinux.json.
 	
+Команда регистрации Node на ОС Windows:
+java -jar selenium-server-standalone-3.141.59.jar -role node -nodeConfig nodeWindows.json -hub http://192.168.1.77:4444/grid/register
+ВНИМАНИЕ!!! В json-файле конфигураций пути в Windows пишутся с прямыми слэшами C:/Users/
+
+[01:25:00]	 Работа с разными версиями браузеров
+			Веб-сервис BrowserStack (https://www.browserstack.com)
+			Здесь настроены разные версии различных ОС (Windows от XP до Win10, MacOS, iOS, Android)
+		
