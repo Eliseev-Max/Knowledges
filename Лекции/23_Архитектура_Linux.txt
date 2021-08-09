@@ -1,1 +1,40 @@
 https://habr.com/ru/post/149077/	- Про сокеты (Socket)
+
+[00:05:20]	Ядро Linux
+			В Kernel space разрешён полный доступ к аппаратным средствам (память и устройства ввода-вывода),
+			в User space - ограниченный доступ.
+			Доступ к компонентам ядра из User space осуществляется посредством System Calls.
+			System Calls - специализированные наборы обращений для получения услуг ядра.
+
+[00:07:20]	Принцип работы программ; получение доступа из User space к аппаратным устройствам
+
+
+
+
+
+
+
+
+# Функция начального значения канала через TelNet
+def telnet_checker():
+    ip = '10.1.31.10'
+    tn = telnetlib.Telnet(ip)
+
+    to_username = tn.read_until(b'login:')
+    tn.write(b'root\n')
+    to_pwd = tn.read_until(b'Password')
+    tn.write(b"fhbc'rcg\n")
+
+    tn.read_until(b'#')                 #Подключение по Telnet и авторизация выполнены
+
+
+    tn.write(b'warehouse_view LOC.quality_test.AI-663\r\n')
+    data = ''
+    while data.find('0638') == -1:
+        data = tn.read_very_eager().decode('utf-8')
+
+    value = " 0 " in data
+
+    tn.close()
+
+    return value
