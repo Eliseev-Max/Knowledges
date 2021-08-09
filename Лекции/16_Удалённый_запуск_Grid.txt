@@ -122,6 +122,19 @@ java -jar selenium-server-standalone-3.141.59.jar -role node -nodeConfig nodeWin
 ВНИМАНИЕ!!! В json-файле конфигураций пути в Windows пишутся с прямыми слэшами C:/Users/
 
 [01:25:00]	 Работа с разными версиями браузеров
-			Веб-сервис BrowserStack (https://www.browserstack.com)
-			Здесь настроены разные версии различных ОС (Windows от XP до Win10, MacOS, iOS, Android)
+
+	Платформа BrowserStack (https://www.browserstack.com)
+	Здесь настроены разные версии различных ОС (Windows от XP до Win10, MacOS, iOS, Android)
+	Есть ещё одна тестовая платформа SauseLabs (https://saucelabs.com/)
+	
+[01:28:00]	Принцип работы сервиса BrowserStack
+	
+	Регистрируемся. Заходим под своим аккаунтом (Le's get started!)
+	Python: скрипт формируется в поле (desired_cap = {})
+	Настройки для веб-драйвера описаны. (wd = webdriver.Remote(command_executor=BROWSERSTACK_URL, desired_capabilities=desired_cap))
+	Меню: Automate
+	
+	"Обратная сторона": Дорого!
+	
+	Третья альтернатива - Selenoid
 		
