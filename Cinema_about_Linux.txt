@@ -1,0 +1,15 @@
+Revolution OS
+
+Eric Raymond (Эрик Рэймонд), автор "The Cathedral and The Bazaar"
+Есть только одна миссия операционной системы - помочь программам работать.
+ОС никогда не делает что-то сама по себе. Она делает написание и работу программ проще для людей
+
+Bruce Perens (брюс Перенс) - автор, Определение Open Source
+
+Richard Stallman (Ричард Столман) - основатель GNU Project (GNU's not UNIX)
+BSD основана на ядре UNIX и лицензирована в ATNT
+
+Michael Tiemann, Co-Founder, Cygnus Solutions		# Сооснователь Компании "Цигнус (Cygnus)", оказывающей поддержку пользователям GNU Linux
+Larry Augustin, Ph.D., Co-Founder, CEO, VA Linux Systems
+
+Монолитность ОС Linux, его неделимость и целостность.
