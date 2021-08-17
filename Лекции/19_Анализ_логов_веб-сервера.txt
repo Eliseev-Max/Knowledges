@@ -93,7 +93,10 @@
 	ps aux | grep NAME.py		Вывести таблицу процессов, содержащих NAME.py
 	Находим интересующий нас процесс, копируем его id (process_id)
 	и вставляем в команду lsof -p 666		#666 = process_id
-	lsof = list of files - файлы, использующие процесс
+	lsof = LiSt of Open Files - утилита, для вывода информации о том, какие файлы используются теми или иными процессами
+	►► 7 примеров команды lsof в Linux
+		https://andreyex.ru/linux/komandy-linux-i-komandy-shell/7-primerov-komandy-lsof-v-linux/
+	
 	Убить процесс по id: 	kill -9 666
 	
 [0:48:55] Что смотреть в логах
