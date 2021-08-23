@@ -1,0 +1,145 @@
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2 159840  4720 ?        Ss   13:17   0:04 /sbin/init splash
+root         2  0.0  0.0      0     0 ?        S    13:17   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        I<   13:17   0:00 [rcu_gp]
+root         4  0.0  0.0      0     0 ?        I<   13:17   0:00 [rcu_par_gp]
+root         5  0.0  0.0      0     0 ?        I    13:17   0:10 [kworker/0:0-eve]
+root         6  0.0  0.0      0     0 ?        I<   13:17   0:00 [kworker/0:0H-kb]
+root         8  0.0  0.0      0     0 ?        I<   13:17   0:00 [mm_percpu_wq]
+root         9  0.1  0.0      0     0 ?        S    13:17   0:26 [ksoftirqd/0]
+root        10  0.0  0.0      0     0 ?        I    13:17   0:06 [rcu_sched]
+root        11  0.0  0.0      0     0 ?        S    13:17   0:00 [migration/0]
+root        12  0.0  0.0      0     0 ?        S    13:17   0:00 [idle_inject/0]
+root        14  0.0  0.0      0     0 ?        S    13:17   0:00 [cpuhp/0]
+root        15  0.0  0.0      0     0 ?        S    13:17   0:00 [kdevtmpfs]
+root        16  0.0  0.0      0     0 ?        I<   13:17   0:00 [netns]
+root        17  0.0  0.0      0     0 ?        S    13:17   0:00 [rcu_tasks_kthre]
+root        18  0.0  0.0      0     0 ?        S    13:17   0:00 [kauditd]
+root        19  0.0  0.0      0     0 ?        S    13:17   0:00 [khungtaskd]
+root        20  0.0  0.0      0     0 ?        S    13:17   0:00 [oom_reaper]
+root        21  0.0  0.0      0     0 ?        I<   13:17   0:00 [writeback]
+root        22  0.0  0.0      0     0 ?        S    13:17   0:00 [kcompactd0]
+root        23  0.0  0.0      0     0 ?        SN   13:17   0:00 [ksmd]
+root        24  0.0  0.0      0     0 ?        SN   13:17   0:00 [khugepaged]
+root        70  0.0  0.0      0     0 ?        I<   13:17   0:00 [kintegrityd]
+root        71  0.0  0.0      0     0 ?        I<   13:17   0:00 [kblockd]
+root        72  0.0  0.0      0     0 ?        I<   13:17   0:00 [blkcg_punt_bio]
+root        73  0.0  0.0      0     0 ?        I<   13:17   0:00 [tpm_dev_wq]
+root        74  0.0  0.0      0     0 ?        I<   13:17   0:00 [ata_sff]
+root        75  0.0  0.0      0     0 ?        I<   13:17   0:00 [md]
+root        76  0.0  0.0      0     0 ?        I<   13:17   0:00 [edac-poller]
+root        77  0.0  0.0      0     0 ?        I<   13:17   0:00 [devfreq_wq]
+root        78  0.0  0.0      0     0 ?        S    13:17   0:00 [watchdogd]
+root        82  0.0  0.0      0     0 ?        S    13:17   0:05 [kswapd0]
+root        83  0.0  0.0      0     0 ?        S    13:17   0:00 [ecryptfs-kthrea]
+root        85  0.0  0.0      0     0 ?        I<   13:17   0:00 [kthrotld]
+root        86  0.0  0.0      0     0 ?        I<   13:17   0:00 [acpi_thermal_pm]
+root        87  0.0  0.0      0     0 ?        S    13:17   0:00 [scsi_eh_0]
+root        88  0.0  0.0      0     0 ?        I<   13:17   0:00 [scsi_tmf_0]
+root        89  0.0  0.0      0     0 ?        S    13:17   0:00 [scsi_eh_1]
+root        90  0.0  0.0      0     0 ?        I<   13:17   0:00 [scsi_tmf_1]
+root        92  0.0  0.0      0     0 ?        I<   13:17   0:00 [vfio-irqfd-clea]
+root        94  0.0  0.0      0     0 ?        I<   13:17   0:00 [ipv6_addrconf]
+root       103  0.0  0.0      0     0 ?        I<   13:17   0:00 [kstrp]
+root       106  0.0  0.0      0     0 ?        I<   13:17   0:00 [kworker/u3:0]
+root       119  0.0  0.0      0     0 ?        I<   13:17   0:00 [charger_manager]
+root       169  0.0  0.0      0     0 ?        I    13:17   0:15 [kworker/0:3-eve]
+root       171  0.0  0.0      0     0 ?        S    13:17   0:00 [scsi_eh_2]
+root       172  0.0  0.0      0     0 ?        I<   13:17   0:00 [scsi_tmf_2]
+root       173  0.0  0.0      0     0 ?        S    13:17   0:01 [irq/18-vmwgfx]
+root       174  0.0  0.0      0     0 ?        I<   13:17   0:00 [ttm_swap]
+root       175  0.0  0.0      0     0 ?        I<   13:17   0:13 [kworker/0:1H-kb]
+root       251  0.0  0.0      0     0 ?        S    13:17   0:01 [jbd2/sda1-8]
+root       252  0.0  0.0      0     0 ?        I<   13:17   0:00 [ext4-rsv-conver]
+root       301  0.0  0.4 102904  8292 ?        S<s  13:17   0:00 /lib/systemd/systemd-journald
+root       317  0.0  0.0  47316    72 ?        Ss   13:17   0:00 /lib/systemd/systemd-udevd
+root       396  0.0  0.0      0     0 ?        I<   13:17   0:00 [iprt-VBoxWQueue]
+systemd+   500  0.0  0.0  70624  1524 ?        Ss   13:17   0:00 /lib/systemd/systemd-resolved
+root       504  0.0  0.0 171700  1192 ?        Ssl  13:17   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+avahi      506  0.0  0.0  47260  1132 ?        Ss   13:17   0:00 avahi-daemon: running [max-VirtualBox.local]
+message+   508  0.0  0.1  51444  2776 ?        Ss   13:17   0:02 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+avahi      511  0.0  0.0  47080    40 ?        S    13:17   0:00 avahi-daemon: chroot helper
+root       525  0.0  0.0  45236   760 ?        Ss   13:17   0:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+root       526  0.0  0.1 502804  3532 ?        Ssl  13:17   0:00 /usr/lib/udisks2/udisksd
+root       528  0.0  0.0   4556     0 ?        Ss   13:17   0:00 /usr/sbin/acpid
+root       532  0.0  0.0 360596   648 ?        Ssl  13:17   0:00 /usr/sbin/ModemManager --filter-policy=strict
+root       533  0.0  0.0 288992   724 ?        Ssl  13:17   0:00 /usr/lib/accountsservice/accounts-daemon
+syslog     534  0.0  0.0 263040     0 ?        Ssl  13:17   0:00 /usr/sbin/rsyslogd -n
+root       541  0.0  0.0  32548   932 ?        Ss   13:17   0:00 /usr/sbin/cron -f
+root       542  0.0  0.0 482272  1940 ?        Ssl  13:17   0:00 /usr/sbin/NetworkManager --no-daemon
+root       544  0.0  0.1  70452  2116 ?        Ss   13:17   0:00 /lib/systemd/systemd-logind
+root       594  0.0  0.1 297904  2824 ?        Ssl  13:18   0:00 /usr/lib/policykit-1/polkitd --no-debug
+root       631  0.0  0.0 188460  1056 ?        Ssl  13:18   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+mpd        633  0.0  0.0 826604     0 ?        Ssl  13:18   0:00 /usr/bin/mpd --no-daemon
+root       647  0.0  0.0  25988   792 ?        S    13:18   0:00 /sbin/dhclient -d -q -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /run/dhclient-enp0s3.pid -lf /var/lib/NetworkManager/dhclient-b5b7be01-9979-38f5-9bce-fe01ae9a8181-enp0s3.lease -cf /var/lib/NetworkManager/dhclient-enp0s3.conf enp0s3
+whoopsie   678  0.0  0.0 450716  1084 ?        Ssl  13:18   0:00 /usr/bin/whoopsie -f
+kernoops   694  0.0  0.0  56944   676 ?        Ss   13:18   0:01 /usr/sbin/kerneloops --test
+kernoops   697  0.0  0.0  56944   688 ?        Ss   13:18   0:00 /usr/sbin/kerneloops
+root      1231  0.0  0.0 515900  1192 ?        Ssl  13:18   0:14 /usr/lib/packagekit/packagekitd
+root      1288  0.0  0.1 188812  2160 ?        Ssl  13:18   0:00 /usr/bin/sddm
+root      1298  0.0  0.0 322608   504 ?        Sl   13:18   0:05 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh
+root      1348  2.1  4.4 429672 90220 tty1     Ssl+ 13:18   8:22 /usr/lib/xorg/Xorg -nolisten tcp -auth /var/run/sddm/{f595b149-6a9b-43c1-9bbc-0b4303b3b723} -background none -noreset -displayfd 18 -seat seat0 vt1
+root      1400  0.0  0.0 139564  1748 ?        S    13:18   0:00 /usr/lib/x86_64-linux-gnu/sddm/sddm-helper --socket /tmp/sddm-authd048fad1-57db-48bc-b47c-53f5068f26cd --id 1 --start /usr/bin/startkde --user max --autologin
+max       1403  0.0  0.0  76500   384 ?        Ss   13:18   0:00 /lib/systemd/systemd --user
+max       1404  0.0  0.0 193616   120 ?        S    13:18   0:00 (sd-pam)
+max       1414  0.0  0.0   4632   640 ?        S    13:18   0:00 /bin/sh /usr/bin/startkde
+max       1479  0.0  0.0  45848   252 ?        S    13:18   0:00 /usr/bin/dbus-launch --exit-with-session --sh-syntax
+max       1480  0.0  0.1  50760  2676 ?        Ss   13:18   0:00 /usr/bin/dbus-daemon --syslog --fork --print-pid 5 --print-address 15 --session
+max       1498  0.0  0.0  49688     4 ?        S    13:18   0:00 /usr/bin/VBoxClient --clipboard
+max       1499  0.0  0.0 183996  1072 ?        Sl   13:18   0:00 /usr/bin/VBoxClient --clipboard
+max       1509  0.0  0.0  49688    20 ?        S    13:18   0:00 /usr/bin/VBoxClient --seamless
+max       1510  0.0  0.0 181924   100 ?        Sl   13:18   0:00 /usr/bin/VBoxClient --seamless
+max       1516  0.0  0.0  49688     8 ?        S    13:18   0:00 /usr/bin/VBoxClient --draganddrop
+max       1517  0.4  0.0 247976    32 ?        Sl   13:18   1:35 /usr/bin/VBoxClient --draganddrop
+max       1524  0.0  0.0  49688     4 ?        S    13:18   0:00 /usr/bin/VBoxClient --vmsvga
+max       1525  0.0  0.0 186236     0 ?        Sl   13:18   0:00 /usr/bin/VBoxClient --vmsvga
+max       1529  0.0  0.0  11312    40 ?        Ss   13:18   0:00 /usr/bin/ssh-agent /usr/bin/im-launch /usr/bin/startkde
+max       1572  0.0  0.0   6468     4 ?        S    13:18   0:00 /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit --kded +kcminit_startup
+max       1573  0.0  0.1 278784  2708 ?        Ss   13:18   0:00 kdeinit5: Running...
+max       1574  0.0  0.3 532784  6392 ?        Sl   13:18   0:00 /usr/lib/x86_64-linux-gnu/libexec/kf5/klauncher --fd=9
+max       1577  0.0  0.8 1496640 16332 ?       Sl   13:18   0:06 kded5 [kdeinit5]
+max       1594  0.0  0.3 788680  7480 ?        Sl   13:18   0:03 /usr/bin/kactivitymanagerd start-daemon
+max       1600  0.0  0.1 536176  2712 ?        Sl   13:18   0:00 /usr/bin/kaccess
+max       1602  0.0  0.0  72544  1132 ?        S    13:18   0:00 kwrapper5 /usr/bin/ksmserver
+max       1603  0.0  0.5 639424 11408 ?        Sl   13:18   0:01 /usr/bin/ksmserver
+max       1609  0.0  0.2 534592  4328 ?        Sl   13:18   0:00 /usr/bin/kglobalaccel5
+max       1616  0.0  0.0 187776   872 ?        Sl   13:18   0:00 /usr/lib/dconf/dconf-service
+max       1626  1.8  2.2 3246956 46336 ?       Sl   13:18   7:00 kwin_x11 -session 101a71a3156e3000162381954200000009930006_1627464789_508542
+root      1627  0.0  0.1 316440  2968 ?        Ssl  13:18   0:00 /usr/lib/upower/upowerd
+max       1636  0.0  0.3 268761112 7608 ?      SNl  13:18   0:00 /usr/bin/baloo_file
+max       1638  0.0  0.3 905452  7088 ?        Sl   13:18   0:02 /usr/bin/krunner
+max       1640  0.6  8.2 4001480 168260 ?      Sl   13:18   2:26 /usr/bin/plasmashell
+max       1645  0.0  0.1 711516  2072 ?        Sl   13:18   0:00 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
+max       1647  0.0  0.0 376956  1376 ?        Sl   13:18   0:00 /usr/bin/xembedsniproxy
+max       1657  0.0  0.0 353920  1128 ?        Sl   13:18   0:00 /usr/lib/x86_64-linux-gnu/libexec/kf5/kscreen_backend_launcher
+max       1662  0.0  0.0 645264  1288 ?        Sl   13:18   0:01 /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
+max       1675  0.0  0.0 813612   164 ?        S<l  13:18   0:01 /usr/bin/pulseaudio --start --log-target=syslog
+rtkit     1676  0.0  0.0 183512   768 ?        SNsl 13:18   0:00 /usr/lib/rtkit/rtkit-daemon
+max       1688  0.0  0.1 349196  2208 ?        Sl   13:18   0:00 /usr/lib/at-spi2-core/at-spi-bus-launcher --launch-immediately
+max       1695  0.0  0.0  49932   536 ?        S    13:18   0:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+max       1697  0.0  0.2 685084  4740 ?        Sl   13:18   0:00 /usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil
+max       1758  0.0  0.0 115860     0 ?        S    13:18   0:00 /usr/lib/x86_64-linux-gnu/pulse/gconf-helper
+max       1760  0.0  0.0  74348   732 ?        S    13:18   0:00 /usr/lib/x86_64-linux-gnu/gconf/gconfd-2
+max       1769  0.0  0.0  82740  1036 ?        S    13:19   0:00 /usr/lib/bluetooth/obexd
+max       1797  0.0  0.3 534068  8088 ?        Sl   13:19   0:00 /usr/bin/kuiserver5
+root      1890  0.0  0.0 167908  1116 ?        Sl   13:22   0:00 /usr/bin/python3 /usr/share/apt-xapian-index/update-apt-xapian-index-dbus
+root      2452  0.0  0.0      0     0 ?        I<   13:22   0:00 [xfsalloc]
+root      2459  0.0  0.0      0     0 ?        I<   13:22   0:00 [xfs_mru_cache]
+root      2464  0.0  0.0      0     0 ?        S    13:22   0:00 [jfsIO]
+root      2466  0.0  0.0      0     0 ?        S    13:22   0:00 [jfsCommit]
+root      2467  0.0  0.0      0     0 ?        S    13:22   0:00 [jfsSync]
+root      2829  0.0  0.1 102352  2388 ?        Ss   13:23   0:00 /usr/sbin/cupsd -l
+root      2830  0.0  0.0 303672   864 ?        Ssl  13:23   0:00 /usr/sbin/cups-browsed
+lp        2850  0.0  0.0  86428   764 ?        S    13:23   0:00 /usr/lib/cups/notifier/dbus dbus://
+root      4306  0.0  0.0      0     0 ?        S<   14:45   0:00 [loop0]
+root      4378  0.7  0.3 659928  6856 ?        Ssl  14:45   2:12 /usr/lib/snapd/snapd
+root      4512  0.0  0.0      0     0 ?        S<   15:03   0:07 [loop1]
+max       4590  0.0  0.0 220712  1016 ?        Sl   15:04   0:00 /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+max       6180  0.0  4.4 867956 89764 ?        Sl   18:31   0:01 /usr/bin/dolphin /home/max
+max       6201  0.0  0.0   4632  1700 ?        S    18:32   0:00 /bin/sh /snap/pycharm-community/248/bin/pycharm.sh
+max       6233 10.2 57.7 4190144 1175144 ?     Sl   18:32   7:03 /snap/pycharm-community/248/jbr/bin/java -classpath /snap/pycharm-community/248/lib/bootstrap.jar:/snap/pycharm-community/248/lib/util.jar:/snap/pycharm-community/248/lib/jna.jar -Xms128m -XX:ReservedCodeCacheSize=512m -Xmx750m -XX:+UseG1GC -XX:SoftRefLRUPolicyMSPerMB=50 -XX:CICompilerCount=2 -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -ea -Dsun.io.useCanonCaches=false -Djdk.http.auth.tunneling.disabledSchemes="" -Djdk.attach.allowAttachSelf=true -Djdk.module.illegalAccess.silent=true -Dkotlinx.coroutines.debug=off -Dsplash=true -Dsun.tools.attach.tmp.only=true -XX:ErrorFile=/home/max/java_error_in_pycharm_%p.log -XX:HeapDumpPath=/home/max/java_error_in_pycharm_.hprof -Djb.vmOptionsFile=/home/max/.config/JetBrains/PyCharmCE2021.2/pycharm64.vmoptions -Djava.system.class.loader=com.intellij.util.lang.PathClassLoader -Didea.vendor.name=JetBrains -Didea.paths.selector=PyCharmCE2021.2 -Didea.platform.prefix=PyCharmCore com.intellij.idea.Main
+max       6298  0.0  0.0   4900  1776 ?        S    18:40   0:00 /snap/pycharm-community/248/bin/fsnotifier
+root      6357  0.0  0.0      0     0 ?        I    18:49   0:00 [kworker/u2:1-ev]
+root      6405  0.0  0.0      0     0 ?        I    19:17   0:00 [kworker/u2:2-ev]
+max       6519  0.0  0.4  31688  9868 ?        S    19:41   0:00 /usr/bin/python3.9 /home/max/Shared/hw_otus/cmd_parser.py
+max       6520  0.0  0.1  38628  3216 ?        R    19:41   0:00 ps aux

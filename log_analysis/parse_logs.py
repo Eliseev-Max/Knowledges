@@ -5,7 +5,6 @@ import re
 import operator
 import json
 from collections import defaultdict, Counter
-from collections import defaultdict, OrderedDict
 
 # Скомпилированные регулярные выражения
 OCTET = r"[12]?[0-9]{1,2}"
