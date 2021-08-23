@@ -150,3 +150,6 @@
 	docker-compose rm - удалить конейнеры
 	
 	docker-compose up --abort-on-container-exit && docker-compose rm -fsv
+		Опция --abort-on-container-exit следит за работой контейнеров и завершает работу всех контейнеров, когда
+		работа хотя бы одного из них завершена.
+РАЗЪЯСНЕНИЯ К ДИРЕКТИВАМ DOCKER-COMPOSE ФАЙЛА
