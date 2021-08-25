@@ -1,37 +1,37 @@
 import subprocess as sp
-import os
 import time
 from collections import defaultdict
 
+
 MAX_CPU = 0.0
 MAX_MEM = 0.0
-total_mem = 0.0
-total_cpu = 0.0
+TOTAL_MEM = 0.0
+TOTAL_CPU = 0.0
 ps_result = []
-mem_list = []
-cpu_list = []
 user_proc = defaultdict(int)
+filename = f"{time.strftime('%Y-%m-%d-%H:%M')}-scan.txt"
 
-def report_writer(report):
-    pass
 
 def handle_ps_aux():
+    """
+    Функция преобразует вывод команды ps aux, полученый в результате работы функции run
+    модуля subprocess в список.
+    Каждый элемент полученного списка является списком подстрок - значений колонок:
+    USER | PID | %CPU | %MEM | VSZ | RSS | TTY | STAT | START | TIME | COMMAND
+    для каждой последующей строки вывода команды ps aux
 
-    NAME = "bufferfile.txt"
+    """
     result = sp.run(["ps", "aux"], stdout=sp.PIPE, stderr=sp.PIPE, encoding='utf-8')
-    with open(NAME, "w", encoding="utf-8") as f:
-        f.write(result.stdout)
-
-    with open(NAME) as line:
-        for i in line:
+    for i in result.stdout.split('\n'):
+        if i.split(None, 10) != []:
             ps_result.append(i.split(None, 10))
-    os.remove(os.path.normpath(os.getcwd() + '/' + NAME))
     return ps_result[1:]
+
 
 for elem in handle_ps_aux():
     user_proc[elem[0]] +=1
-    total_mem += float(elem[4])
-    cpu_list.append(float(elem[2]))
+    TOTAL_MEM += float(elem[4])
+    TOTAL_CPU += float(elem[2])
     if MAX_CPU < float(elem[2]):
         MAX_CPU = float(elem[2])
         process_using_max_cpu = elem
@@ -40,15 +40,17 @@ for elem in handle_ps_aux():
         MAX_MEM = float(elem[3])
         process_using_max_mem = elem
 
-system_users = ', '.join((user_proc.keys()))
-
-report = (
+system_users = '\n\t'.join((user_proc.keys()))
+report_general = (
     "Отчёт о состоянии системы:\n"
-    f"Пользователи системы: {system_users}\n"
+    f"Пользователи системы:\n\t{system_users}\n"
     f"Всего процессов запущено: {len(handle_ps_aux())}\n"
-    f"Всего памяти используется: {int(total_mem/1000)} Мб\n"
-    f"Всего CPU используется: {round(sum(cpu_list),2)} %\n"
-    f"Больше всего памяти использует:\n\tUSER: {process_using_max_mem[0]}\n"
+    f"Всего памяти используется: {int(TOTAL_MEM / 1000)} Мб\n"
+    f"Всего CPU используется: {round(TOTAL_CPU,2)} %\n"
+    "Пользовательских процессов:\n"
+)
+report_individual = (
+    f"\nБольше всего памяти использует:\n\tUSER: {process_using_max_mem[0]}\n"
     f"\tPID: {process_using_max_mem[1]}\n"
     f"\t%MEM({MAX_MEM} %)\n"
     f"Больше всего CPU использует:\n\tUSER: {process_using_max_cpu[0]}\n"
@@ -56,12 +58,12 @@ report = (
     f"\t%CPU({MAX_CPU} %)"
 )
 
-print(report)
-print("Пользовытельские процессы:")
 for key in user_proc:
-    print(f"\tПользователь {key}:\tзапущено процессов: {user_proc[key]} ")
+    report_general += f"\tПользователь {key}:\t\tзапущено процессов: {user_proc[key]}\n "
 
-# print(f"Total memory used (Mb): {int(total_mem/1000)}\n"\
-#       f"Total CPU (%) used: {round(sum(cpu_list),2)}\n"\
-#       f"Uses the most memory (%): {MAX_MEM}\n"\
-#       f"Uses the most CPU (%): {MAX_CPU}\n")
+report = report_general + report_individual
+
+with open(filename, 'w+', encoding='utf-8') as f:
+    f.write(report)
+
+print(report)
