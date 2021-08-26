@@ -23,7 +23,26 @@ Selenium server (Grid) - это сложно в настройке, работе
 	(Но сейчас Edge перешёл на Chromium, стало проще)
 	Selenoid сильно облегчает жизнь.
 	
-[00:19:23]
+[00:19:23]	Практика
+	1. Для работы Selenoid необходим docker
+	IP-адреса пишем целиком, никаких localhost
+	
+	Документация на Selenoid: https://aerokube.com/selenoid/latest/
+	
+	2. Скачать Configuration Manager (хранится на github)
+		- выбираем ОС
+		- сохраняем ссылку
+		- в консоли вводим команду: wget https://github.com/aerokube/...
+		Configuration Manager - это утилита, управляющая docker-контейнерами
+	3. После скачивания можно добавить пермиссию +x: chmod u+x cm_linux_amd64
+		cm = Configuration Manager, в мануале cm - алиас на файл
+	4. Чтобы переименовать cm_linux_amd64 в cm, выполнить команду:
+		mv cm_linux_amd64 cm
+	    Выполняем команду запуска ./cm selenoid start --vnc
+	    Процесс загрузки:
+			• Selenoid скачивает сам себя
+			• Происходит скачивание 6 образов браузеров (Chrome x2, Opera x2, Firefox x2)
+			• Запуск
 
 [00::]
 
