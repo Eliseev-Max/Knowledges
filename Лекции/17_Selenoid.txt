@@ -9,7 +9,8 @@ Selenium server (Grid) - это сложно в настройке, работе
 		→ [Selenoid] ↔ [docker] ↔ [Container]
 	Selenoid - это docker-контейнер, который управляет другими docker-контейнерами
 	
-
+	[РАБОТАЕМ С DOCKER = ИСПОЛЬЗУЕМ IP-АДРЕСА И НИКАКИХ localhost]
+	
 [00:10:06]	Преимущества и особенности Selenoid
 
 	1. Берёт на себя проблему распределения нагрузки и контроля состояния браузеров
@@ -34,18 +35,117 @@ Selenium server (Grid) - это сложно в настройке, работе
 		- сохраняем ссылку
 		- в консоли вводим команду: wget https://github.com/aerokube/...
 		Configuration Manager - это утилита, управляющая docker-контейнерами
+			и взаимодействующая с docker на уровне команд (уровень API)
 	3. После скачивания можно добавить пермиссию +x: chmod u+x cm_linux_amd64
 		cm = Configuration Manager, в мануале cm - алиас на файл
 	4. Чтобы переименовать cm_linux_amd64 в cm, выполнить команду:
 		mv cm_linux_amd64 cm
 	    Выполняем команду запуска ./cm selenoid start --vnc
 	    Процесс загрузки:
-			• Selenoid скачивает сам себя
-			• Происходит скачивание 6 образов браузеров (Chrome x2, Opera x2, Firefox x2)
+			• Selenoid скачивает сам себя (он содержится в docker-контейнере)
+			• Происходит скачивание 6 образов браузеров: по 2 последние версии
+				(
+				 • Chrome x2,
+				 • Opera x2,
+				 • Firefox x2
+			)
 			• Запуск
 
-[00::]
+[00:27:41]	Анализ кода
+	
+	def pytest_addoption(parser):
+		parser.addoption("--browser", action="store", default="chrome")
+		parser.addoption("--executor", action="store", default="192.168.1.84")
+		parser.addoption("--bversion", action="store", default="88.0")
+		parser.addoption("--vnc", action="store_true", default="False")
+		parser.addoption("--logs", action="store_true", default="False")
+		parser.addoption("--videos", action="store_true", default="False")
+		parser.addoption("--mobile", action="store_true")
+		
+	@pytest.fixture
+	def browser(request):
+		browser = request.config.getoption("--browser")			# Имя браузера, который мы хотим запустить
+		executor = request.config.getoption("--executor")		# где находится Selenium Server
+		version = request.config.getoption("--bversion")
+		vnc = request.config.getoption("--vnc")					# 
+		logs = request.config.getoption("--logs")
+		videos = request.config.getoption("--videos")			
+		mobile = request.config.getoption("--mobile")
+		
+		executor_url = f"http://{executor}:4444/wd/hub"
+		
+		caps = {
+			"browserName": browser,
+			"browserVersion": version,
+			"screenResolution": "1280x720",		# разрешение экрана
+			"name":"Max E.",					# именовать прогоны тестов
+			"selenoid:options": {
+				"enableVNC": vnc,				# визуализация (прорисовка) выполнения тестов
+				"enableVideo": videos,			# запись видео выполнения теста
+				"enableLog":logs				# запись логов работы КОНТЕЙНЕРОВ 
+			},
+			...
+			'goog:chromeOptions': {}
+		}
+		
+		if browser == "chrome" and mobile:		# Эмуляция работы браузера на мобильном устройстве
+			caps["goog:chromeOptions"]["mobileEmulation"] = {"deviceName": "iPhone 5/SE"}
+			
+		driver = webdriver.Remote(
+			command_executor=executor_url,
+			desired_capabilities=caps
+		)
+		
+		if not mobile:
+			driver.maximize_window()
+		
+		def fin():
+			driver.quit()
+			
+		request.addfinalizer(fin)
+		return driver
+		
+[00:30:00]	Команды Selenoid
+	
+	./cm selenoid -h 	#(--help)	Справочная информация
+	./cm selenoid status	суммарная информация о версии, настройках и компонентах
+	./cm selenoid start		запуск selenoid
+	./cm selenoid stop		остановить selenoid
+		
+	В адресной строке браузера: <IP-адрес>:4444		- главная страница с версией selenoid
+	<IP-адрес>:4444/status		- имформация о браузерах и тестах	(здесь будет отображена информация о прохождении тестов)
+	<IP-адрес>:4444/ping
 
-[00::]
+	! Если явно не указать версию для Selenoid, он будет выполнять всё в дефолтной версии
+	
+[00:37:40]	Директория .aerokube/
 
-[00::]
+	.aerokube/
+			/selenoid/
+				/logs
+				/video
+	Конфигурационный файл browsers.json (.aerokube/selenoid/browsers.json)
+
+[00:39:57]	Добавляем selenoid-ui {HOST}:8080
+	Выполняем команду
+	$ ./cm selenoid-ui start		# Скачать дополнительный контейнер
+	По умолчанию Selenoid-UI доступен на порту: 8080
+	
+	Capabilities: кнопка Create Session	- Позволяет тщательней изучить падение теста (изучение бага)
+	Нажимаем → начинается запись сессии: мы вручную выполняем действия
+	
+	Лучше не включать запись видео прогонов тестов: 
+		• быстро забивается пространство хранилища,
+		• загружает систему (тяжеловесный инструмнет)
+
+[01:07:40]	Как добавить ещё браузеров в Selenoid
+	# docker images - показать образы (Репозиторий, Тэг, ID образа, когда создан, Размер)
+	Добавление браузеров осуществляется путём правки конфигурационного файла
+	
+	1. Скачиваем образ браузера (docker pull {BROWSER CONTAINER})
+		docker pull browsers/edge:88.0		# названия образов в официальной инструкции на сайте aerokube.com/images/latest/
+	2. Вносим изменения в browsers.json (добавляем описание нового браузера)
+
+[01:26:51]	Как запустить эмуляцию (в Chrome)
+		Опция mobile
+		
