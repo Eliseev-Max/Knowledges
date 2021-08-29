@@ -1,0 +1,4 @@
+https://habr.com/ru/post/320164/	- Осторожно: HSTS
+https://tproger.ru/translations/python-sorting/	- Всё о сортировке в Python: исчерпывающий гайд
+https://habr.com/ru/company/auriga/blog/544412/ 	- Robot Framework для автоматизации тестирования: ограничения и плюшки
+https://habr.com/ru/post/141411/	- Понимаем декораторы в Python'e, шаг за шагом. Шаг 1
