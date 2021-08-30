@@ -1,0 +1,79 @@
+https://forms.gle/NEjXDpJovpFif5348
+
+[00:15:43]	Что такое socket
+	
+	BSD Socket API
+		• интерфейс программирования приложений (API);
+		• библиотека для разработки приложений (языки C, Python и другие)
+		• применяется для межпроцессорного взаимодействия (IPC: Inter Process Communications)
+		• стандарт абстракции для сетевых сокетов, применяемый в компьютерных сетях
+	
+	Процессы могут выполняться на одной машине или на разных.
+	Допускаются разные ОС, разные ЯП.
+	
+	Параметр					UDP		TCP
+	установка соединения		нет		да
+	надёжная передача			нет		да
+	упорядоченная доставка		нет		да
+	неупорядоченная доставка	да		нет
+	
+	Как найти процесс, который выполняет роль сервера
+	• IP_ADDRESS:PORT и состояние LISTEN
+	• $ ss -nltp или netstat -nltp	# TCP
+	• $ ss -nlup		# UDP
+	# команда ss = socket status
+	/etc/services	-	в этом файле содержится соответствие tcp/udp портов службам
+	
+[00:27:03]	Практика. Библиотека socket
+	
+	"Обёртка" над стандартной библиотекой UNIX для работы с сетью
+	
+	import socket
+	
+	# DNS resolver:
+	socket.gethostbyname('URL')		# возвращает IP-адрес сервера по его URL
+	socket.gethostbyname('ya.ru')	→ '87.250.250.242'
+
+[00:36:00]	Шаг 1: создаём сокет
+(socket_create.py)
+	socket.socket(family=AF_INET,
+				  type=SOCK_STREAM,
+				  proto=0,
+				  fileno=None)
+	Address Family:
+		AF_INET		- для сетевого протокола IPv4
+		AF_INET6	- для сетевого протокола IPv6
+		
+	Значения параметра type:	# socket type
+		• SOCK_STREAM - надёжная потокоориентированная служба TCP 
+		• SOCK_DGRAM - служба дэйтаграмм или датаграммный сокет UDP
+
+[00:40:39]	Шаг 2: связываем сокет с конкретным адресом и портом
+(socket_bind.py)
+	socket.bind(address)
+	Пример:
+	default_socket = socket.socket()
+	address_and_port = (LOCALHOST, 4444)
+	# можем биндить на порты выше 1023
+	default_socket(address_and_port)
+	print("Socket 1 binded on ", address_and_port)
+	
+	default_socket.close()
+	
+	Порты до 1024 - привелегированные порты (необходимы расширенные полномочия для биндинга на такие порты)
+
+[00:48:57]	Шаг 3: начинаем "слушать" на указанном ранее созданом сокете
+(socket_listen.py)
+socket.listen([BACKLOG])		# BACKLOG - количество подключений в очереди
+
+[00:51:38]	Шаг 4: даём сокету команду начать принимать подключения от клиентов
+(socket_accept.py)
+	socket.accept()		
+	# возвращает новый объект socket, который можно использовать для чтения/записи данных
+	► сервер готов принимать соединения от клиента
+
+___________[01:00:00]_______________
+
+https://pythonist.ru/rabota-s-setevymi-soketami-na-python/
+https://habr.com/ru/post/149077/
+https://docs-python.ru/standart-library/modul-socket-setevoj-interfejs-python/
