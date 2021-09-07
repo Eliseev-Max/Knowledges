@@ -225,6 +225,22 @@
 		* иметь произвольную глубину вложенности
 		
 [01:02:30]	Примеры (← разобрать)
+	@allure.step может быть импортирован из модуля или сразу содержаться в тестовом файле;
+	
+	@allure.step("Root step")					# Будет отображаться, как Root step
+	def step_with_nested_steps():				# Вызов функции nested_step()
+		nested_step()
+	
+	
+	@allure.step
+	def nested_step():							# Вызов функции nested_step_with_arguments() и передача в неё аргументов
+		nested_step_with_arguments(1, 'abc')
+	
+	
+	@allure.step("Nested step with args: {0}, {1}")
+	def nested_step_with_arguments(arg1, arg2):
+		pass
+	
 	Можно использовать контекстный менеджер:
 		with allure.step(f"Context manager step with arg: {var}"):
 			print(var)
