@@ -26,6 +26,9 @@
 	• минимум времени на разбор отчёта
 	• интеграция с тестовыми фреймворками (pytest, TestNG и т.д.)
 	• Поддержка CI (Jenkins, TeamCity)
+		CI (Continuous Integration) — в дословном переводе «непрерывная интеграция».
+		Имеется в виду интеграция отдельных кусочков кода приложения между собой.
+		* это сборка, деплой и тестирование приложения без участия человека *
 	
 [00:10:40]	Установка Allure
 
@@ -33,7 +36,7 @@
 		• адаптер
 		• генератор отчётов
 	
-	Адаптер - ПО, которое собирает данные о результатах выполнения тестовыми
+	Адаптер - ПО, которое собирает данные о результатах выполнения тестов
 	pytest plugin
 	$ pip install allure-pytest
 	[дополнительно устанавливается пакет allure-python-commons]
@@ -42,12 +45,12 @@
 	
 	Устанавливается
 		из пакета:
-	$ sudo apt-add-repository ppa:qameta/allure
-	$ sudo apt-get update
-	$ sudo apt-get install allure
+			$ sudo apt-add-repository ppa:qameta/allure
+			$ sudo apt-get update
+			$ sudo apt-get install allure
 		из архива:
-	https://github.com/allure-framework/allure2/releases
-	ver. 2.14.0 - latest
+			https://github.com/allure-framework/allure2/releases
+			ver. 2.14.0 - latest
 	
 	В файле pytest.ini передаётся дополнительный параметр:
 		addopts = --alluredir allure-results
@@ -57,6 +60,9 @@
 			pytest test_01_example.py --alluredir allure-results
 			# создастся директория allure-results с JSON-файлами в количестве, равном количеству запущенных тестов.
 		► чтобы Allure запускался при каждом запуске, нужно прописать эту опцию в файл pytest.ini
+		https://habr.com/ru/post/448796/
+		https://pytest.org/en/stable/customize.html
+		https://pyneng.readthedocs.io/ru/latest/book/additional_info/pytest_pyneng.html
 		
 	Почему так происходит?
 		По умолчанию параметр имеет значение None, поэтому необходимо добавлять

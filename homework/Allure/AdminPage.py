@@ -1,35 +1,10 @@
-import logging
 import random
-from selenium.webdriver.common.by import By
+from Locators import Locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class AdminPage:
-
-    AUTORIZED_USER = (By.CSS_SELECTOR, "li.dropdown")
-    CATALOG = (By.LINK_TEXT, "Catalog")
-    PRODUCTS = (By.LINK_TEXT, "Products")
-    # Локаторы кнопок добавления и сохранения нового товара
-    ADD_NEW = (By.CSS_SELECTOR, '.fa.fa-plus')
-    SAVE_BUTTON = (By.CSS_SELECTOR, '[data-original-title="Save"]')
-    DELETE_BUTTON = (By.CSS_SELECTOR,".btn.btn-danger")
-    # Локатор вкладки Data
-    DATA_TAB = (By.LINK_TEXT, "Data")
-    # Локаторы обязательных полей свойств товара
-    PRODUCT_NAME_FIELD = (By.CSS_SELECTOR, '#input-name1')
-    META_TAG_TITLE = (By.CSS_SELECTOR, '#input-meta-title1')
-    MODEL_FIELD = (By.CSS_SELECTOR, '#input-model')
-    # Локаторы необязательных полей (для наглядности)
-    PRICE_FIELD = (By.CSS_SELECTOR, '#input-price')
-    # Сообщение об успешном добавлении товара
-    ALERT_SUCCESS = (By.CSS_SELECTOR, ".alert.alert-success.alert-dismissible")
-    # Чекбоксы
-    CHECKBOX = (By.NAME,"selected[]")
-
-    def __init__(self, browser):
-        self.browser = browser
-        self.logger = logging.getLogger(__name__)
+class AdminPage(Locators):
 
     def go_to_product_list(self):
         self.logger.info("Going to the product list")

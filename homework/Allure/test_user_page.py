@@ -1,5 +1,4 @@
 from UserLoginPage import UserLoginPage
-from tools.handler import element_existence, handle_timeout
 
 
 def test_find_continue_btn_on_login_page(browser, base_url):
@@ -20,6 +19,6 @@ def test_create_new_user(browser, base_url):
     new_user.go_to_account_reg_page(base_url)
     new_user.enter_first_and_last_name()
     new_user.enter_all_fields()
-    new_user.agree_with_privacy_policy()
-    new_user.submit_form()
+    new_user.wait_and_click(new_user.PRIVACY_POLICY_CHECKBOX)
+    new_user.wait_and_click(new_user.SUBMIT_CONTINUE_BUTTON)
     assert new_user.view_success_notification() == "Your Account Has Been Created!"

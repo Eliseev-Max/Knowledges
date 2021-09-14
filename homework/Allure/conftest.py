@@ -27,6 +27,8 @@ def browser(request):
     logger = logging.getLogger('BrowserLogger')
     test_name = request.node.name
 
+    logger.info("\tTest \"{}\" is running".format(test_name))
+
     if browser == "chrome":
         options = webdriver.ChromeOptions()
         options.headless = headless
@@ -52,8 +54,8 @@ def browser(request):
 
 
     def final():
+        logger.info("\tTest \"{}\" completed\n".format(test_name))
         driver.quit()
-        logger.info("-→ Test {} finished".format(test_name))
 
     request.addfinalizer(final)
 

@@ -21,19 +21,19 @@ class LoginOnAdminPage:
         self.browser.get(url + self.LOCATION)
 
     def enter_username(self, username):
-        self.logger.info("Enter \'{}\' in the field \'Username\'".format(username))
+        self.logger.info("Enter \'{}\' in the \'Username\' field".format(username))
         username_field = self.browser.find_element(*self.INPUT_USERNAME)
         username_field.clear()
         username_field.send_keys(username)
 
     def enter_password(self, password):
-        self.logger.info("Enter \'{}\' in the field \'Password\'".format(password))
+        self.logger.info("Enter \'{}\' in the \'Password\' field".format(password))
         pwd_field = self.browser.find_element(*self.INPUT_PASSWORD)
         pwd_field.clear()
         pwd_field.send_keys(password)
 
     def submit(self):
-        self.logger.info("Clicking on the Submit button")
+        self.logger.info("Clicking on the SUBMIT button")
         self.browser.find_element(*self.LOGIN_BUTTON).click()
 
     def submit_with_ENTER(self):
