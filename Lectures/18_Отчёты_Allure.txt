@@ -60,7 +60,32 @@
 			pytest test_01_example.py --alluredir allure-results
 			# создастся директория allure-results с JSON-файлами в количестве, равном количеству запущенных тестов.
 		► чтобы Allure запускался при каждом запуске, нужно прописать эту опцию в файл pytest.ini
-		https://habr.com/ru/post/448796/
+
+[	https://habr.com/ru/post/448796/
+	Про pytest.ini
+	pytest.ini: Это основной файл конфигурации Pytest, который позволяет вам изменить поведение по умолчанию.
+	Параметр addopts добавляет параметры командной строки при запуске фреймворка pytest.
+	Пример:
+	[pytest]
+	addopts = -rsxX -l --tb=short --strict
+		Значения ключей:
+		-rsxX		- сообщать о причинах всех skipped, xfailed или xpassed тестов;
+		-l			- позволит вывести трассировку стека для локальных переменных в случае каждого сбоя;
+		--tb=short	- удалит большую часть трассировки стека, оставив файл и номер строки;
+		--strict	- запрещает использование маркеров, если они не зарегистрированы в файле конфигурации
+	
+	Регистрация маркеров в pytest.ini позволяет избежать опечаток и неточностей в именах маркеров:
+	[pytest]
+	...
+	markers = 
+	  smoke: Run the smoke test test functions
+	  get: Run the test functions that test tasks.get()
+	...
+	
+	pytest --markers	- увидеть зарегистрированные в pytest.ini маркеры
+]
+
+		
 		https://pytest.org/en/stable/customize.html
 		https://pyneng.readthedocs.io/ru/latest/book/additional_info/pytest_pyneng.html
 		
@@ -207,11 +232,11 @@
 	
 [00:52:50]	Titles, descriptions, "очеловечивание" отчёта
 	
-	__.@allure.title(str).__
+	@allure.title(str)
 	Имя теста можно поменять с помощью декоратора @allure.title("Understandable name of test")
 	@allure.title поддерживает вставку аргументов теста и динамическую замену
 	
-	__.@allure.description.__
+	@allure.description
 	С помощью декоратора @allure.description() в тесте можно добавить описание с необходимым уровнем детализации
 	@allure.description_html позволяет передать HTML-документ, который будет отображён в секции Description
 	
