@@ -1,8 +1,15 @@
 import random
+import allure
 from Catalog import Catalog
 
 
-# Поиск элементов на странице каталога Laptops&Notebooks
+@allure.title("Поиск веб-элементов на странице каталога Laptops&Notebooks")
+@allure.description("Ищем на странице каталога /laptop-notebook/"
+                    "следующие веб-элементы:"
+                    "\n{}\n{}\n{}\n{}".format(Catalog.LAPTOPS_NOTEBOOKS,
+                                              Catalog.LINK_WINDOWS,
+                                              Catalog.CART_TOTAL,
+                                              Catalog.PRODUCT_COMPARE_LINK))
 def test_find_elements_in_catalog(browser, base_url):
     cat = Catalog(browser)
     cat.go_to_catalog(base_url)
@@ -12,6 +19,7 @@ def test_find_elements_in_catalog(browser, base_url):
     cat.find_web_element(cat.PRODUCT_COMPARE_LINK)
 
 
+@allure.title("Добавление товара в корзину")
 def test_add_to_cart(browser, base_url):
     """ Проверяем добавление товара в корзину """
     cat = Catalog(browser)
@@ -21,6 +29,7 @@ def test_add_to_cart(browser, base_url):
     cat.wait_web_element(cat.ALERT_SUCCESS, timeout=3)
 
 
+@allure.title("Добавление товара к сравнению")
 def test_add_to_comparation(browser, base_url):
     """ Проверяем добавление товара к сравнению """
     cat = Catalog(browser)

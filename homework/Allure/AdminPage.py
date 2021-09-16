@@ -37,14 +37,14 @@ class AdminPage(Locators):
         self.logger.info("Going to the data table")
         self.browser.find_element(*self.DATA_TAB).click()
 
-    # Перед вызовом метода перейти на вкладку  Data
+    # Перед вызовом метода перейти на вкладку Data
     def fill_model_field(self, text):
-        self.logger.info("Filling the model field")
+        self.logger.info("Filling the Model field")
         model = WebDriverWait(self.browser, 2).until(EC.visibility_of_element_located(self.MODEL_FIELD))
         self.fill_the_field(model, text)
 
     def fill_price_field(self, price):
-        self.logger.info("Filling the model field")
+        self.logger.info("Filling the Price field")
         price_field = self.browser.find_element(*self.PRICE_FIELD)
         self.fill_the_field(price_field, price)
 

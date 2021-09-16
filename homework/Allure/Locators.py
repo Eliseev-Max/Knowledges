@@ -23,7 +23,7 @@ class Locators:
     CURRENCY_SIGN = (By.CSS_SELECTOR, ".btn.btn-link.dropdown-toggle strong")
     FEATURED = (By.CSS_SELECTOR, "#content h3")
     PRODUCT_PRICE = (By.CSS_SELECTOR, "p.price")
-    PRODUCT_THUMB = (By.CSS_SELECTOR, ".product-thumb")
+    PRODUCT_THUMBS = (By.CSS_SELECTOR, ".product-thumb")
     CART_BUTTON = (By.CSS_SELECTOR, "#cart button")
     SHOPPING_CART_ALERT = (By.CSS_SELECTOR, "p.text-center")
     ADD_TO_WISH_LIST = (By.CSS_SELECTOR, ".button-group i.fa")
