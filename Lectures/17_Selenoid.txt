@@ -67,7 +67,7 @@ Selenium server (Grid) - это сложно в настройке, работе
 		browser = request.config.getoption("--browser")			# Имя браузера, который мы хотим запустить
 		executor = request.config.getoption("--executor")		# где находится Selenium Server
 		version = request.config.getoption("--bversion")
-		vnc = request.config.getoption("--vnc")					# 
+		vnc = request.config.getoption("--vnc")
 		logs = request.config.getoption("--logs")
 		videos = request.config.getoption("--videos")			
 		mobile = request.config.getoption("--mobile")
@@ -112,7 +112,8 @@ Selenium server (Grid) - это сложно в настройке, работе
 	./cm selenoid start		запуск selenoid
 	./cm selenoid stop		остановить selenoid
 		
-	В адресной строке браузера: <IP-адрес>:4444		- главная страница с версией selenoid
+	В адресной строке браузера:
+	<IP-адрес>:4444				- главная страница с версией selenoid
 	<IP-адрес>:4444/status		- имформация о браузерах и тестах	(здесь будет отображена информация о прохождении тестов)
 	<IP-адрес>:4444/ping
 
