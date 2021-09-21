@@ -1,0 +1,60 @@
+Проблема:
+	- после установки генератора отчётов allure команда allure (с параметрами --help, --version)
+	не распознаётся.
+
+процесс установки:
+	$ sudo apt-add-repository ppa:qameta/allure		# добавляем репозиторий
+	$ sudo apt-get update
+	$ sudo apt-get install allure
+	
+Ход решения проблемы:
+	1. $ dpkg -L allure					- показать  расположение установленных пакетом allure файлов 
+[
+	# dpkg -l | grep some_package	- выбрать some_package из списка всех пакетов
+	# dpkg -l allure					- узнать, установлен ли пакет allure
+]
+
+	2. скачать архив с GitHub и поместить исполняемый файл в /usr/bin/
+	3. скачать и установить deb-пакет с allure
+		dpkg -i /home/max/path/allure.deb
+	3.1 Перед установкой allure установить:
+		$ apt-get install openjdk-8-jre
+		$ apt-get --fix-broken install
+	
+	!!! Лучше не менять права на системные директории
+	
+	Отладка:
+	strace -e trace=openat,read,write sudo allure generate -c
+	###
+	stat /usr/bin/sudo
+	###
+	sudo -l -U $(whoami)
+
+! Замечание:
+	исполняемые файлы, которые лежат в /usr/bin/ не должны требовать sudo
+	например, там лежит whoami которому точно sudo не нужен
+
+! Обратить внимание:
+	после установки исполняемый файл кладется в 
+		/usr/share/allure/bin/allure 
+	и на него ставится symlink:
+		/usr/bin/allure -> /usr/share/allure/bin/allure
+	
+	у файла /usr/share/allure/bin/allure видим permissons Access: (0550/-r-xr-x---)
+	то есть файл не может быть прочитан никем кроме root
+	если сделать chmod - все начинает работать без sudo:
+	
+		$ sudo chmod o+rx /usr/share/allure/bin/allure
+		
+Возможная причина неправильной работы:
+	я думаю это связано с тем, что команда sudo apt-get install allure ставит не фреймворк allure из ppa:qameta/allure, а пакет с игрой allure https://packages.ubuntu.com/source/bionic/allure
+
+Добавление информации в Environment
+
+1. можно сделать фикстуру browser зависимой от фикстуры get_environment с помощью передачи имени get_environment как аргумента для browser
+	
+	# сначала сгенерится информация об окружении, затем запустится браузер
+	def browser(request, get_environment):
+	
+2. добавить код get_environment в final():		# функция, вызываемая request.addfinalizer()
+	# информация об окружении сгенерится после всех тестов
