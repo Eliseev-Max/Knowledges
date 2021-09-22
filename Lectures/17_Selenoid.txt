@@ -34,6 +34,7 @@ Selenium server (Grid) - это сложно в настройке, работе
 		- выбираем ОС
 		- сохраняем ссылку
 		- в консоли вводим команду: wget https://github.com/aerokube/cm/releases/download/1.8.1/cm_linux_amd64
+		Ссылку копируем с официального сайта (copy link)
 		Configuration Manager - это утилита, управляющая docker-контейнерами
 			и взаимодействующая с docker на уровне команд (уровень API)
 	3. После скачивания можно добавить пермиссию +x:
@@ -43,7 +44,7 @@ Selenium server (Grid) - это сложно в настройке, работе
 		mv cm_linux_amd64 cm
 	    Выполняем команду запуска ./cm selenoid start --vnc
 	    Процесс загрузки:
-			• Selenoid скачивает сам себя (он содержится в docker-контейнере)
+			• Selenoid скачивает сам себя при первом запуске (он содержится в docker-контейнере)
 			• Происходит скачивание 6 образов браузеров: по 2 последние версии
 				(
 				 • Chrome x2,
@@ -85,7 +86,9 @@ Selenium server (Grid) - это сложно в настройке, работе
 				"enableVideo": videos,			# запись видео выполнения теста
 				"enableLog":logs				# запись логов работы КОНТЕЙНЕРОВ 
 			},
-			...
+			'acceptSslCerts':True,
+			'acceptInsecureCerts':True,
+			'timeZone': 'Europe/Moscow',
 			'goog:chromeOptions': {}
 		}
 		
@@ -112,6 +115,10 @@ Selenium server (Grid) - это сложно в настройке, работе
 	./cm selenoid status	суммарная информация о версии, настройках и компонентах
 	./cm selenoid start		запуск selenoid
 	./cm selenoid stop		остановить selenoid
+	./cm selenoid update	скачать последний релиз Selenoid, 
+							скачать образы браузеров,
+							сгенерировать новый browsers.json,
+							перезапустить Selenoid
 		
 	В адресной строке браузера:
 	<IP-адрес>:4444				- главная страница с версией selenoid

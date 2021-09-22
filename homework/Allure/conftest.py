@@ -16,10 +16,11 @@ def pytest_addoption(parser):
     parser.addoption("--headless", action="store_true", help="Run headless")
     parser.addoption("--browser", action="store", choices=["chrome", "firefox", "opera"], default="chrome")
     parser.addoption("--executor", action="store", default="10.0.2.15")
-    # parser.addoption("--url", action="store", default="http://172.19.16.229/")
     parser.addoption("--url", action="store", default="http://10.0.2.15/")
+    # parser.addoption("--url", action="store", default="http://172.19.16.229/")
     # parser.addoption("--url", action="store", default="http://192.168.1.48/")
-    parser.addoption("--bversion", action="store", default="88.0")
+    parser.addoption("--selenoid", action="store_true", default="False")
+    parser.addoption("--bversion", action="store", default="92.0")
     parser.addoption("--vnc", action="store_true", default="False")
     parser.addoption("--logs", action="store_true", default="False")
     parser.addoption("--videos", action="store_true", default="False")
@@ -30,6 +31,7 @@ def pytest_addoption(parser):
 def browser(request):
     browser = request.config.getoption("--browser")
     executor = request.config.getoption("--executor")  # где находится Selenium Server
+    selenoid = request.config.getoption("--selenoid")
     headless = request.config.getoption("--headless")
     maximized = request.config.getoption("--maximized")
     version = request.config.getoption("--bversion")
@@ -49,41 +51,48 @@ def browser(request):
         "screenResolution": "1280x720",  # разрешение экрана
         "name": "Max E.",  # именовать прогоны тестов
         "selenoid:options": {
-            "enableVNC": vnc,  # визуализация (прорисовка) выполнения тестов
+            "enableVNC": vnc,       # визуализация (прорисовка) выполнения тестов
             "enableVideo": videos,  # запись видео выполнения теста
-            "enableLog": logs  # запись логов работы КОНТЕЙНЕРОВ
+            "enableLog": logs       # запись логов работы КОНТЕЙНЕРОВ
         },
+        'acceptSslCerts': True,
+        'acceptInsecureCerts': True,
+        'timeZone': 'Europe/Moscow',
         'goog:chromeOptions': {}
     }
 
-    if browser == "chrome" and mobile:  # Эмуляция работы браузера на мобильном устройстве
-        caps["goog:chromeOptions"]["mobileEmulation"] = {"deviceName": "iPhone 5/SE"}
+    # if browser == "chrome" and mobile:  # Эмуляция работы браузера на мобильном устройстве
+    #     caps["goog:chromeOptions"]["mobileEmulation"] = {"deviceName": "iPhone 5/SE"}
+    #
+    # driver = webdriver.Remote(
+    #     command_executor=executor_url,
+    #     desired_capabilities=caps
+    # )
+    #
+    # if not mobile:
+    #     driver.maximize_window()
 
-    driver = webdriver.Remote(
-        command_executor=executor_url,
-        desired_capabilities=caps
-    )
+    if selenoid:
+        driver = webdriver.Remote(command_executor=executor_url,
+                                  desired_capabilities=caps)
 
-    if not mobile:
-        driver.maximize_window()
-
-    # if browser == "chrome":
-    #     options = webdriver.ChromeOptions()
-    #     options.headless = headless
-    #     driver = webdriver.Chrome(
-    #         executable_path=f"{DRIVERS}/chromedriver",
-    #         options=options
-    #     )
-    # elif browser == "firefox":
-    #     options = webdriver.FirefoxOptions()
-    #     options.headless = headless
-    #     driver = webdriver.Firefox(executable_path=f"{DRIVERS}/geckodriver",
-    #                                options=options
-    #                                )
-    # elif browser == "opera":
-    #     driver = webdriver.Opera(executable_path=f"{DRIVERS}/operadriver")
-    # else:
-    #     raise ValueError(f"Driver not supported: {browser}")
+    if browser == "chrome":
+        options = webdriver.ChromeOptions()
+        options.headless = headless
+        driver = webdriver.Chrome(
+            executable_path=f"{DRIVERS}/chromedriver",
+            options=options
+        )
+    elif browser == "firefox":
+        options = webdriver.FirefoxOptions()
+        options.headless = headless
+        driver = webdriver.Firefox(executable_path=f"{DRIVERS}/geckodriver",
+                                   options=options
+                                   )
+    elif browser == "opera":
+        driver = webdriver.Opera(executable_path=f"{DRIVERS}/operadriver")
+    else:
+        raise ValueError(f"Driver not supported: {browser}")
 
     if maximized:
         driver.maximize_window()

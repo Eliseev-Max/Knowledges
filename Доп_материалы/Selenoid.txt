@@ -1,0 +1,40 @@
+Selenoid - это мощная реализация исходного кода Senenium hub на языке Golang
+
+Ссылка на github с исходным кодом:
+https://github.com/aerokube/selenoid
+
+Для работы Selenoid необходима установленная свежая версия Docker
+
+Ссылка на репозиторий с версиями Configuration Manager для разных платформ:
+https://github.com/aerokube/cm/releases/tag/1.8.1
+
+1. Прежде чем запускать бинарник Configuration Manager (cm), необходимо установить для него разрешение на запуск:
+
+	$ chmod +x cm
+	
+2. Для запуска Selenoid, необходимо выполнить команду:
+
+	$ ./cm selenoid start --vnc
+	
+	Запуск команды с sudo может привести к некорректной инсталляции.
+	Рекомендуемый способ запуска Selenoid - из-под обычного пользователя.
+	Для Linux: чтобы иметь разрешение на доступ к Docker, необходимо добавить своего пользователя в группу Docker:
+	
+	$ sudo usermod -aG docker $USER
+	
+3. Опционально: запустить ещё одну команду для запуска Selenoid UI:
+
+	$ ./cm selenoid-ui start
+	
+Запуск тестов
+Конечная точка (Endpoint) тестирования: http://localhost:4444/wd/hub
+	
+Текущий статус Selenoid: http://localhost:4444/status
+
+Страница Selenoid UI: http://localhost:8080/
+
+Изначально в Selenoid установлен браузер Mozilla Firefox (версия 91.0)
+Для установки других браузеров необходимо выполнить:
+	docker pull selenoid/[chrome, opera, android]
+	По умолчанию используется тэг latest = скачивается последняя версия браузера
+	
