@@ -1,0 +1,1 @@
+[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_find_elements_on_main_page" is running

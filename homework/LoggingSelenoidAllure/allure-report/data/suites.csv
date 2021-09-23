@@ -1,0 +1,15 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu Sep 23 17:25:22 YEKT 2021","Thu Sep 23 17:25:27 YEKT 2021","5475","","test_catalog","","","","Поиск веб-элементов на странице каталога Laptops&Notebooks","Ищем на странице каталога /laptop-notebook/следующие веб-элементы:
+('css selector', '#content h2')
+('partial link text', 'Windows')
+('css selector', '#cart-total')
+('css selector', '#compare-total')"
+"passed","Thu Sep 23 16:59:19 YEKT 2021","Thu Sep 23 16:59:22 YEKT 2021","2593","","test_MainPage","","","","Проверка количества превью продуктов на странице","Проверяем, что количество превью продуктов на странице равно 4"
+"passed","Thu Sep 23 17:26:08 YEKT 2021","Thu Sep 23 17:26:13 YEKT 2021","4945","","test_catalog","","","","Добавление товара к сравнению"," Проверяем добавление товара к сравнению "
+"passed","Thu Sep 23 16:59:28 YEKT 2021","Thu Sep 23 16:59:38 YEKT 2021","9690","","test_MainPage","","","","Проверка смены знака валюты у товаров"," Проверяем смену знака валюты у товаров при смене валюты в хедере главной страницы "
+"passed","Thu Sep 23 16:59:43 YEKT 2021","Thu Sep 23 16:59:50 YEKT 2021","7242","","test_MainPage","","","","Проверка смены денежного выражения цены товаров при смене валюты"," Проверяем смену денежного выражения цены избранных товаров при смене валюты "
+"failed","Thu Sep 23 17:25:39 YEKT 2021","Thu Sep 23 17:25:47 YEKT 2021","7324","","test_catalog","","","","Добавление товара в корзину"," Проверяем добавление товара в корзину "
+"passed","Thu Sep 23 16:59:00 YEKT 2021","Thu Sep 23 16:59:08 YEKT 2021","8035","","test_MainPage","","","","Поиск веб-элементов на главной странице","Ищем на странице каталога /laptop-notebook/ следующие веб-элементы:
+('css selector', '#content h3')
+('css selector', '#logo a')
+('css selector', '[name=search]')"

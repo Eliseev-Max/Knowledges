@@ -1,0 +1,112 @@
+{
+  "uid" : "f8a0a9879dd49626",
+  "name" : "Добавление товара к сравнению",
+  "fullName" : "test_catalog#test_add_to_comparation",
+  "historyId" : "12e492a0581aa52098cfc7cd4c10ddfa",
+  "time" : {
+    "start" : 1632399512004,
+    "stop" : 1632399515497,
+    "duration" : 3493
+  },
+  "description" : " Проверяем добавление товара к сравнению ",
+  "descriptionHtml" : "<p>Проверяем добавление товара к сравнению</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "browser",
+    "time" : {
+      "start" : 1632399488155,
+      "stop" : 1632399512003,
+      "duration" : 23848
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "base_url",
+    "time" : {
+      "start" : 1632399512003,
+      "stop" : 1632399512003,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : " Проверяем добавление товара к сравнению ",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "d8985987b40c4d0a",
+      "name" : "log",
+      "source" : "d8985987b40c4d0a.txt",
+      "type" : "text/plain",
+      "size" : 1903
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "browser::final",
+    "time" : {
+      "start" : 1632399515542,
+      "stop" : 1632399515769,
+      "duration" : 227
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "test_catalog"
+  }, {
+    "name" : "host",
+    "value" : "max-VirtualBox"
+  }, {
+    "name" : "thread",
+    "value" : "21573-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test_catalog"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "f8a0a9879dd49626.json",
+  "parameterValues" : [ ]
+}

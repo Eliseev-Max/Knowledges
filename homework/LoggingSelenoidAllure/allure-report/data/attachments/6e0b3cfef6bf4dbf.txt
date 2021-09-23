@@ -1,0 +1,12 @@
+[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_find_elements_in_catalog" is running
+[32mINFO    [0m BrowserLogger:conftest.py:111 Browser firefox started with such capabilities: {'acceptInsecureCerts': False, 'browserName': 'firefox', 'browserVersion': '92.0', 'moz:accessibilityChecks': False, 'moz:buildID': '20210903235534', 'moz:geckodriverVersion': '0.29.1', 'moz:headless': False, 'moz:processID': 79, 'moz:profile': '/tmp/rust_mozprofileGOUoWp', 'moz:shutdownTimeout': 60000, 'moz:useNonSpecCompliantPointerOrigin': False, 'moz:webdriverClick': True, 'pageLoadStrategy': 'normal', 'platformName': 'linux', 'platformVersion': '5.4.0-86-generic', 'proxy': {}, 'setWindowRect': True, 'strictFileInteractability': False, 'timeouts': {'implicit': 0, 'pageLoad': 300000, 'script': 30000}, 'unhandledPromptBehavior': 'dismiss and notify'}
+[32mINFO    [0m Catalog:Catalog.py:7 Opening source: http://10.0.2.15/laptop-notebook/
+[32mINFO    [0m Catalog:Locators.py:98 Searching element: 'css selector = #content h2'
+[32mINFO    [0m Catalog:Locators.py:105 Element 'css selector = #content h2' was found
+[32mINFO    [0m Catalog:Locators.py:98 Searching element: 'partial link text = Windows'
+[32mINFO    [0m Catalog:Locators.py:105 Element 'partial link text = Windows' was found
+[32mINFO    [0m Catalog:Locators.py:98 Searching element: 'css selector = #cart-total'
+[32mINFO    [0m Catalog:Locators.py:105 Element 'css selector = #cart-total' was found
+[32mINFO    [0m Catalog:Locators.py:98 Searching element: 'css selector = #compare-total'
+[32mINFO    [0m Catalog:Locators.py:105 Element 'css selector = #compare-total' was found
+[32mINFO    [0m BrowserLogger:conftest.py:115 	Test "test_find_elements_in_catalog" completed

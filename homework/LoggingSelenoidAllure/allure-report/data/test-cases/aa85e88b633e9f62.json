@@ -1,0 +1,112 @@
+{
+  "uid" : "aa85e88b633e9f62",
+  "name" : "Поиск веб-элементов на странице каталога Laptops&Notebooks",
+  "fullName" : "test_catalog#test_find_elements_in_catalog",
+  "historyId" : "e2819e8bf5b01a6062e43de81d1069e7",
+  "time" : {
+    "start" : 1632399458584,
+    "stop" : 1632399460923,
+    "duration" : 2339
+  },
+  "description" : "Ищем на странице каталога /laptop-notebook/следующие веб-элементы:\n('css selector', '#content h2')\n('partial link text', 'Windows')\n('css selector', '#cart-total')\n('css selector', '#compare-total')",
+  "descriptionHtml" : "<p>Ищем на странице каталога /laptop-notebook/следующие веб-элементы:\n('css selector', '#content h2')\n('partial link text', 'Windows')\n('css selector', '#cart-total')\n('css selector', '#compare-total')</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "browser",
+    "time" : {
+      "start" : 1632399424127,
+      "stop" : 1632399458582,
+      "duration" : 34455
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "base_url",
+    "time" : {
+      "start" : 1632399458583,
+      "stop" : 1632399458583,
+      "duration" : 0
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "Ищем на странице каталога /laptop-notebook/следующие веб-элементы:\n('css selector', '#content h2')\n('partial link text', 'Windows')\n('css selector', '#cart-total')\n('css selector', '#compare-total')",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "f738b14c2df8d40f",
+      "name" : "log",
+      "source" : "f738b14c2df8d40f.txt",
+      "type" : "text/plain",
+      "size" : 2199
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "browser::final",
+    "time" : {
+      "start" : 1632399460925,
+      "stop" : 1632399461216,
+      "duration" : 291
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "test_catalog"
+  }, {
+    "name" : "host",
+    "value" : "max-VirtualBox"
+  }, {
+    "name" : "thread",
+    "value" : "21573-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test_catalog"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "aa85e88b633e9f62.json",
+  "parameterValues" : [ ]
+}

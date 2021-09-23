@@ -1,0 +1,11 @@
+[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_delete_element" is running
+[32mINFO    [0m BrowserLogger:conftest.py:96 Browser firefox started with such capabilities: {'acceptInsecureCerts': True, 'browserName': 'firefox', 'browserVersion': '92.0', 'moz:accessibilityChecks': False, 'moz:buildID': '20210903235534', 'moz:geckodriverVersion': '0.29.1', 'moz:headless': True, 'moz:processID': 30633, 'moz:profile': '/tmp/rust_mozprofileaY0VJQ', 'moz:shutdownTimeout': 60000, 'moz:useNonSpecCompliantPointerOrigin': False, 'moz:webdriverClick': True, 'pageLoadStrategy': 'normal', 'platformName': 'linux', 'platformVersion': '5.4.0-86-generic', 'proxy': {}, 'setWindowRect': True, 'strictFileInteractability': False, 'timeouts': {'implicit': 0, 'pageLoad': 300000, 'script': 30000}, 'unhandledPromptBehavior': 'dismiss and notify'}
+[32mINFO    [0m Admin's_autorization:BaseClass.py:136 Going to the http://10.0.2.15/
+[32mINFO    [0m Admin's_autorization:BaseClass.py:140 Enter 'user' in the 'Username' field
+[32mINFO    [0m Admin's_autorization:BaseClass.py:146 Enter 'bitnami' in the 'Password' field
+[32mINFO    [0m Admin's_autorization:BaseClass.py:156 Pushing the ENTER button on the keyboard
+[32mINFO    [0m AdminPage:AdminPage.py:10 Going to the product list
+[32mINFO    [0m AdminPage:AdminPage.py:78 Select products by serial number: (20,)
+[32mINFO    [0m AdminPage:AdminPage.py:84 Deleting selected products
+[32mINFO    [0m EventHandler:handler.py:38 Waiting for element ('css selector', '.alert.alert-success.alert-dismissible') within 2 seconds
+[32mINFO    [0m BrowserLogger:conftest.py:100 	Test "test_delete_element" completed

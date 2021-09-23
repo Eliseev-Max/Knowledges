@@ -1,0 +1,10 @@
+[ {
+  "values" : [ "/bin/bash" ],
+  "name" : "Shell"
+}, {
+  "values" : [ "xterm-256color" ],
+  "name" : "Terminal"
+}, {
+  "values" : [ "Testing" ],
+  "name" : "Stand"
+} ]

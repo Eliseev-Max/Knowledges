@@ -1,0 +1,104 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "children" : [ {
+    "name" : "test_MainPage",
+    "children" : [ {
+      "name" : "Поиск веб-элементов на главной странице",
+      "uid" : "ede11d47734775c0",
+      "parentUid" : "76ff3861af970615e4f1ee8fcb135630",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632398340125,
+        "stop" : 1632398348160,
+        "duration" : 8035
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Проверка количества превью продуктов на странице",
+      "uid" : "adf14609f3073468",
+      "parentUid" : "76ff3861af970615e4f1ee8fcb135630",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632398359423,
+        "stop" : 1632398362016,
+        "duration" : 2593
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Проверка смены знака валюты у товаров",
+      "uid" : "411bf71648255d3f",
+      "parentUid" : "76ff3861af970615e4f1ee8fcb135630",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632398368913,
+        "stop" : 1632398378603,
+        "duration" : 9690
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Проверка смены денежного выражения цены товаров при смене валюты",
+      "uid" : "8160121ef126a46f",
+      "parentUid" : "76ff3861af970615e4f1ee8fcb135630",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632398383649,
+        "stop" : 1632398390891,
+        "duration" : 7242
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "76ff3861af970615e4f1ee8fcb135630"
+  }, {
+    "name" : "test_catalog",
+    "children" : [ {
+      "name" : "Поиск веб-элементов на странице каталога Laptops&Notebooks",
+      "uid" : "e5f84c386220ac02",
+      "parentUid" : "4b9f70d3992c159c4a17c2998d61ac18",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632399922065,
+        "stop" : 1632399927540,
+        "duration" : 5475
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Добавление товара в корзину",
+      "uid" : "705a6975538b31f6",
+      "parentUid" : "4b9f70d3992c159c4a17c2998d61ac18",
+      "status" : "failed",
+      "time" : {
+        "start" : 1632399939972,
+        "stop" : 1632399947296,
+        "duration" : 7324
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Добавление товара к сравнению",
+      "uid" : "ccd498ae76e5665d",
+      "parentUid" : "4b9f70d3992c159c4a17c2998d61ac18",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632399968517,
+        "stop" : 1632399973462,
+        "duration" : 4945
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "4b9f70d3992c159c4a17c2998d61ac18"
+  } ],
+  "name" : "packages"
+}

@@ -1,0 +1,204 @@
+{
+  "uid" : "411bf71648255d3f",
+  "name" : "Проверка смены знака валюты у товаров",
+  "fullName" : "test_MainPage#test_check_sign_with_changing_currency",
+  "historyId" : "5dd3a637771256d86eeae2fd7187451d",
+  "time" : {
+    "start" : 1632398368913,
+    "stop" : 1632398378603,
+    "duration" : 9690
+  },
+  "description" : " Проверяем смену знака валюты у товаров при смене валюты в хедере главной страницы ",
+  "descriptionHtml" : "<p>Проверяем смену знака валюты у товаров при смене валюты в хедере главной страницы</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "browser",
+    "time" : {
+      "start" : 1632398362348,
+      "stop" : 1632398368911,
+      "duration" : 6563
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  }, {
+    "name" : "base_url",
+    "time" : {
+      "start" : 1632398368911,
+      "stop" : 1632398368912,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : " Проверяем смену знака валюты у товаров при смене валюты в хедере главной страницы ",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "ca5c9097ad30fe64",
+      "name" : "log",
+      "source" : "ca5c9097ad30fe64.txt",
+      "type" : "text/plain",
+      "size" : 3046
+    } ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "browser::final",
+    "time" : {
+      "start" : 1632398378606,
+      "stop" : 1632398378782,
+      "duration" : 176
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "test_MainPage"
+  }, {
+    "name" : "host",
+    "value" : "max-VirtualBox"
+  }, {
+    "name" : "thread",
+    "value" : "10219-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test_MainPage"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "e28484b24db3abd5",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: json: cannot unmarshal string into Go struct field Caps.capabilities.alwaysMatch.selenoid:options.enableVNC of type bool",
+      "time" : {
+        "start" : 1632397964386,
+        "stop" : 1632397964386,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "c2447255aaf2d14b",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: json: cannot unmarshal string into Go struct field Caps.capabilities.alwaysMatch.selenoid:options.enableVNC of type bool",
+      "time" : {
+        "start" : 1632397678595,
+        "stop" : 1632397678595,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "a5c939c42ab239d",
+      "status" : "broken",
+      "statusDetails" : "NameError: name 'bversion' is not defined",
+      "time" : {
+        "start" : 1632396511972,
+        "stop" : 1632396511972,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "8a121f233236f442",
+      "status" : "broken",
+      "statusDetails" : "NameError: name 'bversion' is not defined",
+      "time" : {
+        "start" : 1632396447655,
+        "stop" : 1632396447655,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "c8ac01b82aae6784",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: json: cannot unmarshal string into Go struct field Caps.capabilities.alwaysMatch.selenoid:options.enableVNC of type bool",
+      "time" : {
+        "start" : 1632394633557,
+        "stop" : 1632394633557,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "6ebe70ab3c2552f7",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: json: cannot unmarshal string into Go struct field Caps.capabilities.alwaysMatch.selenoid:options.enableVNC of type bool",
+      "time" : {
+        "start" : 1632394620282,
+        "stop" : 1632394620282,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "1ebd7dc4815e4706",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home",
+      "time" : {
+        "start" : 1632393868205,
+        "stop" : 1632393868205,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "4042f7eac4ac3cfd",
+      "status" : "broken",
+      "statusDetails" : "urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.8.131', port=4444): Max retries exceeded with url: /wd/hub/session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8d012b7b70>: Failed to establish a new connection: [Errno 111] Connection refused',))",
+      "time" : {
+        "start" : 1632393611406,
+        "stop" : 1632393611406,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "de48ae12284f844f",
+      "status" : "broken",
+      "statusDetails" : "urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.8.131', port=4444): Max retries exceeded with url: /wd/hub/session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f4d6a222748>: Failed to establish a new connection: [Errno 111] Connection refused',))",
+      "time" : {
+        "start" : 1632393464577,
+        "stop" : 1632393464577,
+        "duration" : 0
+      }
+    }, {
+      "uid" : "54e9b5bceedea3e",
+      "status" : "broken",
+      "statusDetails" : "selenium.common.exceptions.WebDriverException: Message: json: cannot unmarshal string into Go struct field Caps.capabilities.alwaysMatch.selenoid:options.enableVNC of type bool",
+      "time" : {
+        "start" : 1632393059134,
+        "stop" : 1632393059134,
+        "duration" : 0
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "411bf71648255d3f.json",
+  "parameterValues" : [ ]
+}

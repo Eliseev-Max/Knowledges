@@ -1,0 +1,1 @@
+[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_check_sign_with_changing_currency" is running
