@@ -51,6 +51,7 @@ Docker - это открытая платформа для разработки,
 			Многие команды docker требуют привелегий суперпользователя
 			Чтобы постоянно не прибегать к sudo docker..., нужно добавить своего пользователя в группу docker
 			$ sudo usermod -aG имя_группы имя_пользователя
+			$ sudo usermod -aG docker max
 			
 [00:30:06]	Проверка правильности установки
 	docker --version	# выведем version ..., build ...
@@ -69,10 +70,15 @@ Docker - это открытая платформа для разработки,
 	4. Docker daemon транслировал этот вывод клиенту, который в свою очередь отправил вывод в наш терминал
 	
 [00:34:38]	Базовые команды
-	
+{
+	Поиск образа:
+		$ docker search <ИМЯ_ОБРАЗА>
+	Выгрузка образа из реестра:
+		$ docker pull <ИМЯ_ОБРАЗА>
+}
 	$ docker ps [-a, --all]
 		$ docker ps				- показывает запущенные контейнеры
-		$ docker ps -aG			- выводит список всех контейнеров
+		$ docker ps -a \--all	- выводит список всех контейнеров
 		$ docker ps -q			- выводит ID контейнеров
 		$ docker ps -f			- фильтровать контейнеры по заданному условию
 		
@@ -81,23 +87,39 @@ Docker - это открытая платформа для разработки,
 		# Всякий раз запуская команду docker run создаётся новый контейнер
 		# Из одного образа можно запустить несколько контейнеров
 		# Опция --rm удаляет контейнер после того, как в нём отработала программа (код)
+	
 	# Что "под капотом" команды docker run:
+		Run a command in a new container
+		$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 	
 		docker run = docker create <image> + docker start <container-ID> [--attach, -a]
 		
 		# опция --attach позволяет подсоединить потоки вывода (STDOUT) и ошибок (STDERR) к нашему терминалу
 		
-	$ docker create <ИМЯ_ОБРАЗА>	→ (возвращает) идентифокатор
+	$ docker create <ИМЯ_ОБРАЗА>	→	 (возвращает) идентификатор
 	$ docker run [-it, -d] <container-ID> {command}	- интерактивный режим
+		--detach, -d 		= Run container in background and print container ID
+		--interactive, -i	= Keep STDIN open even if not attached
+		--tty, -t			= Allocate a pseudo-TTY \ назначить псевдо-телетайп
+		
 		Пример:
 		docker run -it ubuntu:20.04 bash		# Запуск интерпретатора команд bash в ОС Ubuntu внутри контейнера
 												# Если образ ubuntu не скачан, он скачается
 		# При выполнении команды пользователь, от которого мы выполняем команды, меняется на
 		  пользователя root@<id>:/#
 		# Запущенная в контейнере ОС минимизирована (отсутствуют некоторые пакеты, например man, python3)
+	
+	$ docker start <КОНТЕЙНЕР>		- запуск остановленного контейнера
+	$ docker stop <КОНТЕЙНЕР>		- остановка контейнера
+	$ docker restart <КОНТЕЙНЕР>	- перезагрузка (перезапуск) контейнера
+	
+	docker exec
+		Run a command in a running container
 		
-	$ docker exec [-it] <container-ID>	- выполнение команды внутри работающего контейнера
-		# опция -it позволяет подключиться к работающему контейнеру
+		$ docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+		
+		$ docker exec [-it] <container-ID>	- выполнение команды внутри работающего контейнера
+			# опция -it позволяет подключиться к работающему контейнеру
 	
 	$ docker run --name my_container -it -d ubuntu:20.04 bash
 		--name - задать для контейнера имя (для удобства обращения к нему)
@@ -110,13 +132,16 @@ Docker - это открытая платформа для разработки,
 	
 [00:55:23]	Как остановить работу контейнера, работающего в бэкграунде:
 	
-	docker stop/kill			- остановить контейнер (SIGTERM + SIGKILL / SIGKILL) (gracefull-завершение/принудительное завершение)
+	docker stop/kill			- остановить контейнер (SIGTERM + SIGKILL / SIGKILL) 
+								  (gracefull-завершение/принудительное завершение)
 	docker rm <container-ID>	- удалить контейнер
 	docker rmi <image>			- удалить image из системы
+		
 		# если запущен контейнер, использующий образ, этот образ нельзя удалить
 		# следует перед этим удалить все контейнеры с этим образом
 		$ docker ps -a -f ancestor=hello-world:latest		# ancestor - указание на image-предок
 		$ docker ps -aq -f ancestor=hello-world:latest		# вывести ID последних контейнеров hello-world
+		
 		Удаляем все контейнеры hello-world:
 		$ docker rm $(docker ps -aq -f ancestor=hello-world:latest)
 			или
@@ -124,20 +149,24 @@ Docker - это открытая платформа для разработки,
 			# xargs выводит по одной строке из stdout предыдущей (|) команды
 			
 	docker cp <container-ID>:src_path dest_path		- скопировать файл из контейнера на хост
+	
 	docker inspect [-f, --format] <container-ID>	- 	информация о контейнере
 	docker inspect --format='{{.Config.Image}}' <container-ID>
 
 _______________________________________________________________________________________________________
 [01:05:08]	Dockerfile
 		Dockerfile - текстовый документ, который содержит все необходимые команды для создания образа
-	Для создания образа необходим  Dockerfile и контекст создания образа
+	Для создания образа необходимы:
+		* Dockerfile;
+		* контекст создания образа.
 	
 	docker build [-t, --tag] [--file, -f] <context> - создание образа
 		# -t, --tag		- создание тэга (имени) образа (для удобства)
 		# .	(точка)		- указание на то, что сборка будет производиться из текущего директория
 		# -f, --file	- указываем путь до Dockerfile
-	docker build -t my_image .-f /path/Dockerfile
+	docker build -t my_image . -f /path/Dockerfile
 	
+	Контекст билда - это набор файлов, расположенных по указаному пути или URL
 	Контекст может задаваться с помощью
 		• локального пути до директория
 		• архива
@@ -227,6 +256,10 @@ ________________________________________________________________________________
 
 	Сборка образа из директории со всеми нужными файлами и Dockerfile-ом
 		$ docker build -t tests .
+	
+	Запуск контейнера bash-скриптом:
+	
+	$ docker run --name test_run tests && docker cp test_run:/app/allure-report . && allure serve allure-report
 
 Документация
 	• https://docs.docker.com/

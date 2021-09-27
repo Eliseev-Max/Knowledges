@@ -1,0 +1,48 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "children" : [ {
+    "name" : "test_catalog",
+    "children" : [ {
+      "name" : "Поиск веб-элементов на странице каталога Laptops&Notebooks",
+      "uid" : "6f667dd863bfb835",
+      "parentUid" : "238810e910a2e32b8ac1baade11b3bc2",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632471506023,
+        "stop" : 1632471508691,
+        "duration" : 2668
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Добавление товара в корзину",
+      "uid" : "53f6c09fdb963e4b",
+      "parentUid" : "238810e910a2e32b8ac1baade11b3bc2",
+      "status" : "passed",
+      "time" : {
+        "start" : 1632471514772,
+        "stop" : 1632471517017,
+        "duration" : 2245
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "Добавление товара к сравнению",
+      "uid" : "763cca87abfb03aa",
+      "parentUid" : "238810e910a2e32b8ac1baade11b3bc2",
+      "status" : "failed",
+      "time" : {
+        "start" : 1632471521430,
+        "stop" : 1632471523552,
+        "duration" : 2122
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "238810e910a2e32b8ac1baade11b3bc2"
+  } ],
+  "name" : "suites"
+}

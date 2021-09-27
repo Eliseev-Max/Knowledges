@@ -1,0 +1,174 @@
+
+[00:05:00]	Цели:
+
+	• объяснить разницу между CI/CD
+	• настроить Jenkins job, pipeline, view. Устанавливать plugins
+	• использовать Jenkins Job Builder для управления сборками
+	
+	Как всё это может помочь?
+		
+	• автоматизация запуска автотестов и их интеграция в процесс развёртывания;
+	• возможность быстрой проверки новых изменений без участия QA;
+	• хранение истории выполнения тестовых сборок
+	
+[00:06:40]	CI/CD
+
+	Сборка приложения + запуск (прогон) тестов (чаще - unit) = Continuous Integration
+	
+	Автоматизирована сборка приложения								}
+	Автоматизирован запуск unit-тестов								}	Continuous
+	Автоматизировано развёртывание приложения 						}	Delivery (CD)
+	на тестовом сервере + автоматический запуск тестов				}	
+	Ручной деплой приложения в Production							}
+	
+	Полная автоматизация (уровня CD) + автоматический деплой = Continuous Deployment
+	Continuous Integration ►► Continuous Delivery ►► Continuous Deployment
+
+[00:10:14]	Преимущества и недостатки (стр. 13)
+	
+[00:16:00]	Jenkins jobs, pipelines, plugins
+	
+	Jenkins - программная система с открытым исходным кодом на Java, предназначенная для 
+			  обеспечения процесса непрерывной интеграции программного обеспечения.
+	Позволяет автоматизировать часть процесса разработки программного обеспечения, в котором
+	не обязательно участие человека, обеспечивая функции непрерывной интеграции.
+	
+[00:17:08]	Установка Jenkins
+	
+	• Linux (Host/VM)
+	https://www.jenkins.io/doc/book/installing/linux
+	1. wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -	# устанавливаем ключ
+	2. sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/						# добавляем репозиторий
+	   > \/etc/apt/sources.list.d/jenkins.list'
+	3. sudo apt-get install jenkins																# устанавливаем Jenkins
+	
+	• Docker
+	https://hub.docker.com/r/jenkins/jenkins
+	1. docker pull jenkins/jenkins
+	2. docker run -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts		# Jenkins работает по технологии Master - Slave (Worker)
+																		# Балланс нагрузки между Worker-ами
+	Предпочтительно разворачивать Jenkins в контейнере
+	
+[00:19:33]	Обзор Jenkins
+	
+	Сборка - совокупность инструментов, которая позволяет решать определённые задачи
+
+[00:22:42]	Сборка в Jenkins
+
+	New Item (нажимаем)
+	• Freestyle project
+	Вводим имя сборки (Enter an item name)
+	
+	• Pipeline: можно объединить несколько сборок в одну
+	• Multi-configuration project
+	• Folder
+	• GitHub Organization
+	• Multibranch Pipeline: можно создать проект из нескольких веток
+	
+	* Copy from [___]	ускоренное создание новой сборки на основе уже готовой сборки
+	
+[00:26:10]	Настройка сборки. Основные моменты.
+	
+	Описание сборки (Description):
+		можно добавить URL на GitHub-проект
+		можно настроить пермиссии на копирование артефактов (Permission to Copy Artifact)
+		* есть возможность параметризации сборок (This project is parameterised)
+		...
+		Restrict where this project can be run - ограничить место запуска сборки
+		
+		Source Code Management - управление системой контроля версий (SCM):
+			• note
+			• git
+		URL репозитория (предпочтительно SSH)
+		** Для того, чтобы попасть в закрытый репозиторий, нужно установить публичный и приватный ключи
+		Приватный ключ сохраняется в Credentials
+		→ указываем ветку
+		
+		Опция "Когда запускать билды": Build Triggers
+		[ ] Trigger builds remotely (e.g., from scripts)
+		[v] Build after other projects are built → Запускать последующую сборку после завершения предыдущей
+			Project to watch → (указываем имя первичной сборки)
+			Условия запуска:
+			• Запустить только если сборка стабильна (Trigger only if build is stabile)
+			○ Запустить, даже когда сборка нестабильна (Trigger even if the build is unstable)
+			○ Запустить, даже если сборка "упала" (Trigger even if the build fails)
+			Stabile отличается от Unstabile количеством зафейлившихся билдов
+		Запускать сборку по Crone (Build periodically)	\ ~ Планировщик задач
+			Schedule
+			[написать сценарий запуска]
+		GitHub hook trigger for GITScm polling - позволяет следить за изменениями в GitHub
+		При наличии изменений запускается сборка
+		Настройка этой функции:
+		GitHub → Settings → Webhooks → Добавить webhook в Payload URL:
+			указываем URL до нашего Jenkins/github-webhook/
+		Здесь же можно настроить, на какие события будет запускаться сборка
+			• Just the push event
+			○ Send me everything
+			○ Let me select individual events
+		[v] Active
+		
+		Poll SCM - опция, связанная с изменениями на GitHub. Она позволяет через определённое время
+				   следить за изменениями, сравнивает текущую версию с содержимым репозитория на GitHub
+				   Если изменения есть - запускает сборку.
+		
+		Build Environment - управление окружением
+			Удаление workspace перед началом сборки
+			...
+			Добавить в лог метки времени (Add timestamps to the Console Output)
+		
+		Build - действия (шаги) при сборке
+			Выбираем Execute Shell
+			Command:
+			[g++ main.cpp -o simple-db]
+			После компиляции приложения нужно сохранить артефакты
+			Артефакты (например, бинарные файлы) нужны для связи с другими сборками.
+			Артефакты вписываются в Files to archive
+			
+		[Save] → Попадаем в меню нашей сборки
+		
+[00:38:26]	Dashboard → <Наша_сборка>
+		
+		Build history пустая
+		Workspace пустой
+	Опции меню сборки:
+		• Back to Dashboard
+		• Status
+		• Changes
+		• Workspace
+		• Build Now
+		• Configure
+		• Delete Project
+		• GitHub Hook Log
+		• GitHub
+		• Rename
+		
+	Запускаем сборку нажатием Build Now
+	
+	Запускаем Bash внутри контейнера Jenkins:
+		docker exec -it Jenkins bash
+	Workspace расположен по следующему пути:
+	/var/jenkins_home/workspace/<name_of_our_build>
+	
+[00:42:20]	Сборка с тестами
+
+	New Item → вводим db-test-ui
+	Выбираем Freestyle Project
+	Вводим в (If you want to create a new item from other existing...) Copy from: db-build-ui
+	Некоторые настройки сохранены
+	Нужно кое-что поменять:
+	* [v] Build after other projects are built
+		  Указать в Project to watch: db-build-ui
+	Чтобы забрать артефакты предыдущей сборки:
+	+ Add build step: Copy artifacts from another project
+		Project name: db-build-ui
+		[Latest success build]
+		Execute shell: [
+			PATH=$PATH:$PWD/build		# путь до директория с нашим билдом
+			echo $PATH					# проверяем путь
+			python3 -m venv venv		# создаём виртуальное окружение
+			venv/bin/pip3 install -r tests/requirements.txt
+			venv/bin/pytest -v tests/test_simple_db.py --junitxml=report.xml
+		]
+	В данном билде нет артефактов
+		Сохраняем результаты в директории build
+		[00:48:15]

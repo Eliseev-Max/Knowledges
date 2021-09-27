@@ -1,1 +1,0 @@
-[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_number_of_product_thumbs" is running

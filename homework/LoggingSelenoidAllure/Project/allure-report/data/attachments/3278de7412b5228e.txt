@@ -1,0 +1,6 @@
+[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_add_to_cart" is running
+[32mINFO    [0m BrowserLogger:conftest.py:96 Browser chrome started with such capabilities: {'acceptInsecureCerts': False, 'browserName': 'chrome', 'browserVersion': '94.0.4606.54', 'chrome': {'chromedriverVersion': '93.0.4577.63 (ff5c0da2ec0adeaed5550e6c7e98417dac77d98a-refs/branch-heads/4577@{#1135})', 'userDataDir': '/tmp/.com.google.Chrome.DVxZSK'}, 'goog:chromeOptions': {'debuggerAddress': 'localhost:38157'}, 'networkConnectionEnabled': False, 'pageLoadStrategy': 'normal', 'platformName': 'linux', 'proxy': {}, 'setWindowRect': True, 'strictFileInteractability': False, 'timeouts': {'implicit': 0, 'pageLoad': 300000, 'script': 30000}, 'unhandledPromptBehavior': 'dismiss and notify', 'webauthn:extension:credBlob': True, 'webauthn:extension:largeBlob': True, 'webauthn:virtualAuthenticators': True}
+[32mINFO    [0m Catalog:Catalog.py:7 Opening source: http://10.0.2.15/laptop-notebook/
+[32mINFO    [0m Catalog:BaseClass.py:123 Searching for several elements with locator: 'css selector = .button-group .fa.fa-shopping-cart'
+[32mINFO    [0m Catalog:BaseClass.py:113 Waiting for the element ('css selector', '.alert.alert-success.alert-dismissible') within 3 seconds
+[32mINFO    [0m BrowserLogger:conftest.py:100 	Test "test_add_to_cart" completed

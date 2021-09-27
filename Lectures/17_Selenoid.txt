@@ -154,6 +154,10 @@ Selenium server (Grid) - это сложно в настройке, работе
 	1. Скачиваем образ браузера (docker pull {BROWSER CONTAINER})
 		docker pull browsers/edge:88.0		# названия образов в официальной инструкции на сайте aerokube.com/images/latest/
 	2. Вносим изменения в browsers.json (добавляем описание нового браузера)
+	
+	Если добавляем Microsoft Edge, в файле конфигурации браузеров в качестве имени браузера задаём MicrosoftEdge
+	Opera:12.16 выделена отдельно от других версий.
+	
 
 [01:26:51]	Как запустить эмуляцию (в Chrome)
 		Опция mobile

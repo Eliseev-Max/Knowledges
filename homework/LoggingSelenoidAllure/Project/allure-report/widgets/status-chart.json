@@ -1,0 +1,31 @@
+[ {
+  "uid" : "763cca87abfb03aa",
+  "name" : "Добавление товара к сравнению",
+  "time" : {
+    "start" : 1632471521430,
+    "stop" : 1632471523552,
+    "duration" : 2122
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "6f667dd863bfb835",
+  "name" : "Поиск веб-элементов на странице каталога Laptops&Notebooks",
+  "time" : {
+    "start" : 1632471506023,
+    "stop" : 1632471508691,
+    "duration" : 2668
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "53f6c09fdb963e4b",
+  "name" : "Добавление товара в корзину",
+  "time" : {
+    "start" : 1632471514772,
+    "stop" : 1632471517017,
+    "duration" : 2245
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]
