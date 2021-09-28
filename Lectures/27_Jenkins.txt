@@ -57,6 +57,8 @@
 
 	New Item (нажимаем)
 	• Freestyle project
+	Freestyle project - ключевая концепция Jenkins, с помощью которой можно настроить полный цикл
+						сборки/тестирования/развёртывания приложения
 	Вводим имя сборки (Enter an item name)
 	
 	• Pipeline: можно объединить несколько сборок в одну
@@ -169,6 +171,212 @@
 			venv/bin/pip3 install -r tests/requirements.txt
 			venv/bin/pytest -v tests/test_simple_db.py --junitxml=report.xml
 		]
-	В данном билде нет артефактов
+	В данном билде нет артефактов, убираем из шаблона артефакты
 		Сохраняем результаты в директории build
-		[00:48:15]
+
+[00::]	Пример запуска Jenkins при изменении в GitHub-репозитории
+		Разработчик внёс изменения в код
+					▼
+		Изменения поступили на GitHub
+					▼
+		Jenkins отследил изменения и запустил сборку приложения
+					▼
+		Сборка приложения запустила сборку с тестами
+		
+[00:54:38]	View. Добавляем наглядность
+	
+	View позволяет визуализировать взаимосвязь между сборками
+	
+	Меню → New View
+	View name: <Вводим имя>		# db-build-ui-view
+	• Build Pipeline View		# наглядно показыв
+	○ List View
+	○ My View
+	
+	Внести изменения в Upstream / downstream config
+	Select Initial Job
+	[db-build-ui]			# Самый корневой проект, с которого начинается цепочка сборок
+	
+	В Display Options можно настроить частоту обновлений:
+		Refresh frequency (in seconds)
+	
+	Результат: графическое представление взаимосвязи сборок [00:55:41]
+	Можно запустить сборку
+
+[00:56:29]	Allure integration
+	
+	Как настроить генерацию Allure-отчётов в Jenkins?
+	1. Установить Allure Plugin
+	2. Выполнить настройку "Allure Commandline" в Global Tool Configuration
+	3. В настройках сборки в Post-build Actions добавить Allure Report
+	4. В настройках Allure Report указать директорий, в котором хранятся данные,
+	   сгенерированные адаптером для используемого тестового фреймворка, например, allure-pytest
+	5. После завершения сборки посмотреть Allure-отчёт в разделе меню Allure Report
+	
+[00:57:45]	Как ставить плагины в Jenkins
+	
+	1. Меню → Manage Jenkins
+	2. Manage Plugins → Available
+	3. В фильтр вводим Allure Jenkins Plugin
+	4. Ставим отметку в чекбоксе найденного варианта и нажимаем [Install without restart]
+	   Download now and install after restart нужна в случае апдейта или удаления плагинов 
+
+[00:59:21]	Выполнить настройку "Allure Commandline" в Global Tool Configuration
+	
+	1. Меню → Manage Jenkins → Global Tool Configuration
+	2. Allure Commandline:
+		• указать имя;
+		• Install automatically
+		    From Maven Central
+			Version
+			[2.13.9   ▼]
+	3. Заходим в сборку → Configuration
+		Добавить Post-build actions: Allure Report
+		Results:
+				Path: [allure-results]			# Здесь будут храниться результаты
+	В pytest.ini должна быть запись директории, куда будут сохраняться результаты
+	Появляется ярлык-ссылка на Allure-отчёт
+	
+[01:06:50]	Pipeline
+	
+	Pipeline - описание процессов сборки/тестирования/развёртывания приложения по стадиям
+	Jenkinsfile - текстовый файл с описанием pipeline, который может быть сохранён в репозитории проекта
+	
+	Синтаксис Jenkinsfile:
+		• Declarative
+		• Scripted
+
+[01:08:10]	Элементы Pipeline
+	
+	Pipeline - код, который определяет CI/CD процессы, которые включают в себя
+			  сборку приложения, тестирование и развёртывание
+	Node - машина, которая является частью Jenkins-окружения и на которой может выполняться pipeline
+	Stage - блок, определяющий набор подзадач, которые выполняются в рамках pipeline, например, "Build", "Test" и "Deploy"
+	Step - отдельная задача, которая сообщает Jenkins, что нужно делать в конкретный момент времени
+	
+	Пример:
+	Stage Report:
+		► Step_1: генерация xml-отчёта
+		► Step_2: генерация Allure-отчёта
+	
+[01:09:22]	Declarative Pipeline
+	
+	Использует упрощённый синтаксис для описания pipeline
+	Менее гибкий по сравнению с Scripted Pipeline
+	Подходит для начинающих пользователей, которым нужно создавать относительно простые pipelines
+	
+	${YOUR_JENKINS_URL}/directive-generator/ - генератор сниппетов для Declarative Pipeline
+	В нём можно строить отдельные директивы на основе UI
+	
+	В Declarative-синтаксисе root-ом является pipeline
+	
+	pipeline {
+		agent any
+		
+		stages {
+			stage('build') {
+				steps {
+					sh 'g++ main.cpp -o simple-db'
+					
+				}
+				
+			}
+		stage('test') {
+			steps {
+				sh """
+					PATH=$PATH:$WORKSPACE
+					python3 -m venv venv
+					. venv/bin/activate
+					pip3 install -r tests/requirements.txt
+					pytest -v ...
+			}
+		
+		}
+		stage('report') {
+			...
+		}
+		stage('email') {
+			...
+		}
+	}
+
+	Dashboard → Enter an item name: db-declarative-pipeline
+		Выбрать Pipeline
+	Перешли на страницу настройки
+	Pipeline: Definition
+		[Pipeline script from SCM]
+	
+	Указываем Git 
+		Repositories
+			Repository URL
+				[ссылка_SSH_на_GitHub]
+	...
+	Script path
+	ci/Jenkinsfile_declarative 			# путь до файла конфигурации
+	
+	SAVE
+	
+	Запуск Pipeline
+	Stage View
+		Наглядно показаны в UI все стэйджи
+	
+[01:16:32]	Scripted Pipeline
+	
+	• Использует DSL, основанный на Groovy;
+	• Обладает максимальной гибкостью;
+	• Подходит для продвинутых пользователей, которым нужно создавать более сложные pipelines
+	
+	${YOUR_JENKINS_URL}/pipeline-syntax - генератор сниппетов для Scripted Pipeline
+	https://www.jenkins.io/doc/book/pipeline/#pipeline-example
+	
+	Jenkins_scripted похож по синтаксису на Jenkinsfile_declarative
+	Отличия:
+		root-элемент = node
+		явно прописывается checkout из репозитория,
+		stage('build'), stage('test'), stage('report-xml'), stage('report-allure')
+	
+	Результат Pipeline выполнен в виде наглядных шагов = объединённых сборок
+
+[01:20:38]	Jenkins Job Builder
+	
+	Plugins
+		• Copy Artifact - копирование артефактов из другой сборки
+		• Test Results Analyzer - анализ результатов тестов
+		• Build Pipeline - удобное отображение upstream/downstream сборок
+		• Git Changelog - отображение информации о коммите
+		• Docker - Docker-контейнеры в качестве executors
+		• Docker slaves - Docker-контейнеры для установки build-агентов
+		• Email Extension - гибкая настройка отправки email
+		• Job Configuration History - изменения в настройках сборок
+	
+[01:23:58]	Jenkins Job Builder - утилита, которая с помощью описаний сборок в форматах YAML или JSON
+								  позволяет настраивать сборки на jenkins-сервере
+	Описания сборок можно хранить в репозитории, что позволяет удобно вносить и отслеживать изменения 
+	в настройках сборок
+	
+	В Jenkins Job Builder поддерживаются шаблоны, что позволяет легко создавать описания для нескольких однотипных сборок
+	
+	По сути это обычный пакет python
+	
+	Установка и конфигурирование
+	pip install --user jenkins-job-builder
+	Нужен отдельный пользователь с определёнными правами
+	+ можно всё это добавить в конфигурационный файл и не вводить
+	
+	Конфигурационный файл
+	jenkins_jobs.ini - файл для настройки взаимодействия с Jenkins-сервером
+	
+[01:25:46]	Running
+	
+	• Test Mode
+		jenkins-jobs test ci/foo.yaml
+		jenkins-jobs test -r ci
+
+	• Updating jobs
+		jenkins-jobs update ci/foo.yaml
+		jenkins-jobs update ci/foo.yaml Foo1 Foo2
+	
+	• Deleting jobs
+		jenkins-jobs delete Foo1 Foo2
+
+[01:25:51]	Описание сборок в yaml-файле
