@@ -337,7 +337,7 @@
 	
 	Результат Pipeline выполнен в виде наглядных шагов = объединённых сборок
 
-[01:20:38]	Jenkins Job Builder
+[01:20:38]	Jenkins Job Builder (JJB)
 	
 	Plugins
 		• Copy Artifact - копирование артефактов из другой сборки
@@ -349,7 +349,7 @@
 		• Email Extension - гибкая настройка отправки email
 		• Job Configuration History - изменения в настройках сборок
 	
-[01:23:58]	Jenkins Job Builder - утилита, которая с помощью описаний сборок в форматах YAML или JSON
+[01:23:58]	Jenkins Job Builder (JJB) - утилита, которая с помощью описаний сборок в форматах YAML или JSON
 								  позволяет настраивать сборки на jenkins-сервере
 	Описания сборок можно хранить в репозитории, что позволяет удобно вносить и отслеживать изменения 
 	в настройках сборок
@@ -359,7 +359,7 @@
 	По сути это обычный пакет python
 	
 	Установка и конфигурирование
-	pip install --user jenkins-job-builder
+		pip install --user jenkins-job-builder
 	Нужен отдельный пользователь с определёнными правами
 	+ можно всё это добавить в конфигурационный файл и не вводить
 	
@@ -369,7 +369,7 @@
 [01:25:46]	Running
 	
 	• Test Mode
-		jenkins-jobs test ci/foo.yaml
+		jenkins-jobs test ci/foo.yaml		# Проверка на синтаксические ошибки
 		jenkins-jobs test -r ci
 
 	• Updating jobs
@@ -380,3 +380,29 @@
 		jenkins-jobs delete Foo1 Foo2
 
 [01:25:51]	Описание сборок в yaml-файле
+[01:30:35]	Ка запустить создание сборок с помощью технологии JJB
+	
+	$ jenkins-jobs update <путь до YAML-файла>
+	В Jenkins появляются описанные сборки
+	
+	Для автоматизации процесса создания сборок и повышения отказоустойчивости:
+		► использовать Pipeline или YAML (JJB)
+
+[01:39:09]	Как прокидывать параметры в сборки
+	
+	Сборка с тестами → Configure → Вкладка General:
+		[v] This project is parameterised
+			[Add Parameter ▼]
+	Выбираем, например, Choise Parameter
+		Name: [threads]
+		Choices					# количество потоков по количеству ядер
+			[
+				auto
+				1
+				2
+			]
+	Параметризация производится в Execute shell: Command
+	Для параметра pytest -n ${threads}		# параметр указывается в ${}
+	
+	В сборке появляется пункт: Build with parameters
+	

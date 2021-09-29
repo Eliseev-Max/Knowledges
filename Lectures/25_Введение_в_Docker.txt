@@ -24,7 +24,14 @@ Docker - это открытая платформа для разработки,
 [00:16:24]	Компоненты Docker
 			Клиент (Client)
 			Сервер (Server/Host) [Docker Daemon]
-		
+[
+	Компоненты платформы Docker:
+		• Docker Engine
+			- механизм, отвечающий за создание и функционирование контейнеров;
+			
+		• Docker Hub
+			- облачный сервис для распространения контейнеров.
+]
 Реестры: публичные | приватные
 
 [00:18:52]	Сравнение Docker-контейнеров и виртуальных машин (VM)
@@ -71,10 +78,8 @@ Docker - это открытая платформа для разработки,
 	
 [00:34:38]	Базовые команды
 {
-	Поиск образа:
-		$ docker search <ИМЯ_ОБРАЗА>
-	Выгрузка образа из реестра:
-		$ docker pull <ИМЯ_ОБРАЗА>
+	Поиск образа:	$ docker search <ИМЯ_ОБРАЗА>
+	Выгрузка образа из реестра:		docker pull <ИМЯ_ОБРАЗА>
 }
 	$ docker ps [-a, --all]
 		$ docker ps				- показывает запущенные контейнеры
@@ -263,6 +268,17 @@ ________________________________________________________________________________
 
 Документация
 	• https://docs.docker.com/
+Полезные ссылки:
+	Docker самый простой и понятный туториал:
+		• https://badcode.ru/docker-tutorial-dlia-novichkov-rassmatrivaiem-docker-tak-iesli-by-on-byl-ighrovoi-pristavkoi/
+	Docker и docker-compose для начинающих. Докеризуем интернет-магазин:
+		• https://webdevkin.ru/posts/raznoe/docker
+	Руководство по Docker Compose для начинающих:
+		• https://habr.com/ru/company/ruvds/blog/450312/
+	Установка Docker Engine на Ubuntu Server:
+		• https://habr.com/ru/sandbox/149480/
+	Установка Docker на Ubuntu
+		• https://losst.ru/ustanovka-docker-na-ubuntu-16-04
 Книги
 	• Моуэт Э. "Использование Docker"
 Видео

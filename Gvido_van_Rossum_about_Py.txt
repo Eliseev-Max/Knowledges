@@ -1,5 +1,5 @@
 Предисловие Гвидо Ван Россум (Guido van Rossum) к первому изданию книги Марка Лутца (Mark Lutz) «Программирование на Python» («Programming Python»)
-Руслан Пронькин·25 минут назад
+
 As Python's creator, I'd like to say a few words about its origins, adding a bit of personal philosophy.
 Как создатель Python, я хотел бы сказать несколько слов о его возникновении, добавив немного личной философии.
 Over six years ago, in December 1989, I was looking for a "hobby" programming project that would keep me occupied during the week around Christmas.
