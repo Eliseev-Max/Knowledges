@@ -1,0 +1,72 @@
+
+# Файл docker-compose должен начинаться с тега версии.
+# Мы используем "3" так как это - самая свежая версия на момент написания этого кода.
+version: '3'
+# docker-compose работает с сервисами (1 сервис = 1 контейнер)
+# Раздел, в котором будут описаны сервисы, начинается с 'services:'
+services:
+# название первого сервиса, которое мы сами ему дали: phpadmin
+  phpadmin:
+  
+  # если бы мы составляли образ из Dockerfile, мы указали бы инструкцию build:
+  # build: path/to/Dockerfile/	- путь до директории относительно директории с docker-compose.yml,
+  # где расположен Dockerfile
+	# инструкция image: указывает удалённый репозиторий на hub.docker.com
+    image: 'phpmyadmin/phpmyadmin:latest'
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=bn_opencart
+	# Перенаправляем порт контейнера на порт хоста,
+	# чтобы обращаться к контейнеру, находясь за его пределами
+    ports:
+      - '${PHPADMIN_PORT}:80'
+
+  mariadb:
+    image: 'docker.io/bitnami/mariadb:10.3-debian-10'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_opencart
+      - MARIADB_DATABASE=bitnami_opencart
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb'
+    ports:
+      - '3306:3306'
+
+  opencart:
+    image: 'docker.io/bitnami/opencart:3-debian-10'
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - OPENCART_HOST=${LOCAL_IP}
+      - OPENCART_DATABASE_HOST=mariadb
+      - OPENCART_DATABASE_PORT_NUMBER=3306
+      - OPENCART_DATABASE_USER=bn_opencart
+      - OPENCART_DATABASE_NAME=bitnami_opencart
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'opencart_data:/bitnami/opencart'
+      - 'opencart_storage_data:/bitnami/opencart_storage/'
+	
+    # Ключевое слово 'depends_on' позволяет указывать, должен ли сервис,
+    # прежде чем запуститься, ждать, когда будут готовы к работе другие сервисы.
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb_data:
+    driver: local
+  opencart_data:
+    driver: local
+  opencart_storage_data:
+    driver: local
+
+# описать инструкции:
+#	command:
+#	network_mode:
+
+Sources:
+1. https://habr.com/ru/company/ruvds/blog/450312/	- Руководство по Docker Compose для начинающих
+2. https://jtprog.ru/docker-base/					- Основы Docker: Dockerfile и docker-compose.yml
+3. https://dker.ru/docs/docker-compose/compose-file-reference/	- Руководство по Docker Compose файлу

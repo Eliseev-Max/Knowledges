@@ -55,11 +55,58 @@ https://youtu.be/rJRLZfk3a8U
 			► Опции:
 				- распространение событий монтирования
 				- запрет перемонтирования
-		Флаги mount
-		- bind - смонтировать существующее дерево в другую точку (поддерево будет доступно в обоих местах)
+
+[00:20:14]	Флаги mount
+		(монтирование ФС = отображение ФС на какую-либо точку [к.-л. узел])
+		
+		--bind - смонтировать существующее дерево в другую точку (поддерево будет доступно в обоих местах)
 		Распространение изменений:
 			-make-shared
-			-make-slave
-			-make-private
+			-make-slave			# наследует изменения родителя
+			-make-private		# родителю не распространяются изменения
 			-make-unbindable
-[00:21:26]
+
+[00:24:15]	UTS namespace
+	• Изоляция имени хоста и доменного имени
+	• utsname
+		struct utsname {
+			char sysname[];		# имя системы
+			char nodename[];	# имя хоста
+			
+			char release[];
+			char version[];
+			char machine[];
+		#ifdef _GNU_SOURCE
+			char domainname[];
+		#endif
+		};
+	• Создание:
+		clone(..., ..., CLONE_NEWUTS, ...)
+	
+	Docker НЕ ИСПОЛЬЗУЕТ UTS namespace	(используется hostname)
+	
+	ОС условно можно поделить на 2 части:
+		• CurnelSpace
+		• UserSpace
+	В proc смонтирована файловая система. Она отвечает за взаимодействие пользователя с ядром ОС
+	В каталоге proc находятся подкаталоги и файлы, названные наборами цифр.
+	Каждый каталог соответствует PID процесса.
+	Внутри каталогов файлы, соответствующие параметрам процесса.
+	
+[00:30:55]	Удержание пространства имён
+	
+	#touch ./uts
+	#mount --bind/proc/6221/ns/uts ./uts
+	
+	см: namespaces/ns_exec.c
+		fd = open("./uts", 0_RDONLY);
+		if(fd == -1)
+			errExit("open");
+		
+		if(setns(fd, 0) == -1)
+			errExit("setns")
+	
+	#hostname
+	- thinkpad
+	#./ns_exec ./uts hostname
+	- newhostname

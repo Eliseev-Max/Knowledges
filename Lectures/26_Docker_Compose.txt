@@ -5,7 +5,7 @@
 		[Dockerfile] → Build → [Image] → Run → [Container]
 		
 	docker build [-t, --tag] [-f, --file] context - создание образа
-	docker run [--rm] [-it] image				  - создаёт и запускает новый контейнер
+	docker run [--rm] [-it] <image>				  - создаёт и запускает новый контейнер
 	docker stop/kill			  - остановить контейнер (SIGTERM + SIGKILL / SIGKILL)
 	
 	Базовые команды

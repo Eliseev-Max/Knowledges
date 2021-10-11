@@ -1,0 +1,23 @@
+Ознакомиться с зависимостями пакета:
+	$ dpkg -I allure_2.15.0-1_all.deb | grep Depends
+ Depends: java8-runtime | java8-runtime-headless | openjdk8-jre-headless | openjdk-8-jre | openjdk-8-jdk | oracle-java8-installer | oracle-java8-installer
+
+По факту в случае с allure достаточно взять какой-нибудь базовый образ linux (например, последний debian) и поставить пакет openjdk-11-jre
+Таким образом Dockerfile будет выглядеть так
+
+$ cat Dockerfile
+FROM debian:bookworm
+
+RUN apt-get update
+
+RUN apt-get install -y openjdk-11-jre
+
+COPY allure_2.15.0-1_all.deb .
+
+RUN dpkg -i allure_2.15.0-1_all.deb
+
+После этого можно приступать к генерации отчета
+
+$ docker run --rm -it allure bash
+root@61f5bcc7a5cf:/# allure --version
+2.15.0

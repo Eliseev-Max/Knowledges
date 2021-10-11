@@ -35,8 +35,8 @@
 	например, там лежит whoami которому точно sudo не нужен
 
 ! Обратить внимание:
-	после установки исполняемый файл кладется в 
-		/usr/share/allure/bin/allure 
+	после установки исполняемый файл кладется в
+		/usr/share/allure/bin/allure
 	и на него ставится symlink:
 		/usr/bin/allure -> /usr/share/allure/bin/allure
 	
@@ -47,7 +47,9 @@
 		$ sudo chmod o+rx /usr/share/allure/bin/allure
 		
 Возможная причина неправильной работы:
-	я думаю это связано с тем, что команда sudo apt-get install allure ставит не фреймворк allure из ppa:qameta/allure, а пакет с игрой allure https://packages.ubuntu.com/source/bionic/allure
+	я думаю это связано с тем, что команда sudo apt-get install allure
+	ставит не фреймворк allure из ppa:qameta/allure, а пакет с игрой allure:
+	https://packages.ubuntu.com/source/bionic/allure
 
 Добавление информации в Environment
 
