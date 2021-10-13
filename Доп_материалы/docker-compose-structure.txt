@@ -2,9 +2,11 @@
 # Файл docker-compose должен начинаться с тега версии.
 # Мы используем "3" так как это - самая свежая версия на момент написания этого кода.
 version: '3'
+
 # docker-compose работает с сервисами (1 сервис = 1 контейнер)
 # Раздел, в котором будут описаны сервисы, начинается с 'services:'
 services:
+
 # название первого сервиса, которое мы сами ему дали: phpadmin
   phpadmin:
   
@@ -13,14 +15,17 @@ services:
   # где расположен Dockerfile
 	# инструкция image: указывает удалённый репозиторий на hub.docker.com
     image: 'phpmyadmin/phpmyadmin:latest'
+	
     environment:
       - PMA_HOST=mariadb
       - PMA_PORT=3306
       - PMA_USER=bn_opencart
+	
 	# Перенаправляем порт контейнера на порт хоста,
 	# чтобы обращаться к контейнеру, находясь за его пределами
     ports:
-      - '${PHPADMIN_PORT}:80'
+		# переменная окружения ${PHPADMIN_PORT} позволяет задавать порт хоста из консоли при запуске docker-compose up -d
+      - '${PHPADMIN_PORT}:80' 
 
   mariadb:
     image: 'docker.io/bitnami/mariadb:10.3-debian-10'
@@ -39,6 +44,7 @@ services:
       - '80:8080'
       - '443:8443'
     environment:
+	# переменная окружения ${LOCAL_IP} позволяет задавать IP-адрес хоста из консоли при запуске docker-compose up -d
       - OPENCART_HOST=${LOCAL_IP}
       - OPENCART_DATABASE_HOST=mariadb
       - OPENCART_DATABASE_PORT_NUMBER=3306
@@ -65,6 +71,7 @@ volumes:
 # описать инструкции:
 #	command:
 #	network_mode:
+#	environment:
 
 Sources:
 1. https://habr.com/ru/company/ruvds/blog/450312/	- Руководство по Docker Compose для начинающих
