@@ -80,7 +80,7 @@
 		$ docker run --rm -it -v /app py_server sh		# в системе создаётся volume с ID
 														# с флагом --rm контейнер удаляется вместе с volume
 	• Директива VOLUME в файле Dockerfile:
-		VOLUME/data
+		VOLUME /data
 	Удаляется при использовании опции --rm вместе с docker run
 	
 	Backup
