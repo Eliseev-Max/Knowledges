@@ -67,7 +67,7 @@ _________________________________
 Полезные команды и методы работы:
 _________________________________
 	В момент инициализации нового контейнера можно задать имя хоста контейнера:
-		$ docker run -h CONTAINER -it debian:latest /bin/
+		$ docker run -h CONTAINER -it debian:latest /bin/bash
 		root@CONTAINER:/#
 	
 	Просмотр информацию о контейнере:
@@ -89,12 +89,12 @@ _________________________________
 		• утилитой grep;
 		• аргументом --format (принимает шаблон языка Go)
 		
-	$ docker inspect <имя_контейнера> | grep IPAddress
-		"IPAddress": "192.168.1.11",
-		"SecondaryIPAddress": null
-	
-	$ docker inspect --format {{.NetworkSettings.IPAddress}} <имя_контейнера>
-		192.168.1.11
+		$ docker inspect <имя_контейнера> | grep IPAddress
+			"IPAddress": "192.168.1.11",
+			"SecondaryIPAddress": null
+		
+		$ docker inspect --format {{.NetworkSettings.IPAddress}} <имя_контейнера>
+			192.168.1.11
 	
 	Вывести список файлов, изменённых в работающем контейнере:
 		$ docker diff <имя_контейнера>
