@@ -37,10 +37,12 @@
 	
 	• Linux (Host/VM)
 	https://www.jenkins.io/doc/book/installing/linux
-	1. wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -	# устанавливаем ключ
-	2. sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/						# добавляем репозиторий
-	   > \/etc/apt/sources.list.d/jenkins.list'
-	3. sudo apt-get install jenkins																# устанавливаем Jenkins
+	wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -	# добавляем репозиторий
+	sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'													# устанавливаем ключ
+	sudo apt-get update
+	sudo apt-get install jenkins	
+									
 	
 	• Docker
 	https://hub.docker.com/r/jenkins/jenkins
@@ -57,8 +59,8 @@
 
 	New Item (нажимаем)
 	• Freestyle project
-	Freestyle project - ключевая концепция Jenkins, с помощью которой можно настроить полный цикл
-						сборки/тестирования/развёртывания приложения
+		Freestyle project - ключевая концепция Jenkins, с помощью которой можно настроить
+							полный цикл сборки/тестирования/развёртывания приложения
 	Вводим имя сборки (Enter an item name)
 	
 	• Pipeline: можно объединить несколько сборок в одну
@@ -86,7 +88,7 @@
 		Приватный ключ сохраняется в Credentials
 		→ указываем ветку
 		
-		Опция "Когда запускать билды": Build Triggers
+		Опция Триггеры сборки (Build Triggers) {="Когда запускать билды"}:
 		[ ] Trigger builds remotely (e.g., from scripts)
 		[v] Build after other projects are built → Запускать последующую сборку после завершения предыдущей
 			Project to watch → (указываем имя первичной сборки)
@@ -160,6 +162,7 @@
 	Нужно кое-что поменять:
 	* [v] Build after other projects are built
 		  Указать в Project to watch: db-build-ui
+		  
 	Чтобы забрать артефакты предыдущей сборки:
 	+ Add build step: Copy artifacts from another project
 		Project name: db-build-ui
