@@ -74,20 +74,28 @@
 [00:26:10]	Настройка сборки. Основные моменты.
 	
 	Описание сборки (Description):
-		можно добавить URL на GitHub-проект
+		можно добавить URL-ссылку на GitHub-проект (чтобы сразу перейти на GitHub и посмотреть код)
+			как правило добавляют ссылку HTTPS на проект (https://github.com/Eliseev-Max/<project>)
+			ссылка станет доступна в карточке сборки
 		можно настроить пермиссии на копирование артефактов (Permission to Copy Artifact)
-		* есть возможность параметризации сборок (This project is parameterised)
+		* !!! есть возможность параметризации сборок (This project is parameterised)!!!
 		...
 		Restrict where this project can be run - ограничить место запуска сборки
-		
+	
+	Раздел Source Code Management
 		Source Code Management - управление системой контроля версий (SCM):
-			• note
-			• git
+			• none
+			• git		()
 		URL репозитория (предпочтительно SSH)
 		** Для того, чтобы попасть в закрытый репозиторий, нужно установить публичный и приватный ключи
 		Приватный ключ сохраняется в Credentials
-		→ указываем ветку
-		
+		Для публичных репозиториев не требуется дополнительных действий
+		→ указываем ветку:
+			Branches to build
+				Branch Specifier (blank for 'any')
+			Например, [    */master    ]
+	
+	Раздел Build Triggers
 		Опция Триггеры сборки (Build Triggers) {="Когда запускать билды"}:
 		[ ] Trigger builds remotely (e.g., from scripts)
 		[v] Build after other projects are built → Запускать последующую сборку после завершения предыдущей
@@ -115,22 +123,31 @@
 				   следить за изменениями, сравнивает текущую версию с содержимым репозитория на GitHub
 				   Если изменения есть - запускает сборку.
 		
-		Build Environment - управление окружением
-			Удаление workspace перед началом сборки
+	Раздел Build Environment
+		Build Environment содержит опции для управления окружением
+			[v] Delete workspace before build starts
+				(Удаление workspace перед началом сборки)
+			[v] Add timestamps to the Console Output
+			workspace - это локальный директорий на сервере с Jenkins, куда git сохраняет все файлы с репозитория GitHub
 			...
-			Добавить в лог метки времени (Add timestamps to the Console Output)
+		[v] Добавить в лог метки времени (Add timestamps to the Console Output)
 		
-		Build - действия (шаги) при сборке
-			Выбираем Execute Shell
-			Command:
-			[g++ main.cpp -o simple-db]
-			После компиляции приложения нужно сохранить артефакты
-			Артефакты (например, бинарные файлы) нужны для связи с другими сборками.
-			Артефакты вписываются в Files to archive
+		Build - совокупность вариантов запуска различных действий (шагов) при сборке/запуске тестов
+			* можно собирать Docker Images
+			Выбираем: 	Execute Shell
 			
+			Есть исходный файл main.cpp
+			Command:
+			[g++ main.cpp -o simple-db]		# -o указать имя исполняемого (скомпилированного) файла
+			После компиляции приложения нужно сохранить артефакты
+		
+	Раздел Post-build Actions
+			Артефакты (например, бинарные файлы) нужны для связи с другими сборками (использования внутри других сборок).
+			Артефакты вписываются в Files to archive
+			В нашем случае артефакт один: simple-db
 		[Save] → Попадаем в меню нашей сборки
 		
-[00:38:26]	Dashboard → <Наша_сборка>
+[timestamp]	Dashboard → <Наша_сборка>
 		
 		Build history пустая
 		Workspace пустой
@@ -153,19 +170,22 @@
 	Workspace расположен по следующему пути:
 	/var/jenkins_home/workspace/<name_of_our_build>
 	
-[00:42:20]	Сборка с тестами
+[timestamp]	Сборка с тестами
 
 	New Item → вводим db-test-ui
-	Выбираем Freestyle Project
-	Вводим в (If you want to create a new item from other existing...) Copy from: db-build-ui
+	Не выбираем Freestyle Project, копируем настройки из предыдущего билда.
+	Вводим в (If you want to create a new item from other existing...) 
+		Copy from: db-build-ui
+		
 	Некоторые настройки сохранены
 	Нужно кое-что поменять:
 	* [v] Build after other projects are built
 		  Указать в Project to watch: db-build-ui
 		  
 	Чтобы забрать артефакты предыдущей сборки:
-	+ Add build step: Copy artifacts from another project
-		Project name: db-build-ui
+	+ Add build step:
+		• Copy artifacts from another project
+		  Project name: db-build-ui
 		[Latest success build]
 		Execute shell: [
 			PATH=$PATH:$PWD/build		# путь до директория с нашим билдом
@@ -175,7 +195,8 @@
 			venv/bin/pytest -v tests/test_simple_db.py --junitxml=report.xml
 		]
 	В данном билде нет артефактов, убираем из шаблона артефакты
-		Сохраняем результаты в директории build
+		Сохраняем результаты в отдельном директории build:
+			Target directory: build
 
 [00::]	Пример запуска Jenkins при изменении в GitHub-репозитории
 		Разработчик внёс изменения в код
