@@ -230,3 +230,6 @@
 		Опция --abort-on-container-exit следит за работой контейнеров и завершает работу всех контейнеров, когда
 		работа хотя бы одного из них завершена.
 РАЗЪЯСНЕНИЯ К ДИРЕКТИВАМ DOCKER-COMPOSE ФАЙЛА
+
+https://docs.docker.com/network/
+https://karthi-net.medium.com/docker-tutorial-build-docker-images-using-jenkins-d2880e65b74
