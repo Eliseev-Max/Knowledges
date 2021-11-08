@@ -1,3 +1,4 @@
+https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipeline
 
 [00:05:00]	Цели:
 
@@ -105,10 +106,10 @@
 			○ Запустить, даже когда сборка нестабильна (Trigger even if the build is unstable)
 			○ Запустить, даже если сборка "упала" (Trigger even if the build fails)
 			Stabile отличается от Unstabile количеством зафейлившихся билдов
-		Запускать сборку по Crone (Build periodically)	\ ~ Планировщик задач
+		[ ] Запускать сборку по Crone (Build periodically)	\ ~ Планировщик задач
 			Schedule
 			[написать сценарий запуска]
-		GitHub hook trigger for GITScm polling - позволяет следить за изменениями в GitHub
+		[ ] GitHub hook trigger for GITScm polling - позволяет следить за изменениями в GitHub
 		При наличии изменений запускается сборка
 		Настройка этой функции:
 		GitHub → Settings → Webhooks → Добавить webhook в Payload URL:
@@ -123,7 +124,7 @@
 				   следить за изменениями, сравнивает текущую версию с содержимым репозитория на GitHub
 				   Если изменения есть - запускает сборку.
 		
-	Раздел Build Environment
+	Раздел Build Environment (Среда сборки)
 		Build Environment содержит опции для управления окружением
 			[v] Delete workspace before build starts
 				(Удаление workspace перед началом сборки)
@@ -404,7 +405,7 @@
 		jenkins-jobs delete Foo1 Foo2
 
 [01:25:51]	Описание сборок в yaml-файле
-[01:30:35]	Ка запустить создание сборок с помощью технологии JJB
+[01:30:35]	Как запустить создание сборок с помощью технологии JJB
 	
 	$ jenkins-jobs update <путь до YAML-файла>
 	В Jenkins появляются описанные сборки
