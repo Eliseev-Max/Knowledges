@@ -42,7 +42,20 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 	sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'													# устанавливаем ключ
 	sudo apt-get update
-	sudo apt-get install jenkins	
+	sudo apt-get install jenkins
+	
+	Запуск Jenkins
+		1. Зарегистрируем службу Jenkins командой:
+			$ sudo systemctl daemon-reload
+		2. Запустить службу Jenkins командой:
+			$ sudo systemctl start jenkins
+		► Проверить статус службы Jenkins:
+			$ sudo systemctl status jenkins
+		Если всё установлено корректно, увидим:
+		Loaded: loaded (/etc/rc.d/init.d/jenkins; jenerated)
+		Active: active (running) since ... XXmin XXs ago
+		
+	В браузере переходим на localhost:8080
 									
 	
 	• Docker
@@ -182,17 +195,30 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 	Нужно кое-что поменять:
 	* [v] Build after other projects are built
 		  Указать в Project to watch: db-build-ui
-		  
+	Указав Project to watch, мы тем самым создали зависимость от результата прохождения
+	предыдущей сборки.
+	
+	Опции раздела Build Environment
+		Delete workspace before build starts
+		Add timestamps to the Console Output
+	оставляем активными.
+	
+	Шаги Build:
+	
 	Чтобы забрать артефакты предыдущей сборки:
 	+ Add build step:
 		• Copy artifacts from another project
 		  Project name: db-build-ui
-		[Latest success build]
+		[Latest success build]		# забираем артефакты из последнего успешного билда
+		Лучше всего сохранять артефакты сборки в отдельном директории.
+		В нашем случае создадим директорий build (Target directory: build)
+		
 		Execute shell: [
-			PATH=$PATH:$PWD/build		# путь до директория с нашим билдом
+			PATH=$PATH:$PWD/build		# путь до директория с нашим билдом; добавили /build в переменную PATH,
+										# чтобы иметь возможность запускать тестируемый бинарный файл по имени (./simple-db)
 			echo $PATH					# проверяем путь
 			python3 -m venv venv		# создаём виртуальное окружение
-			venv/bin/pip3 install -r tests/requirements.txt
+			venv/bin/pip3 install -r tests/requirements.txt		# установка необходимых зависимостей 
 			venv/bin/pytest -v tests/test_simple_db.py --junitxml=report.xml
 		]
 	В данном билде нет артефактов, убираем из шаблона артефакты
