@@ -70,7 +70,7 @@ PHPADMIN_PORT=8888 LOCAL_IP=192.168.1.50 docker-compose up -d
 Before usage LOCAL_IP and PHPADMIN_PORT environment variable should be set
 
 # PHPADMIN_PORT=8888 LOCAL_IP=192.168.8.134 docker-compose up -d
-PHPADMIN_PORT=8888 LOCAL_IP=172.19.16.229 docker-compose up -d
+PHPADMIN_PORT=8888 LOCAL_IP=172.19.16.142 docker-compose up -d
 
 login: user
 password: bitnami

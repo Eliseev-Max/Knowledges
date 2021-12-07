@@ -95,9 +95,12 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 		* !!! есть возможность параметризации сборок (This project is parameterised)!!!
 		...
 		Restrict where this project can be run - ограничить место запуска сборки
+		Если существует несколько серверов сборки Jenkins (master, slaves), можно с помощью этого пункта указать,
+		где именно будет запускаться конкретная сборка.
 	
 	Раздел Source Code Management
 		Source Code Management - управление системой контроля версий (SCM):
+		(где взять исходные файлы (исходный код) для сборки)
 			• none
 			• git		()
 		URL репозитория (предпочтительно SSH)
@@ -119,7 +122,7 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 			○ Запустить, даже когда сборка нестабильна (Trigger even if the build is unstable)
 			○ Запустить, даже если сборка "упала" (Trigger even if the build fails)
 			Stabile отличается от Unstabile количеством зафейлившихся билдов
-		[ ] Запускать сборку по Crone (Build periodically)	\ ~ Планировщик задач
+		[ ] Build periodically (Запускать сборку по Crone)	\ ~ Планировщик задач
 			Schedule
 			[написать сценарий запуска]
 		[ ] GitHub hook trigger for GITScm polling - позволяет следить за изменениями в GitHub
@@ -141,6 +144,8 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 		Build Environment содержит опции для управления окружением
 			[v] Delete workspace before build starts
 				(Удаление workspace перед началом сборки)
+				WORKSPACE - это локальный директорий на сервере с Jenkins,
+						    на который забирается исходный код с репозитория GitHub 
 			[v] Add timestamps to the Console Output
 			workspace - это локальный директорий на сервере с Jenkins, куда git сохраняет все файлы с репозитория GitHub
 			...
@@ -153,7 +158,9 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 			Есть исходный файл main.cpp
 			Command:
 			[g++ main.cpp -o simple-db]		# -o указать имя исполняемого (скомпилированного) файла
-			После компиляции приложения нужно сохранить артефакты
+			
+		► После компиляции приложения нужно сохранить артефакты
+		Это осуществляется с помощью Post-build Actions [Archive the artifacts]
 		
 	Раздел Post-build Actions
 			Артефакты (например, бинарные файлы) нужны для связи с другими сборками (использования внутри других сборок).
@@ -445,7 +452,7 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 		[v] This project is parameterised
 			[Add Parameter ▼]
 	Выбираем, например, Choise Parameter
-		Name: [threads]
+		Name: threads
 		Choices					# количество потоков по количеству ядер
 			[
 				auto

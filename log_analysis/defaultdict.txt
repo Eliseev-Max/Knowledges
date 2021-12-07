@@ -1,1 +1,0 @@
-https://docs-python.ru/standart-library/modul-collections-python/klass-defaultdict-modulja-collections/
