@@ -1,4 +1,8 @@
 Поиск элементов
+[
+	В консоли DevTools браузера веб-элементы по селектору искать:
+	document.querySelector("SELECTOR")
+]
 
 DOM (Document object model) - древовидная структура
 DOM-Tree (DOM-дерево)
