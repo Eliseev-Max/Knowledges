@@ -1,8 +1,0 @@
- 
-  Package java8-runtime is not installed.
-  Package java8-runtime-headless is not installed.
-  Package openjdk8-jre-headless is not installed.
-  Package openjdk-8-jre is not installed.
-  Package openjdk-8-jdk is not installed.
-  Package oracle-java8-installer is not installed.
-  Package oracle-java8-installer is not installed.

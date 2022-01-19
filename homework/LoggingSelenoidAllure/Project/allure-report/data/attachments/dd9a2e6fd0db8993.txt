@@ -1,1 +1,0 @@
-[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_currency_of_product_price" is running

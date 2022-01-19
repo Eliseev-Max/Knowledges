@@ -1,8 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Fri Sep 24 13:18:41 YEKT 2021","Fri Sep 24 13:18:43 YEKT 2021","2122","","test_catalog","","","","Добавление товара к сравнению"," Проверяем добавление товара к сравнению "
-"passed","Fri Sep 24 13:18:26 YEKT 2021","Fri Sep 24 13:18:28 YEKT 2021","2668","","test_catalog","","","","Поиск веб-элементов на странице каталога Laptops&Notebooks","Ищем на странице каталога /laptop-notebook/следующие веб-элементы:
-('css selector', '#content h2')
-('partial link text', 'Windows')
-('css selector', '#cart-total')
-('css selector', '#compare-total')"
-"passed","Fri Sep 24 13:18:34 YEKT 2021","Fri Sep 24 13:18:37 YEKT 2021","2245","","test_catalog","","","","Добавление товара в корзину"," Проверяем добавление товара в корзину "

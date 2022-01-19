@@ -1,7 +1,0 @@
-[32mINFO    [0m BrowserLogger:conftest.py:45 	Test "test_add_to_comparation" is running
-[32mINFO    [0m BrowserLogger:conftest.py:111 Browser chrome started with such capabilities: {'acceptInsecureCerts': False, 'browserName': 'chrome', 'browserVersion': '92.0.4515.131', 'chrome': {'chromedriverVersion': '92.0.4515.107 (87a818b10553a07434ea9e2b6dccf3cbe7895134-refs/branch-heads/4515@{#1634})', 'userDataDir': '/tmp/.com.google.Chrome.hDTEuA'}, 'goog:chromeOptions': {'debuggerAddress': 'localhost:45987'}, 'networkConnectionEnabled': False, 'pageLoadStrategy': 'normal', 'platformName': 'linux', 'proxy': {}, 'setWindowRect': True, 'strictFileInteractability': False, 'timeouts': {'implicit': 0, 'pageLoad': 300000, 'script': 30000}, 'unhandledPromptBehavior': 'dismiss and notify', 'webauthn:extension:credBlob': True, 'webauthn:extension:largeBlob': True, 'webauthn:virtualAuthenticators': True}
-[32mINFO    [0m Catalog:Catalog.py:7 Opening source: http://10.0.2.15/laptop-notebook/
-[32mINFO    [0m Catalog:Locators.py:118 Searching for several elements with locator: 'xpath = //*[@class='button-group']/button[@data-original-title='Compare this Product']'
-[32mINFO    [0m Catalog:Locators.py:109 Waiting for the element ('css selector', '.alert.alert-success.alert-dismissible') within 2 seconds
-[32mINFO    [0m Catalog:Locators.py:109 Waiting for the element ('css selector', '#compare-total') within 2 seconds
-[32mINFO    [0m BrowserLogger:conftest.py:115 	Test "test_add_to_comparation" completed
