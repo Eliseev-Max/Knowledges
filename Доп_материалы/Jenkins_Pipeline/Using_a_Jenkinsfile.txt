@@ -172,6 +172,7 @@ pipeline {
 Тестирование	[stage ('Test')]
 
 Развёртывание	[stage ('Deploy')]
+	
 
 	also:
 https://www.jenkins.io/doc/book/pipeline/jenkinsfile/	-	Using a Jenkinsfile

@@ -1,0 +1,73 @@
+Использование Docker с Pipeline
+
+Начиная с Pipeline версии 2.5 и выше, Pipeline имеет ВСТРОЕННУЮ поддержку взаимодействия с Docker из Jenkinsfile.
+
+Pipeline позволяет легко использовать образы Docker в качестве среды выполнения для одного этапа (stage) или всего Pipeline.
+Это означает, что пользователь может определить инструменты, необходимые для своего Pipeline, без необходимости вручную настраивать агенты.
+Практически любой инструмент, который можно упаковать в контейнер Docker, можно легко использовать, внеся лишь незначительные изменения в файл Jenkinsfile.
+
+Синхронизация рабочего пространства
+
+Коротко: если важно синхронизировать рабочее пространство с другими этапами, используйте
+	reuseNode true 
+
+В противном случае докеризованный этап можно запустить на любом другом агенте или на том же агенте, но во временном рабочем пространстве.
+
+По умолчанию для контейнерной стадии Jenkins выполняет следующие действия:
+
+    • выбрать любого агента,
+	• создать новое пустое рабочее пространство (workspace),
+	• клонировать в него код pipeline,
+	• смонтировать это новое рабочее пространство в контейнер.
+
+Если у вас есть несколько агентов Jenkins, ваш контейнерный этап можно запустить на любом из них.
+
+Когда для reuseNode установлено значение true:
+	► новое рабочее пространство не будет создано,
+	► текущее рабочее пространство из текущего агента будет смонтировано в контейнер,
+	► контейнер будет запущен на том же узле
+	→ поэтому все данные будут синхронизированы
+	
+ПОДРОБНЕЙШИМ ОБРАЗОМ проработать материал:
+► https://www.jenkins.io/doc/book/pipeline/docker/
+
++ Стоит ли предпочесть Declarative Pipeline?
+  Или же лучше Scripted Pipeline
+  
+https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+Раздел  Deploy
+
+
+Jenkinsfile (Declarative Pipeline)
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }
+            steps {
+                sh 'make publish'
+            }
+        }
+    }
+}
+
+После stage('Deploy') и перед steps {...} есть логический оператор.
+
+https://habr.com/ru/company/selectel/blog/339390/	- Управление задачами в Jenkins
+
+https://itnan.ru/post.php?c=1&p=339390				- Управление задачами в Jenkins
+
+https://docs.openstack.org/infra/jenkins-job-builder/	- Документация по Jenkins Job Builder (JJB)
+
+Нужен ли нам JJB?
+Какие преимущества нам даёт использование JJB?
+
+Ознакомиться:
+Дженкинс — Краткое руководство
+	(https://coderlessons.com/tutorials/kachestvo-programmnogo-obespecheniia/uznaite-dzhenkins/dzhenkins-kratkoe-rukovodstvo)
