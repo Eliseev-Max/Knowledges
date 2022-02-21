@@ -301,6 +301,49 @@ ________________________________________________________________________________
 	
 	$ docker run --name test_run tests && docker cp test_run:/app/allure-report . && allure serve allure-report
 
+[Тезисы об инструкции ARG]
+{
+	ARG - единственная инструкция, которая может предшествовать инструкции FROM в Dockerfile.
+	ARG определяет переменную для передачи из командной строки в образ.
+	Инструкции FROM поддерживают переменные, объявленные любыми инструкциями ARG, расположенными перед первой командой FROM.
+	
+	Dockerfile:
+		ARG  CODE_VERSION=latest
+		FROM base:${CODE_VERSION}
+		CMD  /code/run-app
+
+		FROM extras:${CODE_VERSION}
+		CMD  /code/run-extras
+	ARG, объявленная перед FROM, находится вне стадии сборки, поэтому ее нельзя использовать ни в одной инструкции после FROM.
+	(В отличие от ENV-переменных, ARG-переменные не доступны для запущенных контейнеров.)
+	ARG нужно использовать, если требуется указать значения ENV по умолчанию при создании образа Docker.
+	Чтобы использовать значение по умолчанию ARG, объявленное перед первым FROM, используйте инструкцию ARG без значения внутри этапа сборки:
+	Dockerfile:
+		ARG VERSION=latest
+		FROM busybox:$VERSION
+		ARG VERSION							# инструкция ARG без значения
+		RUN echo $VERSION > image_version
+	
+	Резюме:
+		В момент сборки образа ($ docker build -t image_tag .) мы не можем задать/изменить значение ENV в Dockerfile.
+		А значение ARG мы можем передать через параметр команды docker build или оставить по умолчанию (как указано в Dockerfile)
+	Пример:
+		________________________________
+		Dockerfile
+		ARG BUILDTIME_VAR=default_value
+		FROM ...
+		ENV ENV_VAR_NAME=$BUILDTIME_VAR
+		________________________________
+		sh:
+		$ docker build --build-arg BUILDTIME_VAR=value_1
+	
+	[Sources:
+		§ https://docs.docker.com/engine/reference/builder/
+		§ https://tproger.ru/translations/docker-instuction/
+		§ https://vsupalov.com/docker-build-time-env-values/
+	]
+}
+
 Документация
 	• https://docs.docker.com/
 Полезные ссылки:
