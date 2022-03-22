@@ -1,0 +1,16 @@
+Постигая YAML in Specs
+[https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#understanding-yaml-in-specs]
+https://confluence.atlassian.com/bamboo/tutorial-bamboo-specs-yaml-stored-in-bitbucket-server-941616819.html
+
+Сериализация - процесс перевода структуры данных в последовательность (поток) байтов для сохранения или передачи (в память, БД или файл).
+
+YAML - это язык сериализации данных, предназначенный для непосредственной записи и чтения людьми. (=понятен для записи и чтения).
+Это строгое надмножество JSON с добавлением синтаксически значимых новых строк и отступов (как в Python)
+
+Что сближает YAML с Python:
+	- наличие синтаксически значимых отступов и новых строк
+
+Что отличает YAML от Python:
+	- YAML не допускает использование буквенных символов табуляции для отступов.
+	
+https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#version-information
