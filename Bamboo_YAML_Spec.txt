@@ -1,6 +1,7 @@
 Постигая YAML in Specs
 [https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#understanding-yaml-in-specs]
 https://confluence.atlassian.com/bamboo/tutorial-bamboo-specs-yaml-stored-in-bitbucket-server-941616819.html
+https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#version-information
 
 Сериализация - процесс перевода структуры данных в последовательность (поток) байтов для сохранения или передачи (в память, БД или файл).
 
@@ -13,4 +14,50 @@ YAML - это язык сериализации данных, предназна
 Что отличает YAML от Python:
 	- YAML не допускает использование буквенных символов табуляции для отступов.
 	
-https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#version-information
+Расположение YAML Spec файла bamboo.yaml
+	/bamboo-spec/bamboo.yaml
+	Каждый YAML Spec файл должен находиться внутри каталога /bamboo-spec/ в корне репозитория.
+	bamboo.yaml - корневой файл для всех определений.
+	
+YAML разделен на документы.
+Документы — это разделы внутри того же файла, который содержит определения спецификаций YAML.
+Один и тот же файл может содержать несколько документов.
+Каждый документ YAML начинается с: ---
+Bamboo Specs будет оценивать каждый документ как самостоятельную часть.
+Каждый якорь, включение (include) и ключ, используемые в документе, являются локальными для него.
+Как это выглядит:
+---
+# Plan definition
+version: 2
+# ...
+
+---
+# Second plan definition
+version: 2
+# ...
+
+---
+# ...
+
+► Форматы
+Bamboo Specs принимает следующие определения формата документов: 
+	
+	• Планы (Plans)
+	• Проекты развёртывания (Deployment Projects)
+	• Plan Permissions
+	• Разрешения развёртывания (Deployment Permissions)
+
+Bamboo понимает каждый из этих форматов в отдельных документах.
+
+# Примечание:
+#
+# Вы можете организовать свои репозитории, чтобы они содержали различные комбинации спецификаций YAML.
+# Например, у вас может быть один репозиторий, в котором размещается ваш исходный код вместе со спецификациями YAML,
+# другой репозиторий, содержащий только спецификации YAML для развертывания этого кода, 
+# и третий репозиторий, в котором хранятся только разрешения.
+# В этом сценарии у вас может быть больше контроля над тем, кто сможет изменять различные части ваших определений 
+# в спецификациях, более строгие ограничения для разрешений, но предоставляющие всем разработчикам в компании доступ к планам.
+
+Включения (Includes)
+https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#formats
+также https://confluence.atlassian.com/bamboo/tutorial-bamboo-specs-yaml-stored-in-bitbucket-server-941616819.html
