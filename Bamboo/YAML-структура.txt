@@ -23,7 +23,7 @@ scientific_notation: 1e+12
 
 boolean: true
 null_value: null
-key with spaces: value	
+key with spaces: value
 # Ключ с пробелами: значение
 # Обратите внимание, что строки не нужно заключать в кавычки.
 # Однако они могут быть.
