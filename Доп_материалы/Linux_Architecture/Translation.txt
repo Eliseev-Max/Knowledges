@@ -20,7 +20,11 @@ If a virtual console terminal is used to log in, the CLI prompt is automatically
 (Если для входа в систему используется терминал виртуальной консоли, автоматически отображается приглашение CLI, и вы можете начать вводить команды оболочки.)
 However, if you log into the Linux system via a graphical desktop environment, you need to start a graphical terminal emulator to access the shell CLI prompt.
 (Однако, если вы входите в систему Linux через графическую среду рабочего стола, вам необходимо запустить эмулятор графического терминала, чтобы получить доступ к приглашению оболочки CLI)
-{page 84. Using the Shell Prompt}
+
+p.84 Using the Shell Prompt
+
+
+
 
 https://habr.com/ru/post/170581/
 https://docs.atlassian.com/bamboo-specs-docs/6.9.0/specs.html?yaml#job
