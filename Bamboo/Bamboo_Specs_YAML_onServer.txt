@@ -1,3 +1,6 @@
+Документация по Bamboo ver. 6.3.0:
+[https://docs.atlassian.com/bamboo-specs-docs/6.3.0/specs-yaml.html#job-requirements]
+
 Bamboo Specs YAML, хранящиеся на сервере Bitbucket
 
 Для начала ознакомимся с технологией Bamboo Specs
@@ -36,7 +39,43 @@ Bamboo Specs = конфигурация в виде кода (configuration as c
 	• Вы можете использовать теги, чтобы отметить версии, которые были опубликованы в Bamboo.
 	• Вы можете использовать ветки, чтобы изолировать изменения в процессе разработки и работать в параллельных потоках,
 	  не затрагивая ваш рабочий экземпляр Bamboo.
+	  
+Необходимый для создания плана минимум
+	Достаточно всего 10 строк, чтобы создать план в yaml.
+	Элементы, которые необходимо и достаточно указать:
+	  • ключ проекта, в котором будет создан план;
+	  • ключ плана;
+	  • имя плана;
+	  • список скриптов для выполнения
 
-https://confluence.atlassian.com/bamboo0605/bamboo-specs/enabling-repository-stored-bamboo-specs
+Пример:
+	
+---															# обозначение начала документа
+project:													# объявление проекта (корневой объект)
+  key: DRAGON												# ключ проекта
+  plan:														# объявление плана (вложенный объект)
+    key: SLAYER												# ключ плана
+    name: Dragon Slayer Quest								# имя плана
+stages:														# объявление этапов (stages)
+  - jobs:													# значение ключа stages = массив из задач (джоб)
+      - scripts:											# в каждую джобу может входить несколько скриптов
+          - echo 'Going to slay the red dragon, watch me'	#
+...
 
-https://confluence.atlassian.com/bamboo0605/bamboo-specs/bamboo-yaml-specs/tutorial-bamboo-specs-yaml-stored-in-bitbucket-server
+Определение требований к агенту сборки:
+	♦ если одну и ту же сборку запускают на разных платформах;
+	♦ если одну и ту же сборку запускают в разных версиях окружения для проверки матрицы совместимости.
+
+Четыре типа возможностей, которые можно указать в требованиях к джобе:
+	1. возможности выполнения: определяют внешние программы, которые может вызывать Bamboo (напр. Ant, Maven, MSBuild)
+	2. возможности JDK: определяют версии JDK, которые будут использованы в job-е или task-е
+	3. пользовательские возможности: для управления тем, какие задания будут создаваться конкретным агентом.
+	   Пример: если сборки для определенного задания должны выполняться только в среде Windows,
+	           можно создать: operating.system.Windows для соответствующего агента (агентов) 
+			   и указать ее в качестве требования для этого задания.
+
+Enabling repository-stored Bamboo Specs (ver. 6.5.0)
+[https://confluence.atlassian.com/bamboo0605/bamboo-specs/enabling-repository-stored-bamboo-specs]
+
+Tutorial: Bamboo Specs YAML stored in Bitbucket Server (ver. 6.5.0)
+[https://confluence.atlassian.com/bamboo0605/bamboo-specs/bamboo-yaml-specs/tutorial-bamboo-specs-yaml-stored-in-bitbucket-server]
