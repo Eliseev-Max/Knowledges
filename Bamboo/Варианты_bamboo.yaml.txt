@@ -62,3 +62,26 @@ stages:
           - name: Medal of courage
             path: pocket/medal
 ...
+
+
+project:
+  key: O2A2LS
+  plan:
+    key: O2A2LSDOCKERNODE
+    name: o2a2ls-docker-node
+
+stages:
+  - jobs:
+      - scripts:
+          - '#!/bin/bash'
+          - echo 'Jetpack scan'
+          - make jetpack_scan
+        requirements:
+          - os
+  - jobs:
+      - scripts:
+          - '#!/bin/bash'
+          - echo 'build image asq/node:7'
+          - VERSION="7.10.1" make release
+        requirements:
+          - os
