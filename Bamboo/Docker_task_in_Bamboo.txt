@@ -1,0 +1,62 @@
+Configuring the Docker task in Bamboo
+(https://confluence.atlassian.com/bamboo0605/using-bamboo/jobs-and-tasks/configuring-tasks/configuring-the-docker-task-in-bamboo)
+
+Задача Docker в Bamboo позволяет использовать образы и контейнеры Docker в сборках (builds) и развёртывниях (deployments) Bamboo.
+
+!!! Если мы используем Windows Bamboo server, мы не можем запускать команды Docker непосредственно из командной строки Windows.
+Чтобы использовать Docker task на Windows Bamboo server, запустите Docker Machine.
+
+Задача Docker поддерживает следующие действия Docker:
+	• создание образа Docker (Build a Docker image);
+	• запуск контейнера Docker (Run a Docker container);
+	• перенос репозитория Docker в реестр Docker.
+	
+Не забудьте определить возможность Docker для агента перед настройкой задачи Docker.
+{
+(
+  перевод статьи:
+  https://confluence.atlassian.com/bamboo0605/administering-bamboo/agents-and-capabilities/configuring-capabilities/defining-a-new-docker-capability
+)
+Определение возможности Docker (Docker capability) на elastic image
+	1. Щёлкнуть на иконку [*▼] в хэдере Bamboo и выбрать "Обзор" (Overview)
+	2. Щёлкнуть "Конфигурация образа" (Image configurations) в левой панели навигации (под 'Elastic Bamboo')
+	3. Щёлкнуть "Возможности" (Capabilities) (под 'Операции') для соответствующего elastic image
+	4. Использовать панель "Добавить возможность" в конце страницы, чтобы добавить в образ новую способность Docker
+		• в типе возможности выберите Docker.
+		• в поле «Путь» введите путь к исполняемому файлу Docker, например, /usr/bin/docker
+	5. Щёлкнуть "Добавить"
+
+Определение возможности Docker (Docker capability) на Агенте
+	1. Нажать на иконку [*▼] в хэдере Bamboo и выбрать "Обзор" (Overview)
+	2. Нажать "Агенты" (Agents) на левой панели
+	3. Нажать на имя требуемого агента
+	4. Нажать на "Таблице возможностей" (Capabilities tab) и далее "Добавить возможность" (справа от «Специфические для агента возможности»)
+	5. На панели «Добавить возможность» (Add Capabilitiy):
+	       • в типе возможности выбрать Docker;
+		   • в поле "Path" введите путь к исполняемому файлу Docker, например, /usr/bin/docker
+	6. Щёлкнуть "Добавить"
+	
+Определение возможности Docker (Docker capability) на сервере Bamboo
+	1. Нажать на иконку [*▼] в хэдере Bamboo и выбрать "Обзор" (Overview)
+	2. Щёлкнуть "Server capabilities" в левой панели навигации
+	3. Использовать панель "Добавить возможность" в конце страницы, чтобы добавить в образ новую способность Docker
+		• в типе возможности выберите Docker.
+		• в поле «Путь» введите путь к исполняемому файлу Docker, например, /usr/bin/docker
+	4. Щёлкнуть "Добавить"
+}
+
+о том, как управлять удалёнными агентами Bamboo, используя Docker, и запускать их:
+{ Getting started with Docker and Bamboo
+	https://confluence.atlassian.com/bamboo0605/getting-started-with-bamboo/getting-started-with-docker-and-bamboo
+}
+
+Настройка tasks:
+{
+	https://confluence.atlassian.com/bamboo0605/using-bamboo/jobs-and-tasks/configuring-tasks
+}
+
+
+{ Example:
+Bamboo, Docker, and building web apps
+https://www.atlassian.com/blog/2015/09/bamboo-docker-building-web-apps?utm_source=twitter&utm_medium=social&utm_campaign=atlassian_bamboo-docker-addteq
+}
