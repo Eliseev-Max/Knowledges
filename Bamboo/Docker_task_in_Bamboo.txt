@@ -60,11 +60,25 @@ Configuring the Docker task in Bamboo
 		• возможность запустить несколько удалённых агентов на одном и том же хосте без
 		  противоречащих требований.
 	
+	У Atlassian опубликовано 2 образа на Docker Hub:
+	atlassian/bamboo-java-agent
+	(подходит для разработки стека Java)
+		• Bamboo agent .jar (5.6.0)
+		• OpenJDK 7
+		• GIT, Mercurial, CVS and SVN
+		• Maven 2, 3 and Ant
+
+	atlassian/bamboo-base-agent
+	(подходит для глубокой настройки)
+		• Bamboo agent .jar (5.6.0)
+		• OpenJDK 7
+	
 	Для новой установки Bamboo удаленных агентов ещё не будет.
 	Запуск удалённого агента → Агент подключается к Серверу Bamboo → Агент готов выполнять задания.
 	‼ Если требуется посмотреть запущенные удаленные агенты:
 		1) убедиться, что сервер Bamboo запущен;
 		2) Administration > Agents (Администрирование → Агенты)
+	
 	
 }
 
