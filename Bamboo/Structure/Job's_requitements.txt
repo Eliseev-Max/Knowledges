@@ -1,0 +1,7 @@
+Configuring a job's requirements
+[https://confluence.atlassian.com/bamboo0607/configuring-a-job-s-requirements-966045094.html]
+
+Настройка требований заданий (job's requirements)
+Требования указываются:
+	• в джобах
+	• в тасках
