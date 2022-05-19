@@ -45,8 +45,11 @@ Configuring a job's requirements
 	4. Заполните форму требования:
 		a. Ключ (только для новых пользовательских требований) - введите ключ новой способности
 		b.Выберите значение для требования из списка:
-		        exists — this job can be built by any agent that has a capability with the same key.
-        equals — this job can be built by any agent that has the capability with the same key and value.
-        matches — this job can be built by any agent that has a capability with the same key, and the value matches the regular expression.  For more information about regular expressions, see Oracle's tutorial on regular expressions.. 
+		    exists (существует) — эта джоба может быть построена любым агентом, который имеет способность (capability) с тем же ключом.
+            equals (равно) — это задание может быть построено любым агентом, который имеет способности с тем же ключом и значением.
+            matches (соответствует) — это задание может быть построено любым агентом, у которого есть способности с тем же ключом,
+                    и значение соответствует регулярному выражению.
 
-Click Add. The numbers of 'Matching Agents' and 'Matching Images' will be updated, as the plan can now only be built by agents with capabilities that meet the new custom requirement you have specified.
+Щелкните "Добавить" > Количество «соответствующих агентов» и «совпадающих образов» будет обновлено,
+так как план теперь может быть создан только агентами с возможностями, которые соответствуют новым указанным вами настраиваемым требованиям.
+		    
