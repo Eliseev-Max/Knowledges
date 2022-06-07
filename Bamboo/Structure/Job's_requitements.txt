@@ -1,5 +1,16 @@
-Configuring a job's requirements
+
+[1] {Configuring jobs
+https://confluence.atlassian.com/bamboo0607/configuring-jobs-966045090.html
+}
+[2] {Configuring a job's requirements
 [https://confluence.atlassian.com/bamboo0607/configuring-a-job-s-requirements-966045094.html]
+}
+
+[1] →
+	Одна или более джоб могут быть организованы в одну или более стадий (Stages)
+	Роль Jobs в выполнении Плана Bamboo:
+		► Bamboo Job - отдельная единица сборки в плане;
+		► джоба позволяет собрать вместе несколько задач (тасков), которые мы хотели бы выполнить последовательно
 
 __Настройка требований заданий (job's requirements)__
 Требования указываются:

@@ -1,11 +1,17 @@
+{ Docker Runner
+    https://confluence.atlassian.com/bamboo0607/docker-runner-966044994.html
+}
+
+***
+
 Configuring the Docker task in Bamboo
 (https://confluence.atlassian.com/bamboo0605/using-bamboo/jobs-and-tasks/configuring-tasks/configuring-the-docker-task-in-bamboo)
 
 Задача Docker (Docker task) в Bamboo позволяет использовать образы и контейнеры Docker
 в сборках (builds) и развёртывниях (deployments) Bamboo.
 
-!!! Если мы используем Windows Bamboo server, мы не можем запускать команды Docker непосредственно из командной строки Windows.
-Чтобы использовать Docker task на Windows Bamboo server, запустите Docker Machine.
+‼ Если мы используем Windows Bamboo server, мы не можем запускать команды Docker непосредственно из командной строки Windows.
+  Чтобы использовать Docker task на Windows Bamboo server, запустите Docker Machine.
 
 Задача Docker поддерживает следующие действия Docker:
 	• создание образа Docker (Build a Docker image);
@@ -18,7 +24,7 @@ Configuring the Docker task in Bamboo
   перевод статьи:
   https://confluence.atlassian.com/bamboo0605/administering-bamboo/agents-and-capabilities/configuring-capabilities/defining-a-new-docker-capability
 )
-Определение возможности Docker (Docker capability) на elastic image
+Определение возможности Docker (Docker capability) на elastic image (== Amazon Machine Image (AMI))
 	1. Щёлкнуть на иконку [*▼] в хэдере Bamboo и выбрать "Обзор" (Overview)
 	2. Щёлкнуть "Конфигурация образа" (Image configurations) в левой панели навигации (под 'Elastic Bamboo')
 	3. Щёлкнуть "Возможности" (Capabilities) (под 'Операции') для соответствующего elastic image
