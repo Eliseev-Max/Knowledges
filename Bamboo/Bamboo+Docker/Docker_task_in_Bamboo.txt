@@ -1,6 +1,22 @@
 { Docker Runner
     https://confluence.atlassian.com/bamboo0607/docker-runner-966044994.html
 }
+С помощью Docker Runner мы можем запускать сборки и развёртывания (деплойменты) в контейнере Docker,
+чтобы изолировать процесс сборки от окружения, в котором он запущен.
+Bamboo предоставляет поддержку для Docker для Ubuntu версии 17 и выше (новее)
+Если вы хотите использовать образ Docker в ваших сборках Bamboo, вы можете сделать это с помощью Docker tasks.  
+
+Docker Runner можно включить для джоб и сред развертывания в момент:
+	• создания или редактирования джоб;
+	• создания или редактирования сред развертывания
+
+(* Docker Runner также полностью поддерживается (инструментом) Bamboo Specs)
+
+	Требования (Requirements)
+Включение Docker для задания или среды развертывания отключает стандартные требования, исходящие от задач.
+Все требования, исходящие из задач, будут заменены одним требованием для Docker.
+Пользовательские требования, настроенные пользователями вручную, не будут удалены 
+и по-прежнему будут использоваться для сопоставления агентов.
 
 ***
 
@@ -85,14 +101,24 @@ Configuring the Docker task in Bamboo
 		1) убедиться, что сервер Bamboo запущен;
 		2) Administration > Agents (Администрирование → Агенты)
 	
-	
 }
+
+---
+{ Docker in Bamboo | Build Docker Image | Push Docker image to Docker Hub & AWS ECR
+https://youtu.be/XFdoOT6Q_l0
+}
+[02:35] Settings (*) → Overview → (Левое мменю): Server capabilities → Add capabilitiy ▼
+	Capabilitiy type: Docker
+				Path: (путь до исполняемого файла Docker) /usr/bin/docker
+
+Не забыть добавить пользователя bamboo в группу docker:
+	$ sudo usermod -aG docker bamboo
+
 
 Настройка tasks:
 {
 	https://confluence.atlassian.com/bamboo0605/using-bamboo/jobs-and-tasks/configuring-tasks
 }
-
 
 { Example:
 Bamboo, Docker, and building web apps
