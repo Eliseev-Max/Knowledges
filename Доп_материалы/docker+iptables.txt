@@ -10,3 +10,41 @@ Docker устанавливает две пользовательские цеп
 Если нужно добавить правила, которые загружаются ДО правил Docker, добавьте их в цепочку DOCKER-USER.
 Эти правила применятся, прежде чем любые автоматически созданные Docker-ом
 
+<Internet> ↔ [eno1](Docker Host)[docker0] ↔ <Docker Containers>
+
+Правила фильтрации трафика прописываются только в одном месте.
+Цепочки:
+	• INPUT		→ пакеты локальным программам;
+	• FORWARD	→ пересылаемые пакеты
+	
+Листинг правил в цепочке FORWARD:
+	$ sudo iptables -S FORWARD
+	# Установить действие по умолчанию
+	-P FORWARD DROP
+	# добавить правило в цепочку FORWARD на перенаправление в подцепочку DOCKER-USER
+	-A FORWARD -j DOCKER-USER
+	
+	-A FORWARD -j DOCKER-ISOLATION-STAGE-1
+	-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+	-A FORWARD -o docker0 -j DOCKER
+	-A FORWARD -i docker0 ! -o docker0 -j ACCEPT
+	-A FORWARD -i docker0 -o docker0 -j ACCEPT
+
+Трафик из контейнеров Docker: -i docker0
+	container → -i docker0 -o eno1 → internet
+
+Трафик в контейнеры Docker:
+	internet → -i eno1 -o docker0 → container
+	
+Пакеты из контейнеров наружу (никак не задерживаются):
+	-A FORWARD -i docker0 ! -o docker0 -j ACCEPT
+	
+Пакеты из интернета в контейнеры на опубликованные порты:
+	Мы опубликовываем порт (docker run -p xx:yy) → в цепочку DOCKER таблицы filter добавится новое правило.
+	Пример:
+	-p 7777:80
+	$ sudo iptables -S DOCKER
+	-N DOCKER
+	-A DOCKER -d 172.17.0.2/32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 80 -j ACCEPT
+
+https://codepoetry.ru/post/docker-iptables/
