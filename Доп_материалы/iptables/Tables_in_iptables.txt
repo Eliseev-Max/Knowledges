@@ -1,0 +1,110 @@
+Sources:
+1. Iptables Tutorial 1.2.2
+[ https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#MANGLETABLE ]
+
+2. Утилита iptables в Ubuntu
+[ https://tokmakov.msk.ru/blog/item/473 ]
+
+Цепочки правил:
+
+    • PREROUTING — правила в этой цепочке применяются ко всем пакетам, которые поступают на сетевой интерфейс извне
+    • INPUT — применяются к пакетам, которые предназначаются для самого хоста или для процесса на данном хосте
+    • FORWARD — правила, которые применяются к транзитным пакетам, проходящим через хост, не задерживаясь
+    • OUTPUT — применяются к пакетам, которые сгенерированы самим хостом или процессами на данном хосте
+    • POSTROUTING — применяются к пакетам, которые должны покинуть сетевой интерфейс данного хоста
+
+Над цепочками правил в iptables есть еще один уровень абстракции — таблицы.
+Таблицы предназначены для выполнения разных действий над пакетами, например для модификации или фильтрации:
+
+    ♦ raw — предназначена для работы с сырыми пакетами, пока они еще не прошли обработку
+    ♦ mangle — предназначена для модификации различных заголовков пакета
+    ♦ nat — обеспечивает работу NAT, если сервер используется в качестве маршрутизатора
+    ♦ filter — основная таблица для фильтрации пакетов, используется по умолчанию
+
+Утилита iptables. Параметры работы с цепочками:
+(Если таблица не указана, подразумевается таблица filter)
+    -A (или --append) — добавить правило в цепочку
+    -D (или --delete) — удалить правило из цепочки
+    -I (или --insert) — вставить правило в цепочку под указанным номером
+    -L (или --list) — вывести все правила для заданной цепочки
+    -F (или --flush) — очистить все правила для заданной цепочки (таблицы)
+    -N (или --new-chain) — создать новую цепочку
+    -X (или --delete-chain) — удалить цепочку
+    -P (или --policy) — установить действие по умолчанию для цепочки
+
+  Дополнительные опции:
+    -v (или --verbose) — увеличить подробность сообщений, при указании с командой --list будет выводиться имя интерфейса, параметры правил и маски TOS.
+    -n (или --numeric) — выводить ip-адреса и номера портов в числовом виде, предотвращая попытки преобразовать их в символические имена.
+    --line-numbers — показывать номера строк при отображении списка правил командой --list (номер строки соответствует позиции правила в цепочке). 
+
+Действия с соединениями
+
+    ACCEPT — пакет покидает данную цепочку и передается в следующую
+    DROP — отбросить пакет, пакет не передается в следующую цепочку
+    REJECT — отбросить пакет, сообщить отправителю пакета об ошибке
+    SNAT — замена ip-адреса источника в пакете, в цепочках POSTROUTING и OUTPUT таблицы nat
+    DNAT — замена ip-адреса назначения в пакете, в цепочке PREROUTING таблицы nat (изредка — в OUTPUT)
+    LOG — записать пакет в лог-файл (отправляется демону syslog) и обработать остальными правилами
+    MASQUERADE — как SNAT, но для соединений с динамическим ip-адресом, в цепочке POSTROUTING таблицы nat
+    MARK — установить метку на пакет и обработать остальными правилами
+
+
+Таблица Mangle (Изменённые)
+
+This table should as we've already noted mainly be used for mangling packets. In other words, you may freely use the mangle targets within this table, to change TOS (Type Of Service) fields and the like.
+Caution!
+	You are strongly advised not to use this table for any filtering; nor will any DNAT, SNAT or Masquerading work in this table.
+The following targets are only valid in the mangle table. They can not be used outside the mangle table.
+
+    TOS
+
+    TTL
+
+    MARK
+
+    SECMARK
+
+    CONNSECMARK
+
+The TOS target is used to set and/or change the Type of Service field in the packet. This could be used for setting up policies on the network regarding how a packet should be routed and so on. Note that this has not been perfected and is not really implemented on the Internet and most of the routers don't care about the value in this field, and sometimes, they act faulty on what they get. Don't set this in other words for packets going to the Internet unless you want to make routing decisions on it, with iproute2.
+
+The TTL target is used to change the TTL (Time To Live) field of the packet. We could tell packets to only have a specific TTL and so on. One good reason for this could be that we don't want to give ourself away to nosy Internet Service Providers. Some Internet Service Providers do not like users running multiple computers on one single connection, and there are some Internet Service Providers known to look for a single host generating different TTL values, and take this as one of many signs of multiple computers connected to a single connection.
+
+The MARK target is used to set special mark values to the packet. These marks could then be recognized by the iproute2 programs to do different routing on the packet depending on what mark they have, or if they don't have any. We could also do bandwidth limiting and Class Based Queuing based on these marks.
+
+The SECMARK target can be used to set security context marks on single packets for usage in SELinux and other security systems that are able to handle these marks. This is then used for very fine grained security on what subsystems of the system can touch what packets et cetera. The SECMARK can also be set on a whole connection with the CONNSECMARK target.
+
+CONNSECMARK is used to copy a security context to or from a single packet from or to the whole connection. This is then used by the SELinux and other security systems to do more fine-grained security on a connection level. 
+
+Таблица Nat (NAT, преобразование сетевых адресов)
+
+This table should only be used for NAT (Network Address Translation) on different packets. In other words, it should only be used to translate the packet's source field or destination field. Note that, as we have said before, only the first packet in a stream will hit this table. After this, the rest of the packets will automatically have the same action taken on them as the first packet. The actual targets that do these kind of things are:
+
+    DNAT
+
+    SNAT
+
+    MASQUERADE
+
+    REDIRECT
+
+The DNAT target is mainly used in cases where you have a public IP and want to redirect accesses to the firewall to some other host (on a DMZ for example). In other words, we change the destination address of the packet and reroute it to the host.
+
+SNAT is mainly used for changing the source address of packets. For the most part you'll hide your local networks or DMZ, etc. A very good example would be that of a firewall of which we know outside IP address, but need to substitute our local network's IP numbers with that of our firewall. With this target the firewall will automatically SNAT and De-SNAT the packets, hence making it possible to make connections from the LAN to the Internet. If your network uses 192.168.0.0/netmask for example, the packets would never get back from the Internet, because IANA has regulated these networks (among others) as private and only for use in isolated LANs.
+
+The MASQUERADE target is used in exactly the same way as SNAT, but the MASQUERADE target takes a little bit more overhead to compute. The reason for this, is that each time that the MASQUERADE target gets hit by a packet, it automatically checks for the IP address to use, instead of doing as the SNAT target does - just using the single configured IP address. The MASQUERADE target makes it possible to work properly with Dynamic DHCP IP addresses that your ISP might provide for your PPP, PPPoE or SLIP connections to the Internet. 
+
+Таблица Raw (Сырые данные)
+The raw table is mainly only used for one thing, and that is to set a mark on packets that they should not be handled by the connection tracking system. This is done by using the NOTRACK target on the packet. If a connection is hit with the NOTRACK target, then conntrack will simply not track the connection. This has been impossible to solve without adding a new table, since none of the other tables are called until after conntrack has actually been run on the packets, and been added to the conntrack tables, or matched against an already available connection. You can read more about this in the The state machine chapter.
+
+This table only has the PREROUTING and OUTPUT chains. No other chains are required since these are the only places that you can deal with packets before they actually hit the connection tracking.
+Note!
+	► For this table to work, the iptable_raw module must be loaded. It will be loaded automatically if iptables is run with the -t raw keywords, and if the module is available.
+	► The raw table is a relatively new addition to iptables and the kernel. It might not be available in early 2.6 and 2.4 kernels unless patched.
+
+Таблица filter
+Filter table
+
+The filter table is mainly used for filtering packets. We can match packets and filter them in whatever way we want. This is the place that we actually take action against packets and look at what they contain and DROP or /ACCEPT them, depending on their content. Of course we may also do prior filtering; however, this particular table is the place for which filtering was designed. Almost all targets are usable in this table. We will be more prolific about the filter table here; however you now know that this table is the right place to do your main filtering.
+
+[https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#USERTABLES]

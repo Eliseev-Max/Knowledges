@@ -61,8 +61,8 @@
 		В случае iptables это включает все правила, установленные в таблицах filter, nat, raw и mangle, а также во всех последующих цепочках.
 		В большинстве случаев они записываются в какой-либо файл конфигурации.
 
-    Jump (Переход) - The jump instruction is closely related to a target. A jump instruction is written exactly the same as a target in iptables, with the exception that instead of writing a target name, you write the name of another chain. If the rule matches, the packet will hence be sent to this second chain and be processed as usual in that chain.
-		Инструкция прыжка тесно связана с целью.
+    Jump (Переход) -
+		Инструкция перехода тесно связана с целью.
 		Инструкция перехода пишется точно так же, как цель в iptables, НО вместо имени цели - имя другой цепочки.
 		Правило соответствует → пакет будет отправлен во вторую цепочку и обработан, как обычно, в этой цепочке.
 		
@@ -75,4 +75,8 @@
 		- принять пакет и пропустить его через правила брандмауэра.
 		Действие, противоположное целям DROP | DENY, а также REJECT.
 
-    Policy - There are two kinds of policies that we speak about most of the time when implementing a firewall. First we have the chain policies, which tells the firewall implementation the default behaviour to take on a packet if there was no rule that matched it. This is the main usage of the word that we will use in this book. The second type of policy is the security policy that we may have written documentation on, for example for the whole company or for this specific network segment. Security policies are very good documents to have thought through properly and to study properly before starting to actually implement the firewall. 
+    Policy (Политика) - 
+		- существует два типа политик с точки зрения реализации брандмауэра:
+			1 - политики цепочки, которые сообщают реализации брандмауэра поведение по умолчанию для пакета, если не было соответствующего ему правила.
+			    (основное значение термина "политика")
+			2 - политика безопасности, по которой у нас может быть написана документация, например, для всей компании или для данного конкретного сегмента сети. Политики безопасности — это очень хорошие документы, которые нужно тщательно продумать и тщательно изучить, прежде чем приступать к практической реализации брандмауэра.
