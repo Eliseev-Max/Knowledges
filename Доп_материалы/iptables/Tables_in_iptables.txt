@@ -48,45 +48,80 @@ Sources:
     MASQUERADE — как SNAT, но для соединений с динамическим ip-адресом, в цепочке POSTROUTING таблицы nat
     MARK — установить метку на пакет и обработать остальными правилами
 
+Кратко о движении транзитных пакетов
+
+	Таблица		Цепочка			Примечание
+	mangle		PREROUTING		обычно цепочка (Ц.) для внесения изменений в заголовки пакета (изм. битов TOS)
+	nat			PREROUTING		Ц. для трансляции сетевых адресов; source NAT выполняется позднее, в др. Ц.
+	----------------------------------------------------------------------------------------------------------------
+	Принятие решения о дальнейшей маршрутизации (куда пойдёт пакет: локальному приложению | на др. узел
+	----------------------------------------------------------------------------------------------------------------
+	mangle		FORWARD			Пакет → mangle.FORWARD
+	filter		FORWARD			Здесь - фильтрация транзитного трафика. Трафик через эту Ц. - в обоих направлениях
+	mangle		POSTROUTING		Внесение изменений в заголовок пакета после принятого решения о маршрутизации
+	nat			POSTROUTING		Ц. в первую очередь для Sources NAT. Здесь же - Masquerading
+
+Биты TOS (Type of Service) - набор из четырехбитных флагов в заголовке IP-пакета.
+Каждый из четырех битов имеет различную цель, и только один из TOS-битов может быть установлен в один момент времени.
+Установка любого бита = пакет может быть обработан маршрутизатором не так, как пакет со сброшенными битами TOS.
+Доступные классы обслуживания сети:
+	• Minimum delay (минимальная задержка)
+	• Maximum throughput (максимальная пропускная способность)
+	• Maximum reliability (максимальная надёжность)
+	• Minimum cost (минимальная стоимость)
 
 Таблица Mangle (Изменённые)
 
-This table should as we've already noted mainly be used for mangling packets. In other words, you may freely use the mangle targets within this table, to change TOS (Type Of Service) fields and the like.
-Caution!
-	You are strongly advised not to use this table for any filtering; nor will any DNAT, SNAT or Masquerading work in this table.
-The following targets are only valid in the mangle table. They can not be used outside the mangle table.
+	- эта таблица в основном должна использоваться для изменения пакетов.
+	Можно использовать цели mangle для изменения полей TOS (Type Of Service) и т.п.
+Внимание!
+	Настоятельно рекомендуется не использовать эту таблицу для какой-либо фильтрации; 
+	ни DNAT, ни SNAT, ни Masquerading не будут работать в этой таблице.
+Следующие цели допустимы только в таблице mangle. Их нельзя использовать вне таблицы mangle:
+	• TOS
+	• TTL
+	• MARK
+	• SECMARK
+	• CONNSECMARK
 
-    TOS
+Цель TOS используется для установки и/или изменения поля Type of Service в пакете.
+Это можно использовать для настройки политик в сети относительно маршрутизации пакетов и так далее.
+	! эта процедура не доведена до совершенства и на самом деле не реализована в Интернете.
+	Большинство маршрутизаторов не заботятся о значении в этом поле, а иногда они ошибаются в том, что получают.
+	Не рекомендуется устанавливать биты TOS это для пакетов, идущих в Интернет!
+	Исключение: планируется принимать решения о маршрутизации с помощью iproute2.
 
-    TTL
+Цель TTL используется для изменения поля TTL (Time To Live, время жизни) пакета.
+Мы могли бы указать пакетам только определенный TTL и так далее.
+Веская причина для этого: мы не хотим выдавать себя любопытным интернет-провайдерам.
+(Некоторым интернет-провайдерам не нравятся пользователи, использующие несколько компьютеров через одно соединение, 
+и есть некоторые интернет-провайдеры, которые, как известно, ищут один хост, генерирующий разные значения TTL, 
+и воспринимают это как один из многих признаков того, что несколько компьютеров подключены к одному связь.)
 
-    MARK
+Цель MARK 
+используется для установки специальных значений меток для пакета.
+Затем эти метки могут быть распознаны программами iproute2 для выполнения различной маршрутизации пакета в зависимости от того, какая метка у них есть или нет.
+Мы также могли бы ограничить пропускную способность и организовать очередь на основе классов, основываясь на этих метках.
 
-    SECMARK
+Цель SECMARK
+    -может использоваться для установки меток контекста безопасности на отдельных пакетах для использования в SELinux и др. системах безопасности, способных обрабатывать эти метки.
+Затем это используется для очень тонкой защиты того, какие подсистемы системы могут касаться каких пакетов и так далее. SECMARK также может быть установлен для всего соединения с целью CONNSECMARK.
 
-    CONNSECMARK
-
-The TOS target is used to set and/or change the Type of Service field in the packet. This could be used for setting up policies on the network regarding how a packet should be routed and so on. Note that this has not been perfected and is not really implemented on the Internet and most of the routers don't care about the value in this field, and sometimes, they act faulty on what they get. Don't set this in other words for packets going to the Internet unless you want to make routing decisions on it, with iproute2.
-
-The TTL target is used to change the TTL (Time To Live) field of the packet. We could tell packets to only have a specific TTL and so on. One good reason for this could be that we don't want to give ourself away to nosy Internet Service Providers. Some Internet Service Providers do not like users running multiple computers on one single connection, and there are some Internet Service Providers known to look for a single host generating different TTL values, and take this as one of many signs of multiple computers connected to a single connection.
-
-The MARK target is used to set special mark values to the packet. These marks could then be recognized by the iproute2 programs to do different routing on the packet depending on what mark they have, or if they don't have any. We could also do bandwidth limiting and Class Based Queuing based on these marks.
-
-The SECMARK target can be used to set security context marks on single packets for usage in SELinux and other security systems that are able to handle these marks. This is then used for very fine grained security on what subsystems of the system can touch what packets et cetera. The SECMARK can also be set on a whole connection with the CONNSECMARK target.
-
-CONNSECMARK is used to copy a security context to or from a single packet from or to the whole connection. This is then used by the SELinux and other security systems to do more fine-grained security on a connection level. 
+CONNSECMARK
+    - используется для копирования контекста безопасности в/из одного пакета из/во все соединение.
+	Затем это используется SELinux и другими системами безопасности для обеспечения более тонкой защиты на уровне соединения.
 
 Таблица Nat (NAT, преобразование сетевых адресов)
-
-This table should only be used for NAT (Network Address Translation) on different packets. In other words, it should only be used to translate the packet's source field or destination field. Note that, as we have said before, only the first packet in a stream will hit this table. After this, the rest of the packets will automatically have the same action taken on them as the first packet. The actual targets that do these kind of things are:
-
-    DNAT
-
-    SNAT
-
-    MASQUERADE
-
-    REDIRECT
+	
+	Эта таблица должна использоваться только для NAT (трансляции сетевых адресов) для разных пакетов.
+Другими словами, его следует использовать только для перевода поля источника или поля назначения пакета.
+!!! Только первый пакет в потоке попадет в эту таблицу.
+После этого над остальными пакетами автоматически будут выполняться те же действия, что и над первым пакетом.
+Цели, которые выполняют такие действия:
+	• DNAT
+	• SNAT
+	• MASQUERADE
+	• REDIRECT
 
 The DNAT target is mainly used in cases where you have a public IP and want to redirect accesses to the firewall to some other host (on a DMZ for example). In other words, we change the destination address of the packet and reroute it to the host.
 
