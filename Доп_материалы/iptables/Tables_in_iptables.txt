@@ -50,7 +50,7 @@ Sources:
 
 Кратко о движении транзитных пакетов
 
-	Таблица		Цепочка			Примечание
+	ТАБЛИЦА		ЦЕПОЧКА			ПРИМЕЧАНИЕ
 	mangle		PREROUTING		обычно цепочка (Ц.) для внесения изменений в заголовки пакета (изм. битов TOS)
 	nat			PREROUTING		Ц. для трансляции сетевых адресов; source NAT выполняется позднее, в др. Ц.
 	----------------------------------------------------------------------------------------------------------------
@@ -61,14 +61,14 @@ Sources:
 	mangle		POSTROUTING		Внесение изменений в заголовок пакета после принятого решения о маршрутизации
 	nat			POSTROUTING		Ц. в первую очередь для Sources NAT. Здесь же - Masquerading
 
-Биты TOS (Type of Service) - набор из четырехбитных флагов в заголовке IP-пакета.
-Каждый из четырех битов имеет различную цель, и только один из TOS-битов может быть установлен в один момент времени.
-Установка любого бита = пакет может быть обработан маршрутизатором не так, как пакет со сброшенными битами TOS.
-Доступные классы обслуживания сети:
-	• Minimum delay (минимальная задержка)
-	• Maximum throughput (максимальная пропускная способность)
-	• Maximum reliability (максимальная надёжность)
-	• Minimum cost (минимальная стоимость)
+	Биты TOS (Type of Service) - набор из четырехбитных флагов в заголовке IP-пакета.
+	Каждый из четырех битов имеет различную цель, и только один из TOS-битов может быть установлен в один момент времени.
+	Установка любого бита = пакет может быть обработан маршрутизатором не так, как пакет со сброшенными битами TOS.
+	Доступные классы обслуживания сети:
+		• Minimum delay (минимальная задержка)
+		• Maximum throughput (максимальная пропускная способность)
+		• Maximum reliability (максимальная надёжность)
+		• Minimum cost (минимальная стоимость)
 
 Таблица Mangle (Изменённые)
 
@@ -84,32 +84,32 @@ Sources:
 	• SECMARK
 	• CONNSECMARK
 
-Цель TOS используется для установки и/или изменения поля Type of Service в пакете.
-Это можно использовать для настройки политик в сети относительно маршрутизации пакетов и так далее.
-	! эта процедура не доведена до совершенства и на самом деле не реализована в Интернете.
-	Большинство маршрутизаторов не заботятся о значении в этом поле, а иногда они ошибаются в том, что получают.
-	Не рекомендуется устанавливать биты TOS это для пакетов, идущих в Интернет!
-	Исключение: планируется принимать решения о маршрутизации с помощью iproute2.
+	* Цель TOS используется для установки и/или изменения поля Type of Service в пакете.
+	Это можно использовать для настройки политик в сети относительно маршрутизации пакетов и так далее.
+		! эта процедура не доведена до совершенства и на самом деле не реализована в Интернете.
+		Большинство маршрутизаторов не заботятся о значении в этом поле, а иногда они ошибаются в том, что получают.
+		Не рекомендуется устанавливать биты TOS это для пакетов, идущих в Интернет!
+		Исключение: планируется принимать решения о маршрутизации с помощью iproute2.
 
-Цель TTL используется для изменения поля TTL (Time To Live, время жизни) пакета.
-Мы могли бы указать пакетам только определенный TTL и так далее.
-Веская причина для этого: мы не хотим выдавать себя любопытным интернет-провайдерам.
-(Некоторым интернет-провайдерам не нравятся пользователи, использующие несколько компьютеров через одно соединение, 
-и есть некоторые интернет-провайдеры, которые, как известно, ищут один хост, генерирующий разные значения TTL, 
-и воспринимают это как один из многих признаков того, что несколько компьютеров подключены к одному связь.)
+	* Цель TTL используется для изменения поля TTL (Time To Live, время жизни) пакета.
+	Мы могли бы указать пакетам только определенный TTL и так далее.
+	Веская причина для этого: мы не хотим выдавать себя любопытным интернет-провайдерам.
+	(Некоторым интернет-провайдерам не нравятся пользователи, использующие несколько компьютеров через одно соединение, 
+	и есть некоторые интернет-провайдеры, которые, как известно, ищут один хост, генерирующий разные значения TTL, 
+	и воспринимают это как один из многих признаков того, что несколько компьютеров подключены к одному связь.)
 
-Цель MARK 
-используется для установки специальных значений меток для пакета.
-Затем эти метки могут быть распознаны программами iproute2 для выполнения различной маршрутизации пакета в зависимости от того, какая метка у них есть или нет.
-Мы также могли бы ограничить пропускную способность и организовать очередь на основе классов, основываясь на этих метках.
+	* Цель MARK 
+	используется для установки специальных значений меток для пакета.
+	Затем эти метки могут быть распознаны программами iproute2 для выполнения различной маршрутизации пакета в зависимости от того, какая метка у них есть или нет.
+	Мы также могли бы ограничить пропускную способность и организовать очередь на основе классов, основываясь на этих метках.
 
-Цель SECMARK
-    -может использоваться для установки меток контекста безопасности на отдельных пакетах для использования в SELinux и др. системах безопасности, способных обрабатывать эти метки.
-Затем это используется для очень тонкой защиты того, какие подсистемы системы могут касаться каких пакетов и так далее. SECMARK также может быть установлен для всего соединения с целью CONNSECMARK.
+	* Цель SECMARK
+		-может использоваться для установки меток контекста безопасности на отдельных пакетах для использования в SELinux и др. системах безопасности, способных обрабатывать эти метки.
+	Затем это используется для очень тонкой защиты того, какие подсистемы системы могут касаться каких пакетов и так далее. SECMARK также может быть установлен для всего соединения с целью CONNSECMARK.
 
-CONNSECMARK
-    - используется для копирования контекста безопасности в/из одного пакета из/во все соединение.
-	Затем это используется SELinux и другими системами безопасности для обеспечения более тонкой защиты на уровне соединения.
+	* CONNSECMARK
+		- используется для копирования контекста безопасности в/из одного пакета из/во все соединение.
+		Затем это используется SELinux и другими системами безопасности для обеспечения более тонкой защиты на уровне соединения.
 
 Таблица Nat (NAT, преобразование сетевых адресов)
 	
@@ -123,23 +123,67 @@ CONNSECMARK
 	• MASQUERADE
 	• REDIRECT
 
-The DNAT target is mainly used in cases where you have a public IP and want to redirect accesses to the firewall to some other host (on a DMZ for example). In other words, we change the destination address of the packet and reroute it to the host.
+Использование DNAT: [Public IP → LAN-host]
+	• есть публичный (глобальный | внешний) IP-адрес;
+	•• нужно перенаправить доступ к брандмауэру на какой-либо другой хост (например, в DMZ).
+Другими словами, мы меняем адрес назначения пакета и перенаправляем его на хост.
 
-SNAT is mainly used for changing the source address of packets. For the most part you'll hide your local networks or DMZ, etc. A very good example would be that of a firewall of which we know outside IP address, but need to substitute our local network's IP numbers with that of our firewall. With this target the firewall will automatically SNAT and De-SNAT the packets, hence making it possible to make connections from the LAN to the Internet. If your network uses 192.168.0.0/netmask for example, the packets would never get back from the Internet, because IANA has regulated these networks (among others) as private and only for use in isolated LANs.
+Использование SNAT: [LAN-host → Public IP → Internet]
+	используется для изменения исходного адреса пакетов (скрыть локальные сети и DMZ).
+	Замена IP-адреса хоста в локальной сети на IP-адрес брандмауэра.
+	Фаервол автоматически выполняет SNAT и De-SNAT → возможность устанавливать соединения LAN ↔ Internet.
+	IANA резервирует несколько диапазонов IP-адресов в качестве частных/локальных/серых.
+	
+Использование MASQUERADE:
+	используется точно так же, как SNAT, но для вычисления цели MASQUERADE требуется немного больше накладных расходов.
+	__Причина__:
+	MASQUERADE: каждый раз, когда MASQUERADE target попадает в пакет, она автоматически проверяет IP-адрес для использования;
+	SNAT: просто использует один настроенный IP-адрес.
+	
+	MASQUERADE target позволяет правильно работать с ДИНАМИЧЕСКИМИ IP-адресами DHCP, которые ваш интернет-провайдер может предоставить для ваших соединений
+		• PPP,
+		• PPPoE или 
+		• SLIP 
+	с Интернетом.
 
-The MASQUERADE target is used in exactly the same way as SNAT, but the MASQUERADE target takes a little bit more overhead to compute. The reason for this, is that each time that the MASQUERADE target gets hit by a packet, it automatically checks for the IP address to use, instead of doing as the SNAT target does - just using the single configured IP address. The MASQUERADE target makes it possible to work properly with Dynamic DHCP IP addresses that your ISP might provide for your PPP, PPPoE or SLIP connections to the Internet. 
-
-Таблица Raw (Сырые данные)
-The raw table is mainly only used for one thing, and that is to set a mark on packets that they should not be handled by the connection tracking system. This is done by using the NOTRACK target on the packet. If a connection is hit with the NOTRACK target, then conntrack will simply not track the connection. This has been impossible to solve without adding a new table, since none of the other tables are called until after conntrack has actually been run on the packets, and been added to the conntrack tables, or matched against an already available connection. You can read more about this in the The state machine chapter.
-
-This table only has the PREROUTING and OUTPUT chains. No other chains are required since these are the only places that you can deal with packets before they actually hit the connection tracking.
-Note!
-	► For this table to work, the iptable_raw module must be loaded. It will be loaded automatically if iptables is run with the -t raw keywords, and if the module is available.
-	► The raw table is a relatively new addition to iptables and the kernel. It might not be available in early 2.6 and 2.4 kernels unless patched.
+Таблица Raw (Необработанная таблица)
+	raw table в основном используется только для одной цели:
+		для установки отметки на пакетах, что они не должны обрабатываться системой отслеживания соединений (Connection Tracking System, conntrack).
+	Это делается с помощью NOTRACK target в пакете.
+	Если соединение установлено с целью NOTRACK target, то conntrack просто не будет отслеживать соединение.
+	Это было невозможно решить без добавления новой таблицы:
+		ни одна из других таблиц не вызывается до тех пор, пока
+		► conntrack не будет фактически запущен для пакетов 
+		►► не будет добавлен в таблицы conntrack
+			или
+		►► не будет сопоставлен с уже доступным соединением
+	Подробнее об этом: https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#STATEMACHINE
+	
+	В этой таблице содержится всего 2 цепочки:
+		• PREROUTING
+		• OUTPUT
+		
+	Никаких других цепочек не требуется, так как это единственные места, где вы можете работать с пакетами, прежде чем они действительно попадут в отслеживание соединения.
+	
+Замечание:
+	► Для работы этой таблицы необходимо загрузить модуль iptable_raw.
+	  Он будет загружен автоматически, если iptables запускается с ключом "-t": 
+		-t raw
+	  и если модуль доступен.
+	► raw table - относительно новое дополнение к iptables и ядру.
+	  Она может быть недоступна в ранней версии 2.6 и версии 2.4 ядер.
 
 Таблица filter
 Filter table
 
-The filter table is mainly used for filtering packets. We can match packets and filter them in whatever way we want. This is the place that we actually take action against packets and look at what they contain and DROP or /ACCEPT them, depending on their content. Of course we may also do prior filtering; however, this particular table is the place for which filtering was designed. Almost all targets are usable in this table. We will be more prolific about the filter table here; however you now know that this table is the right place to do your main filtering.
+	Таблица фильтров в основном используется для фильтрации пакетов.
+	Мы можем сопоставлять пакеты и фильтровать их любым способом.
+	Здесь мы фактически применяем действия к пакетам: 
+		1. смотрим, что содержат пакеты
+		2. применяем DROP | ACCEPT (сбрасывать | пропускать) в зависимости от их содержимого.
+	Конечно, мы также можем выполнить предварительную фильтрацию; однако эта конкретная таблица является местом, для которого была разработана фильтрация.
+	В этой таблице можно использовать почти все цели.
+	Мы будем наиболее результативны в отношении таблицы фильтров здесь.
+	
 
 [https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#USERTABLES]
