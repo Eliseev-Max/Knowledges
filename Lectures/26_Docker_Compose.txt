@@ -58,7 +58,7 @@
 		
 [00:27:31]	Настройка Bind mounts
 		Когда используется Bind mounts, необходимо использовать полный путь, а не относительный
-			$ docker run --rm -it -v /Users/agridyaev/OTUS/docker2/py_server:/app py_server sh
+			$ docker run --rm -it -v /users/agridyaev/OTUS/docker2/py_server:/app py_server sh
 			
 		При выполнении команды попадаем внутрь конейнера, выполняется интерпретатор shell (sh)
 		Когда мы создаём Bind mounts для директория, которого нет на хосте, он создаётся
