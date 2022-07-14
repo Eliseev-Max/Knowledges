@@ -147,7 +147,8 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 				WORKSPACE - это локальный директорий на сервере с Jenkins,
 						    на который забирается исходный код с репозитория GitHub 
 			[v] Add timestamps to the Console Output
-			workspace - это локальный директорий на сервере с Jenkins, куда git сохраняет все файлы с репозитория GitHub
+			workspace - это локальный директорий на сервере с Jenkins,
+			куда git сохраняет все файлы с репозитория (GitHub, Bitbucket, ...)
 			...
 		[v] Добавить в лог метки времени (Add timestamps to the Console Output)
 		
