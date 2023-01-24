@@ -292,7 +292,7 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 	3. Заходим в сборку → Configuration
 		Добавить Post-build actions: Allure Report
 		Results:
-				Path: [allure-results]			# Здесь будут храниться результаты
+				Path: [$WORKSPACE/allure-results]			# Здесь будут храниться результаты
 	В pytest.ini должна быть запись директории, куда будут сохраняться результаты
 	Появляется ярлык-ссылка на Allure-отчёт
 	

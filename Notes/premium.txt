@@ -1,0 +1,5 @@
+premium = {"1st_quarter_2021":43400,
+		   "2nd_quarter_2021":42120,
+		   "3rd_quarter_2021":56160,
+		   "4th_quarter_2021":45000
+}
