@@ -418,7 +418,10 @@ https://youtu.be/dV8l-pvPV3w - сборка Docker Image с помощью Pipel
 	По сути это обычный пакет python
 	
 	Установка и конфигурирование
-		pip install --user jenkins-job-builder
+	‼ НЕ УСТАНАВЛИВАТЬ С ПОМОЩЬЮ apt-get install!!!
+		- sudo apt-get install jenkins-job-builder ---WRONG!
+		
+		$ pip install --user jenkins-job-builder
 	Нужен отдельный пользователь с определёнными правами
 	+ можно всё это добавить в конфигурационный файл и не вводить
 	
